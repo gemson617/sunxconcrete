@@ -1,0 +1,25 @@
+/*
+Template Name: Skote - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://themesbrand.com/
+Contact: themesbrand@gmail.com
+File: Form wizard Js File
+*/
+
+
+$(function () {
+    $("#basic-example").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slide",
+        enableFinishButton: false
+    });
+
+
+    $("#vertical-example").steps({
+        headerTag: "h3",
+        bodyTag: "section",
+        transitionEffect: "slide",
+        stepsOrientation: "vertical"
+    });
+});
