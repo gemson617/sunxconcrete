@@ -86,7 +86,9 @@
                             </thead>
 
                             <tbody>
-                                <?php foreach ($salesOrder as $key => $sales) { ?>
+                                <?php foreach ($salesOrder as $key => $sales) { 
+                                    if($sales->salesStatus == 3){
+                                    ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $sales->product_name; ?></td>
@@ -146,7 +148,7 @@
 </div>
 
 
-                                <?php } ?>
+                                <?php }} ?>
                             </tbody>
                         </table>
                     </div>
