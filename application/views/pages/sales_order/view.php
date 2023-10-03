@@ -123,8 +123,7 @@
                                             <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">Sale </button>
                                             <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a>
                                             <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
-                                        </td>
-                                     
+                                        </td>                                     
                                     </tr>
 
 
@@ -144,7 +143,7 @@
                 <form id="myForm" method="POST" action="<?php echo site_url('SalesOrder/getQuantity/'.$sales->id); ?>">
                     <div class="form-group">
                         <label for="qty">Quantity</label>
-                        <input type="text" class="form-control" min="1"  placeholder="Enter the Sales Order Quantity" id="qty" name="qty">
+                        <input type="number" class="form-control" min="1"  placeholder="Enter the Sales Order Quantity" id="qty" name="qty">
                     </div>
                     <div class="form-group mt-3">
                     <label for="credit_bill">Credit Bill</label>
