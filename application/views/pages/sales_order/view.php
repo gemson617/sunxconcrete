@@ -125,7 +125,10 @@
                                             <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
                                         </td>                                     
                                     </tr>
-                                    <div class="modal" id="myModal">
+
+
+
+<div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
 ​
