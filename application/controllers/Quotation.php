@@ -246,4 +246,35 @@ class Quotation extends MY_Controller
         $this->load->view('base/base_template', $data);   
     }
 
+    public function edit($id){
+        
+
+        if (isset($_POST['submit'])) {
+print_r($_POST);
+exit();
+        }else{
+        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
+        $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
+      
+        $this->db->select('*,q.status as qStatus');
+        $this->db->from('quotation as q'); 
+        $this->db->where('q.id', $id); 
+        $this->db->join('product as p','p.product_id = q.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->order_by('q.id','DESC');       
+        $query = $this->db->get();
+        $view_data['quotations'] = $query->result();  
+        
+        //         echo "<pre>";
+        // print_r($view_data['quotations']);
+        // exit();      
+        $data = array(
+            'title' => 'Add Quotation',
+            'content' => $this->load->view('pages/quotation/edit', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);
+    }
+    }
 }

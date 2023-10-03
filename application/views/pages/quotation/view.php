@@ -115,6 +115,7 @@
                                 </td>
                                         
                                         <td>
+                                        <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
 
                                         <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a>
 

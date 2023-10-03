@@ -40,7 +40,10 @@
                     <div class="col-lg-2">
                <a href="<?php echo site_url('SalesOrder/view/' . $sales->id); ?>" ><button  type="button"    class="btn btn-success waves-effect waves-light mt-1 mb-3">Back</button></a>
                    
-                </div></div>
+                </div>
+            </div>
+
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

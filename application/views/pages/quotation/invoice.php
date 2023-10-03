@@ -13,48 +13,48 @@
                         </div>
                         <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ccc;">
                         <tr style="width: 100%; height: 170px;">
-                        <td style="width: 50%;">
+                        <td style="width: 50%;border-right: 1px solid #ccc;">
                             <table style="width: 100%; height:170px;">
                                 <tr>
-                                    <td><p style="text-align: left;">COMPANY DETAILS:</p></td>
+                                    <td><p style="text-align: left;padding-left:7px;">COMPANY DETAILS :</p></td>
                                     <td><p style="text-align: left;margin-left:7px;"><?= $company['company_name'].', '.$company['company_address'].', '.$company['city'].', '.$company['state'].'-'.$company['pincode'].', India.' ?></p></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="text-align: left;">GSTIN/UIN:</p></td>
+                                    <td><p style="text-align: left;padding-left:7px;">GSTIN/UIN : </p></td>
                                     <td><p style="text-align: left; margin-left:7px;"><?= $company['company_gstin']?></p></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="text-align: left;">PHONE NO.:</p></td>
+                                    <td><p style="text-align: left;padding-left:7px;">PHONE NO.:</p></td>
                                     <td><p style="text-align: left;margin-left:7px;"><?= $company['company_phone_number']?></p></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="text-align: left;">TAN NO.:</p></td>
+                                    <td><p style="text-align: left;padding-left:7px;">TAN NO.:</p></td>
                                     <td><p style="text-align: left;margin-left:7px;"><?= $company['company_tan_number']?></p></td>
                                 </tr>
                             </table>
                         </td>
                         <td style="width: 50%;">
-                            <table style="width: 100%; height:170px; border-left: 1px solid #ccc;">
-                                <tr style="border: 1px solid #ccc;">
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;">Quotation No.:</p></td>
+                            <table style="width: 100%; ">
+                                <tr>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Quotation No.:</p></td>
                                     <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= $company['quotation_starting_number'].$quotation['qId'] ?></p></td>
                                 </tr>
                                 <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;">Qutotation Date:</p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Qutotation Date:</p></td>
                                     <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= date('d-m-y') ?></p></td>
                                 </tr>
                                 <tr>
-                                <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td>
-                                <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($quotation['tax_payable']==1) ? 'yes' : 'No' ?></p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($quotation['tax_payable']==1) ? 'yes' : 'No' ?></p></td>
                                 </tr>
                                 <tr>
-                                    <td style="margin-left:10px;"><p style="text-align: left;">Place of Supply:</p></td>
-                                    <td><p style="text-align: left;margin-right:10px;"><?= $quotation['place_of_supply'] ?></p></td>
+                                    <td style="margin-left:10px;padding-left:7px;"><p style="text-align: left;">Place of Supply:</p></td>
+                                    <td style="margin-left:10px;"><p style="text-align: left;margin-right:10px;"><?= $quotation['place_of_supply'] ?></p></td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
-                    <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;">
+                    <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;border-left: 1px solid #ccc;">
                         <td style=" width:50%;"><p style="text-align:left;font-weight: bold;";>Sold to Party</p></td>
                         <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Ship to Party</p></td>
                     </tr>
@@ -62,38 +62,38 @@
                     <td style="width: 50%;">
                             <table style="width: 100%; height:170px;">
                         <tr>
-                            <td style="margin-left:10px;">Name:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['company_name'] ?></td>
+                            <td style="padding-left:7px;">Name:</td>
+                            <td><?= $sold_to_party['company_name'] ?></td>
                         </tr>
                         <tr>
-                            <td style="margin-left:10px;">Address:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="padding-left:7px;">Address:</td>
+                            <td><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr>
-                            <td style="margin-left:10px;">GSTIN/UID:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['customer_gst_no'] ?></td>
+                            <td style="padding-left:7px;">GSTIN/UID:</td>
+                            <td><?= $sold_to_party['customer_gst_no'] ?></td>
                         </tr>
                         </table>
                     </td>
                     <td style="width: 50%;">
                             <table style="width: 100%; height:170px; border-left: 1px solid #ccc;">
                         <tr>
-                            <td style="margin-left:10px;">Name:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['company_name'] ?></td>
+                            <td style="padding-left:7px;">Name:</td>
+                            <td><?= $ship_to_party['company_name'] ?></td>
                         </tr>
                         <tr>
-                            <td style="margin-left:10px;">Address:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="padding-left:7px;">Address:</td>
+                            <td><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr>
-                            <td style="margin-left:10px;">GSTIN/UID:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['customer_gst_no'] ?></td>
+                            <td style="padding-left:7px;">GSTIN/UID:</td>
+                            <td><?= $ship_to_party['customer_gst_no'] ?></td>
                         </tr>
                         </table>
                         </td>
                     </tr>
                     <tr>
-                    <table style="width: 100%; border-collapse: collapse; margin-top:-18px; border: 1px solid #ccc;">
+                    <table style="width: 100%; border-collapse: collapse; margin-top:-18px; ">
  
                     `<thead style="width:100%;">
                         <tr style="border: 1px solid #ccc; width:100%;">
@@ -118,7 +118,7 @@
 
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="9" colspan="4">
+                    <td rowspan="7" colspan="4">
                         <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
                         <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
                         <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
