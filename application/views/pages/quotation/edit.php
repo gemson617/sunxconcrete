@@ -266,7 +266,7 @@
                                             {?>
                                         <input type="text" name="uom" readonly class="form-control" id="uom" placeholder="Enter UOM" value="<?= $q->uom ?>" required>
                                         <?php }?>
-                                        <input type="text" name="uom_id" hidden class="form-control" id="uom_id" placeholder="Enter UOM" value="" required>
+                                        <input type="text" name="uom_id" hidden class="form-control" id="uom_id" placeholder="Enter UOM" value="<?= $quotation['uom_id']?>" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -356,7 +356,7 @@
 
                             </div>
                             <div>
-                                <button class="btn btn-primary" type="submit" value="submit" name="submit">Submit</button>
+                            <button class="btn btn-primary" type="submit" value="submit" name="submit">Submit</button>
                                 <a href="#"><button onclick="window.location.reload()" class="btn btn-warning" type="button">Cancel</button></a>
                             </div>
                         </form>

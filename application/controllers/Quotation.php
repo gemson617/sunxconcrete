@@ -248,10 +248,63 @@ class Quotation extends MY_Controller
 
     public function edit($id){
         
-
+    
         if (isset($_POST['submit'])) {
-print_r($_POST);
-exit();
+
+            $product = $this->input->post('product');    
+            $hsn_code = $this->input->post('hsn_id');    
+            $uom = $this->input->post('uom_id');    
+            $price = $this->input->post('price');    
+            $quantity = $this->input->post('qty');    
+            $amount = $this->input->post('amount');   
+
+            $sub_total = $this->input->post('sub_total');    
+            $cgst = $this->input->post('cgst');    
+            $sgst = $this->input->post('sgst');    
+            $total_tax = $this->input->post('total_tax');    
+            $round_off = $this->input->post('round_off');    
+            $g_total = $this->input->post('g_total');   
+
+            $sold_to = $this->input->post('sold_to');    
+            $ship_to = $this->input->post('ship_to');    
+            $tax_payable = $this->input->post('tax_payable');    
+            $place_of_supply = $this->input->post('place_of_supply');    
+            $po_no = $this->input->post('po_no');   
+            $user_id =$this->auth_user_id;  
+
+            $update_array = array(
+                'user_id' => $user_id,
+                'product_id' => $product,               
+                'hsn_id' => $hsn_code,               
+                'uom_id' => $uom,               
+                'price' => $price,    
+                'quantity' => $quantity,    
+                'amount' => $amount,    
+                
+                'sub_total' => $sub_total,               
+                'cgst' => $cgst,               
+                'sgst' => $sgst,               
+                'total_tax' => $total_tax,    
+                'round_off' => $round_off,    
+                'grand_total' => $g_total,    
+                'sold_to_party' => $sold_to,    
+            
+                'ship_to_party' => $ship_to,               
+                'tax_payable' => $tax_payable,               
+                'place_of_supply' => $place_of_supply,               
+                'po_number' => $po_no,    
+            
+                'created_on' => date('Y-m-d'),
+            );
+
+            $update = $this->mcommon->common_edit('quotation', $update_array, array('id' => $id));
+            if ($update) {
+                $this->session->set_flashdata('alert_success', 'Quotation updated successfully!');
+                redirect('Quotation/view');
+            } else {
+                $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
+            }
+
         }else{
         $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
@@ -276,5 +329,11 @@ exit();
         );
         $this->load->view('base/base_template', $data);
     }
+    }
+
+    public function delete($id)
+    {
+        $delete = $this->mcommon->common_delete('quotation', array('id' => $id));
+        return $delete;
     }
 }

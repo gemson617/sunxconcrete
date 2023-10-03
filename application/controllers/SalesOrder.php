@@ -56,6 +56,7 @@ class SalesOrder extends MY_Controller
     {
         if (isset($_POST['submit'])) {
             $quantity = $this->input->post('qty'); 
+            $credit_bill_status = $this->input->post('credit_bill'); 
             
             
 
@@ -65,6 +66,7 @@ class SalesOrder extends MY_Controller
             $total_quantity = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'total_quantity');
             $received_quantity_new = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'received_qty');
        
+            $quotation_id = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'quotation_id');
 
             $remaining_quantity = $available_quantity - $quantity;
             $received_quantity = $received_quantity + $quantity;
@@ -81,8 +83,10 @@ class SalesOrder extends MY_Controller
 
             $insert_array = array(
                 'sales_order_id'=>$id,
+                'quotation_id'=>$quotation_id,
                 'total_quantity'=>$total_quantity,
                 'available_quantity' => $remaining_quantity,               
+                'credit_bill_status' => $credit_bill_status,               
                 'received_qty' => $quantity,              
                 'created_on' => date('d-m-y'),               
             );

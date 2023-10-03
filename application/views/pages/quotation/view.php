@@ -115,12 +115,13 @@
                                 </td>
                                         
                                         <td>
-                                        <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
+                                        <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
 
-                                        <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a>
+                                        <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-success waves-effect waves-light">Accept</button></a>
 
                                         
                                             <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
+                                        <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
                                            
                                             
                                             <!-- <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->product_id; ?>);"><i class="bx bx-check"></i></button>
@@ -151,10 +152,10 @@
         }).then(isConfirmed => {
             if (isConfirmed.value) {
                 $.ajax({
-                    url: "<?php echo base_url(); ?>Product/delete/" + id + "/",
+                    url: "<?php echo base_url(); ?>Quotation/delete/" + id + "/",
                     success: function(result) {
                         if (result) {
-                            window.location.reload('uom');
+                            window.location.reload('Quotation/view');
                         }
                     }
                 });
@@ -162,7 +163,7 @@
                 if (isConfirmed.value) {
                     Swal.fire(
                         'Deleted!',
-                        'HSN Code has been deleted.',
+                        'Quotation has been deleted.',
                         'success'
                     );
                     window.location.reload();
