@@ -61,6 +61,7 @@
                         <ul class="sub-menu" aria-expanded="false">
                             <!-- <li><a href="<?php echo site_url('Quotation/add'); ?>" key="t-crypto">Add Quotation</a></li> -->
                             <li><a href="<?php echo site_url('SalesOrder/view'); ?>" key="t-crypto">Sales Order</a></li>
+                            <li><a href="<?php echo site_url('SalesOrder/invoice_list'); ?>" key="t-crypto">Invoice List</a></li>
                             <!-- <li><a href="<?php echo site_url('SalesOrder/viewSalesItems'); ?>" key="t-crypto">View Sales</a></li> -->
                         </ul>
                     </li>

@@ -32,6 +32,25 @@ class SalesOrder extends MY_Controller
         $this->load->view('base/base_template', $data);  
     }
 
+    public function invoice_list(){
+        $this->db->select('*,s.status as salesStatus');
+        $this->db->from('sales_order as s'); 
+        $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $this->db->order_by('s.id','DESC');       
+        $query = $this->db->get();
+        $view_data['salesOrder'] = $query->result();  
+        //         echo "<pre>";
+        // print_r($view_data['salesOrder']);
+        // exit();       
+        $data = array(
+            'title' => 'Add Quotation',
+            'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);  
+    }
       
     public function getQuantity($id)
     {
