@@ -89,12 +89,12 @@
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Company Name</th>
                                     <th scope="col">HSN code</th>
-                                    <th scope="col">Total Quantity</th>
-                                    <th scope="col">Quantity Before Sales</th>
+                                    <!-- <th scope="col">Total Quantity</th>
+                                    <th scope="col">Quantity Before Sales</th> -->
                                     <th scope="col">Received Quantity</th>
-                                    <th scope="col">Remaining Quantity</th>
+                                    <!-- <th scope="col">Remaining Quantity</th> -->
                                     <th scope="col">UOM</th>
-                                    <th scope="col">Total Amount</th>
+                                    <th scope="col">Amount</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -106,16 +106,19 @@
                                         <td><?php echo $sales->product_name; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->hsn_name; ?></td>
-                                        <td><?php echo $sales->totalQuantity; ?></td>
-                                        <td><?php echo $sales->receivedQuantity + $sales->availableQuantity; ?></td>
+                                        <!-- <td><?php echo $sales->totalQuantity; ?></td>
+                                        <td><?php echo $sales->receivedQuantity + $sales->availableQuantity; ?></td> -->
                                         <td><?php echo $sales->receivedQuantity; ?></td>
-                                        <td><?php echo $sales->availableQuantity; ?></td>
+                                        <!-- <td><?php echo $sales->availableQuantity; ?></td> -->
                                         <td><?php echo $sales->uom; ?></td>
-                                        <td><?php echo $sales->grand_total; ?></td>
+                                        <td><?php echo $sales->sale_price; ?></td>
 
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
-                                            <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Convert to Invoice</button></a>
+                                            <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
+                                           <?php if($sales->credit_bill_status == 1){ ?>
+                                            <a href="<?php echo site_url('SalesOrder/creditBill/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Credit Bill</button></a>
+                                            <?php } ?>
                                         </td>
                                      
                                     </tr>

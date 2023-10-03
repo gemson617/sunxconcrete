@@ -26,7 +26,7 @@ class SalesOrder extends MY_Controller
         // print_r($view_data['salesOrder']);
         // exit();       
         $data = array(
-            'title' => 'Add Quotation',
+            'title' => 'Sales Orders',
             'content' => $this->load->view('pages/sales_order/view', $view_data, true),
         );
         $this->load->view('base/base_template', $data);  
@@ -64,12 +64,13 @@ class SalesOrder extends MY_Controller
             $received_quantity = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'received_qty');
 
             $total_quantity = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'total_quantity');
-            $received_quantity_new = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'received_qty');
+            $price = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'price');
        
             $quotation_id = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'quotation_id');
 
             $remaining_quantity = $available_quantity - $quantity;
             $received_quantity = $received_quantity + $quantity;
+            $sale_price = $quantity * $price;
             
     
             $update_array = array(
@@ -86,11 +87,14 @@ class SalesOrder extends MY_Controller
                 'quotation_id'=>$quotation_id,
                 'total_quantity'=>$total_quantity,
                 'available_quantity' => $remaining_quantity,               
+                'sale_price' => $sale_price,               
                 'credit_bill_status' => $credit_bill_status,               
                 'received_qty' => $quantity,              
                 'created_on' => date('d-m-y'),               
             );
             $insert = $this->mcommon->common_insert('sales_order_items', $insert_array);
+           
+            $received_quantity_new = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'received_qty');
 
             if($received_quantity_new >= $total_quantity){
                 $update_array2 = array(
@@ -225,7 +229,7 @@ class SalesOrder extends MY_Controller
         $view_data['company'] = $this->mcommon->specific_row('em_companies', array('id' => 1));
            
         // echo "<pre>";
-        // print_r($view_data['salesOrder']);
+        // print_r($view_data['salesOrders']);
         // exit();       
 
         $data = array(

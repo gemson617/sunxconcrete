@@ -1,240 +1,369 @@
 
 <body>
     <div class="row" id="printdiv"><br><br>
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="invoice" style="width: 800px; margin: 0 auto; padding: 20px; border: 0px solid #ccc;">
-                        <div class="logo">
-                            <img src="<?= base_url('assets/images/logo.jpg') ?>" alt="Logo" style="max-width: 100px;">
-                            <span>
-                            <h3 style="text-align: center; margin-top: 0;">Sales Order</h3>
-                            </span>
-                        </div>
-                        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ccc;">
-                        <tr style="width: 100%; height: 170px;">
-                        <td style="width: 50%;">
-                            <table style="width: 100%; height:170px;">
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">COMPANY DETAILS:</p></td>
-                                    <td><p style="text-align: left;margin-left:7px;padding-top:10px;"><?= $company['company_name'].', '.$company['company_address'].', '.$company['city'].', '.$company['state'].'-'.$company['pincode'].', India.' ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">GSTIN/UIN:</p></td>
-                                    <td><p style="text-align: left; margin-left:7px;"><?= $company['company_gstin']?></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">PHONE NO.:</p></td>
-                                    <td><p style="text-align: left;margin-left:7px;"><?= $company['company_phone_number']?></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">TAN NO.:</p></td>
-                                    <td><p style="text-align: left;padding-left:7px;"><?= $company['company_tan_number']?></p></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td style="width: 50%;">
-                            <table style="width: 100%; height:170px; border-left: 1px solid #ccc;">
-                                <tr style="border: 1px solid #ccc;">
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:5px;"><p style="text-align: left;">Sales No.:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= $company['sales_starting_number'].$salesOrder['sId'] ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:5px;"><p style="text-align: left;">Qutotation Date:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= date('d-m-y') ?></p></td>
-                                </tr>
-                                <tr>
-                                <td  style="border-bottom: 1px solid #ccc;padding-left:5px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td>
-                                <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($salesOrder['tax_payable']==1) ? 'yes' : 'No' ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td style="margin-left:10px;padding-left:5px;"><p style="text-align: left;">Place of Supply:</p></td>
-                                    <td><p style="text-align: left;margin-right:10px;"><?= $salesOrder['place_of_supply'] ?></p></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;">
-                        <td style=" width:50%;"><p style="text-align:left;font-weight: bold;padding-left:5px;">Sold to Party</p></td>
-                        <td style="width:50%;border-left: 1px solid #ccc;padding-left:5px;"><p style="text-align:left;font-weight: bold;";>Ship to Party</p></td>
-                    </tr>
-                    <tr style="border-top: 1px solid #ccc; width:100%;"margin-left:10px;">
-                    <td style="width: 50%;">
-                            <table style="width: 100%; height:170px;">
-                        <tr>
-                            <td style="margin-left:10px;padding-left:7px;">Name:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['company_name'] ?></td>
-                        </tr>
-                        <tr>
-                            <td style="margin-left:10px;padding-left:7px;">Address:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
-                        </tr>
-                        <tr>
-                            <td style="margin-left:10px;padding-left:7px;">GSTIN/UID:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['customer_gst_no'] ?></td>
-                        </tr>
-                        </table>
-                    </td>
-                    <td style="width: 50%;">
-                            <table style="width: 100%; height:170px; border-left: 1px solid #ccc;">
-                        <tr>
-                            <td style="margin-left:10px;padding-left:7px;">Name:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['company_name'] ?></td>
-                        </tr>
-                        <tr>
-                            <td style="margin-left:10px;padding-left:7px;">Address:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
-                        </tr>
-                        <tr>
-                            <td style="margin-left:10px;padding-left:7px;">GSTIN/UID:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['customer_gst_no'] ?></td>
-                        </tr>
-                        </table>
-                        </td>
-                    </tr>
-                    <tr>
-                    <table style="width: 100%; border-collapse: collapse; margin-top:-18px; border: 1px solid #ccc;">
- 
-                    `<thead style="width:100%;">
-                        <tr style="border: 1px solid #ccc; width:100%;">
-                            <th style="border: 1px solid #ccc;"><center>Description of Goods</center></th>
-                            <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
-                            <th style="border: 1px solid #ccc;"><center>UOM</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Price</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Amount</center></th>
-                           
-                        </tr>
-                    </thead>
-                    <?php foreach($salesOrders as $salesOrder){ ?>
-                    <tbody style="border: 1px solid #ccc;">
-                       
-                            <tr style="border: 1px solid #ccc;" >
-                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;"><?= $salesOrder->product_name ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->hsn_name ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->received_qty ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->uom ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $salesOrder->price ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $salesOrder->amount ?></td>
-                            </tr>
-                    </tbody>
-                    <?php } ?>
-                    <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="9" colspan="6">
-                        <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
-                        <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
-                        <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
-                        <p style="margin-left:10px;">IFSC Code : <?= $company['bank_ifsc'] ?></p>
-                        <p style="margin-left:10px;">Bank Address : <?= $company['bank_address'] ?></p>
 
-                    </td>
-                    <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">Sub Total</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px; ">₹ </td>
-                        </tr>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Credit bill</title>
+	<!-- <link href="https://app.teamworksystem.com/agas/css/style.css" rel="stylesheet" />
+	<link href="https://app.teamworksystem.com/agas/css/bootstrap.css" rel="stylesheet" /> -->
 
-                    
-                        <tr style="border: 1px solid #ccc; ">
-                            <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="4" align="right">SGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">CGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TCS (0.1%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TOTAL TAX</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <!-- <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">ROUND OFF</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px; ">₹ <?= $salesOrder['round_off'] ?></td>
-                        </tr> -->
-                        <!-- <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc;padding-right:30px;" colspan="4" align="right">TOTAL</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $salesOrder['grand_total'] ?></td>
-                        </tr> -->
-                    </tfoot>
-                    </table>`
-                    </tr>
-                    <tr >
-                    <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:7px;" id="">Qutotation Value in Words: </td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;padding-left:7px;" id="inWords"></td>
-                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;padding-left:7px;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($salesOrder->grand_total,2) ?></span> </td></H6>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc;padding-left:7px;">Mode of Transport:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">LR/RR No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">Eway Bill No.:</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc;padding-left:7px;">Mode of Unloading:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">LR/RR Date:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">Eway Bill Date:</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc;padding-left:7px;">Pump Seriel No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">Freight:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">Incoterm: 35 days</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc;padding-left:7px;">Vehicle Reg No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">KM:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">LUT:</td>
-                        </tr>
-                        <tr >
-                            <td style="border-bottom:1px solid #ccc;padding-left:7px;" colspan="3">Remarks:</td>
-                        </tr>
-                        <tr >
-                            <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">
-                            <span style="font-weight: bold;">Terms and Conditions: </span><br><br>
-                            1. Price as applicable on the date of dispatch shall be charged.<br>
-                            2. Payment should be made by 'A/C Payee only' - bank draft/cheque or bank remmitance by NEFT/RTGS in favour of Sun-x Concrete India Private Limited.<br>
-                            3. Payments recieved beyond agreed credit period will attract an interest @ 24% per annum.<br>
-                            4. In case of EX,delivery of goods shall be completed as soon as the goods are delivered to the carrier and title & all the risk of goods stands transfer to buyer immediately.<br>
-                            5. All disputes are subject to Chennai jurisdiction only.<br>
-                            6. In case TCS is not charged in the invoice customer has to provide FORM 27c TCS will be charged.<br>
-                            7. Loading Weight Bridge weight is final.<br>
-                            8. Our Responsibility ceases immediately after the truck leaves our premises.<br>
-                            9. We are not responsible for any damage occurs during the transit.<br>
-                            10. Goods once sold will not be taken back or replaced.<br>
-                            11. All Disputes arising out of or in connection with this invoice or touching upon the invoice shall be reffered to sole Arbitration and the Sole Arbitrator shall be appointed by Sun-x Concete India Private Limited and the award 
-                            passes there on would be binding on both the parties. The Arbitration shall be conducted in accordance with the provisions of the Arbitration and Reconcilation Act 1996 or any amendment there of.  The seat of Arbitration shall be at 
-                            Chennai only.<br>
-                            12. Payment Shall be made within 30 days from the date of invoice.<br><br>
+	<style>
+
+    
+        #snackbar {
+          visibility: hidden;
+          min-width: 250px;
+          margin-left: -125px;
+          background-color: #333;
+          color: #fff;
+          text-align: center;
+          border-radius: 50px;
+          padding: 10px;
+          position: fixed;
+          z-index: 1;
+          left: 50%;
+          bottom: 50px;
+          font-size: 15px;
+        }
+
+        #snackbar.show {
+          visibility: visible;
+          -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+          animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+          from {bottom: 0; opacity: 0;}
+          to {bottom: 50px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+          from {bottom: 0; opacity: 0;}
+          to {bottom: 50px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+          from {bottom: 50px; opacity: 1;}
+          to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+          from {bottom: 50px; opacity: 1;}
+          to {bottom: 0; opacity: 0;}
+        }
+        </style>
+</head>
+
+<style>
+
+/* Styles go here */
+
+.page-header, .page-header-space {
+  height: 230px;
+}
+
+.page-footer, .page-footer-space {
+  height: 280px;
+
+}
+
+.page-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.page-header {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  padding: 10px;
+}
+
+
+.page {
+  page-break-after: always;
+}
+
+p{
+  line-height: 1.1;
+  margin-bottom: 5px;
+}
+
+@page { margin: 40px; }
+.page-border { position: fixed; left: 1px; top: 1px; bottom: 1px; right: 1px; border: 1px solid #000; }
+
+@media print {
+   thead {display: table-header-group;}
+   tfoot {display: table-footer-group;}
+
+   button {display: none;}
+
+   body {margin: 0;}
+}
+
+
+</style>
+
+
+
+
+
+
+<body style="margin:20px;padding: 1px;border: 1px solid black;background-color: #fff!important;" id="printdiv">
+<h3 class=" text-center mt-3">Proforma<span> (Sales)</span></h3>
+                        <div class="row page-header-space" style="padding: 30px;">
                             
-                        </td>
-                        </tr>
-                        <tr >
-                            <td style="padding-bottom:50px;padding-left:7px;">Material Recieved in Good Condition & Quality</td>
-                            <td></td>
-                            <td style="text-align:right;padding-bottom:50px;padding-left:7px;padding-right:7px;">For Sun X Concrete India Private Limited</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-left:7px;">(Reciever's Signature with seal)</td>
-                            <td></td>
-                            <td style="text-align:right;">(Authorized Signatory)</td>
-                        </tr>
-                    </table>
-                    </tr>
-                    </table><br>
-                    </div>
-                    <div class="download-button" style="text-align: center; margin-top: 20px;">
-                        <button id="print-btn" style="padding: 10px 20px; background-color: #007bff; color: #fff; border: none; cursor: pointer;">Print</button>
-                    </div><br><br>
-                </div>
+                           
+                            <div class="col-md-6" style="text-align: left;">
+                            <img src="https://app.teamworksystem.com/company/1688627425.png" width="180px;">
+                          </div>
+                         
+                            <div class="col-md-6" style="text-align: right;">
+                                 <h1>Credit Note</h1>
+                          </div>
+                       
+                        </div>
+                       
+
+
+
+                    <hr class="mt-0 ">
+                            <div class="row" style="padding: 30px;">
+                                <div class="col-md-6">
+                                    <!-- <p style="font-weight: bold;color: #000;font-size: 20px;">Supplier</p> -->
+
+                                        <p style="font-weight: bold;font-size: 17px;">Taj Solution,</p>
+                                        <p> GST :  33BHIPP8670H1ZY</p>
+                                        <p style="font-size: 17px;">
+                                        Old no 19 new no 21, 2nd floor,<br>
+                                         SBI officers colony 2nd street, Arumbakkam ,<br>
+                                        Chennai -600106.<br>
+                                    </p>
+                                    <p style="font-size: 17px;">PH :917305577411,<br>
+                                        Email : mohamed_unico@outlook.com.<br>
+                                    </p>
+                                </div>
+
+
+                                <div class="col-sm-6" style="text-align: right;">
+                                    <div  class="row">
+                                        <!-- <p style="font-weight: bold;text-align: right;font-size: 17px;">Purchase NO :</p>
+
+                                        <p style="font-weight: bold;text-align: right;font-size: 17px;">Purchase Date :  </p>
+                                        <p style="font-weight: bold;text-align: right;font-size: 17px;"></p>
+                                        -->
+                                        <p style="font-weight: bold;color: #000;font-size: 20px;">TeamWork System</p>
+                                        <br>
+                                        <p> GST :  33BHIPP8670H1ZY</p>
+                                        <p style="font-size: 17px;"> Plot No. 13/71, 28th Street,1st Floor,</p>
+                                        <p>Kambar Colony,18th Main Road,</p>
+                                        <p> 57837 - 600040,<br> </p>
+                                        <p style="font-size: 17px;">PH :7698799999,<br>
+                                                Email : info@teamworksystem.com.<br>
+                                            </p>
+                                            <!-- <div class="col-sm-3"><br><br>
+
+                                            <h1 style="text-align: right;font-size: 17px;">Contact Information</h1>
+
+                                            <p style="text-align: right;font-size: 17px;">7698799999</p>
+
+                                            <p style="text-align: right;font-size: 17px;">info@teamworksystem.com</p>
+
+                                            </div> -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                            <!-- <p style="font-size: 17px;"></p>
+                                            <p style="font-size: 17px;"></p>
+                                            -->
+                                        <p style="font-size: 17px;"></p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div><br>
+
+
+
+                        <div class="row" style="padding:30px;line-height: 27px;">
+                         <p> Dear Taj Solution,</p> 
+                                  <p>&nbsp;</p>
+
+<p style="line-height:27px;">We thank you for giving us an opportunity to work with you. We are happy to get associated with your company. We hope the demonstration and other discussions were up to your satisfaction. We would like to introduce ourselves as one of the leading Technology Solution Providers in southern parts of Tamil Nadu. We are marketing the entire range of Technology Automation products and IT products. We are one of the leading Technology Automation Companies with technological excellence in maintaining the Technology products with our strong service force. We have a well-established service center in Chennai at the below mentioned address to cater the support to the equipment we supply. We are providing service &amp; support in southern parts of Tamil Nadu.</p>
+                     </div> 
+
+
+
+
+
+                          <div class="row mt-10" style="padding:30px;">
+							              <div class="col-12 " style="">
+								             
+									              
+                                 
+                                        <table id="datatable_purchase" class="table table " >
+                                            <thead>
+                                                <tr >
+                                                    <th>S.No</th>
+                                                    <th>Product</th>
+                                                    <th>description</th>
+                                                    <th>Price</th>
+                                                    <th>Qty</th>
+                                                                                                       
+                                                    <th>Tax(%)</th>
+                                                    <th>Tax Amount</th>   
+                                                    
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                                                                                                                    <tbody>
+                                                                                                <tr>
+                                                    <td>1</td>
+
+                                                    <td>mobile-oppo-S3</td>
+                                                    <td>68Gb Memory, 8Gb Ram</td>
+                                                    <td align='right' style="padding-right: 3%;">2,000.00</td>
+                                                    <td align='right' style="padding-right: 3%;">1</td>
+                                                                                                        <td align='right' style="padding-right: 3%;">3</td>
+                                                                                                                                                            <td align='right' style="padding-right: 5%;">60.00</td>
+                                            
+                                                                                                                                                            <td align='right' >2,000.00</td>
+                                                                                                        
+                                                </tr>
+                                                                                                <tr>
+                                                    <td>2</td>
+
+                                                    <td>smartwatch-oppo-i series</td>
+                                                    <td>i series 5</td>
+                                                    <td align='right' style="padding-right: 3%;">300.00</td>
+                                                    <td align='right' style="padding-right: 3%;">4</td>
+                                                                                                        <td align='right' style="padding-right: 3%;">3</td>
+                                                                                                                                                            <td align='right' style="padding-right: 5%;">36.00</td>
+                                            
+                                                                                                                                                            <td align='right' >1,200.00</td>
+                                                                                                        
+                                                </tr>
+                                                                                                <!-- <tr>
+                                                <th colspan="7" style="text-align:right;">Sub Total</th>
+                                                  <td></td>
+                                                </tr> -->
+                                                                                                   
+                                                                                                                                                <tr>
+                                                  <th colspan="7" style="text-align:right;">Sub Total</th>
+                                                  <td align='right'>3,200.00</td>
+                                                </tr>
+                                                                                                <tr>
+                                                  <th colspan="7" style="text-align:right;">Tax</th>
+                                                  <td align='right'>96.00</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                <th colspan="7" style="text-align:right;">Grand Total</th>
+                                                  <td align='right'>3,296.00</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+							              </div>
+						              </div>
+
+
+<footer class="page-footer-space">
+          <div class="row " style="padding:30px; ">
+            <div class="col-md-6">
+                <p style="font-weight: bold;color: #000;font-size: 20px;">Bank Details</p>
+                <p style="font-weight: bold;font-size: 17px;"> Account Holder Name :  TeamWork System</p>
+
+                        <p style="font-weight: bold;font-size: 17px;">Bank Name :Indian bank,</p>
+                        <p style="font-weight: bold;font-size: 17px;"> Account Number :  654875453654</p>
+                        <p style="font-weight: bold;font-size: 17px;"> IFSC Code :  fg65547</p>
+                        
+                       <br>
+
+                </p>
             </div>
-        </div>
+
+            <div class="col-md-6">
+              <!-- <h3>Terms &amp; Conditions</h3>
+
+<p><strong>All Prices in Indian Rupees &amp; Subject to Additional GST @ 18%.</strong></p>
+
+<ul>
+	<li>Delivery charges applicable</li>
+	<li>Deliver with in 7 days from the date of PO</li>
+	<li>Payment Terms : 100% Against PO</li>
+	<li>Payment in favour of TWS Teamwork System India Pvt Ltd</li>
+	<li>Validity 2 days from the date of quotation</li>
+</ul>
+
+<p>&nbsp;</p> -->
+              <div class="ml-10">
+              <h3>Terms &amp; Conditions</h3>
+
+<p><strong>All Prices in Indian Rupees &amp; Subject to Additional GST @ 18%.</strong></p>
+
+<ul>
+	<li>Delivery charges applicable</li>
+	<li>Deliver with in 7 days from the date of PO</li>
+	<li>Payment Terms : 100% Against PO</li>
+	<li>Payment in favour of TWS Teamwork System India Pvt Ltd</li>
+	<li>Validity 2 days from the date of quotation</li>
+</ul>
+
+<p>&nbsp;</p>
+              </div>
+            </div>
+            <div class="col-md-12 text-center">
+              <strong >Thanking you and assuring you the best of our services at all times.</strong>
+            </div>
+            <br><br>
+</footer>
+
+</body>
+
+
+
+
+
+        <script type="text/javascript">
+
+              printpage();
+
+            function printpage() {
+             var tableDiv = document.getElementById("printdiv").innerHTML;
+             printContents = '';
+             printContents += tableDiv;
+             var originalContents = document.body.innerHTML;
+             document.body.innerHTML = printContents;
+             window.print();
+             document.body.innerHTML = originalContents;
+             }
+
+        </script>
+
+                <script>
+					$(function(e) {
+						$(".datePickerInput").datepicker({
+							format: "yyyy-mm-dd",
+							autoclose: true,
+							orientation: "bottom",
+							templates: {
+								leftArrow: '<i class="icon dripicons-chevron-left"></i>',
+								rightArrow: '<i class="icon dripicons-chevron-right"></i>'
+							}
+						});
+					});
+				</script>
+
+	</body>
+</html>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
