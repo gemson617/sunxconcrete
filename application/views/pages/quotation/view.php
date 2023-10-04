@@ -78,12 +78,12 @@
                                     <th scope="col">Quantity</th>
                                     <th scope="col">UOM</th>
                                     <th scope="col">Total Amount</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">To Sale</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody style="text-align:center;">
                                 <?php foreach ($quotations as $key => $q) { ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
@@ -94,7 +94,14 @@
                                         <td><?php echo $q->grand_total; ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->
-                                <td><a href="#" class="badge <?php if ($q->qStatus == 1)
+                                <td>
+                                <?php if ($q->qStatus == 1){ ?>
+                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal">Convert To Sale </button>
+                                        <?php  }else{ ?>
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        <?php  }  ?>
+                                        
+                                        <!-- <a href="#" class="badge <?php if ($q->qStatus == 1)
                                             {
                                                 echo "approved-btn ";
                                             } else if ($q->qStatus == 2){
@@ -111,12 +118,11 @@
                                             }  else if ($q->qStatus == 3){
                                                 echo "Accepted";
                                             }  ?>
-                                            </a>
+                                            </a> -->
                                 </td>
                                         
                                         <td>
-                                        <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal">Accept </button>
-
+                                       
                                             <!-- <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a> -->
                                             <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
                                             <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>

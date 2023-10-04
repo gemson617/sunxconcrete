@@ -119,8 +119,7 @@
                                            <?php if($sales->credit_bill_status == 1){ ?>
                                             <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Delivery Challan</button></a>
                                             <?php } ?>
-                                        </td>
-                                     
+                                        </td>                                     
                                     </tr>
                                 <?php } ?>
                             </tbody>
