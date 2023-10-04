@@ -1,18 +1,19 @@
 
-<body>
+<body><br><br>
     <div class="row" id="printdiv">
-        <div class="col-12">
+        <div class="col-12" style="border-collapse: collapse; border: 0px solid #ccc;">
             <div class="card">
                 <div class="card-body">
-                    <div class="invoice" style="width: 800px; margin: 0 auto; padding: 20px; border: 0px solid #ccc;">
-                        <div class="logo">
+                    <div class="invoice" style="width: 800px; margin: 0 auto; border: 1px solid #ccc;">
+                        <div class="logo" align="right" style="padding-right:5px;">
+                            <p style="padding-bottom: 0px;">Exclusive channel partner of</p>
                             <img src="<?= base_url('assets/images/logo.jpg') ?>" align="right" alt="Logo" style="max-width: 100px;align-content-right;">
                             <span>
-                            <h3 style="text-align: center; margin-top: 0;">QUOTATION</h3>
+                            <h3 style="text-align: center; margin-top: 0;">Delivery Challan</h3>
                             </span>
                         </div>
                         <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ccc;">
-                        <tr style="width: 100%; height: 170px;">
+                        <!-- <tr style="width: 100%; height: 170px;">
                         <td style="width: 50%;border-right: 1px solid #ccc;">
                             <table style="width: 100%; height:170px;">
                                 <tr>
@@ -53,167 +54,252 @@
                                 </tr>
                             </table>
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;border-left: 1px solid #ccc;">
-                        <td style=" width:50%;"><p style="text-align:left;font-weight: bold;";>Sold to Party</p></td>
-                        <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Ship to Party</p></td>
+                        <td style=" width:50%;"><p style="text-align:left;font-weight: bold;";>Cosignee :</p></td>
+                        <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Delivery Address :</p></td>
                     </tr>
-                    <tr style="border-top: 1px solid #ccc; width:100%;"margin-left:10px;">
+                    <tr style="border-top: 1px solid #ccc; width:100%;margin-left:10px;">
                     <td style="width: 50%;">
                             <table style="width: 100%; height:170px;">
-                        <tr>
-                            <td style="padding-left:7px;">Name:</td>
-                            <td><?= $sold_to_party['company_name'] ?></td>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                            <!-- <td style="padding-left:7px;border-bottom:1px solid #ccc;">Name:</td> -->
+                            <td style=""><?= $sold_to_party['company_name'] ?></td>
                         </tr>
-                        <tr>
-                            <td style="padding-left:7px;">Address:</td>
-                            <td><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                            <!-- <td style="padding-left:7px;">Address:</td> -->
+                            <td><?= $ship_to_party['customer_address_1']?></td>
                         </tr>
-                        <tr>
-                            <td style="padding-left:7px;">GSTIN/UID:</td>
-                            <td><?= $sold_to_party['customer_gst_no'] ?></td>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                        <td style="padding-right:3px;"><?= $ship_to_party['customer_city'] ?></td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;justify-content:center;">pincode</td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;"><?= $ship_to_party['customer_pincode'] ?></td>
+                    </tr>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                            <td><?= $ship_to_party['stateName'] ?></td>
                         </tr>
+                        <tr style="">
+                            <!-- <td style="padding-left:7px;">GSTIN/UID:</td> -->
+                            <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;justify-content:center;">State Code</td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;padding:1px;">33</td>
+                                    </tr>
                         </table>
                     </td>
                     <td style="width: 50%;">
                             <table style="width: 100%; height:170px; border-left: 1px solid #ccc;">
-                        <tr>
-                            <td style="padding-left:7px;">Name:</td>
-                            <td><?= $ship_to_party['company_name'] ?></td>
+                            <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                            <!-- <td style="padding-left:7px;border-bottom:1px solid #ccc;">Name:</td> -->
+                            <td style=""><?= $ship_to_party['company_name'] ?></td>
                         </tr>
-                        <tr>
-                            <td style="padding-left:7px;">Address:</td>
-                            <td><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                            <!-- <td style="padding-left:7px;">Address:</td> -->
+                            <td><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
-                        <tr>
-                            <td style="padding-left:7px;">GSTIN/UID:</td>
-                            <td><?= $ship_to_party['customer_gst_no'] ?></td>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                        <td><?= $sold_to_party['customer_city'] ?></td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;">pincode</td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;"><?= $sold_to_party['customer_pincode'] ?></td>
+                    </tr>
+                        <tr style="border-bottom: 1px solid #ccc;padding:1px;">
+                            <td><?= $sold_to_party['stateName'] ?></td>
                         </tr>
+                        <tr style="">
+                            <!-- <td style="padding-left:7px;">GSTIN/UID:</td> -->
+                            <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;justify-content:center;">State Code</td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;padding:1px;">33</td>                        </tr>
                         </table>
                         </td>
                     </tr>
                     <tr>
+                     
                     <table style="width: 100%; border-collapse: collapse; margin-top:-18px; ">
- 
-                    `<thead style="width:100%;">
-                        <tr style="border: 1px solid #ccc; width:100%;">
-                            <th style="border: 1px solid #ccc;"><center>Description of Goods</center></th>
-                            <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
-                            <th style="border: 1px solid #ccc;"><center>UOM</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Price</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Amount</center></th>
+                    
+                    <thead style="width:100%;">
+                        <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
+                            <th style="border: 1px solid #ccc;padding:4px;"><center>Truck Number</center></th>
+                            <td style="border: 1px solid #ccc;padding:4px;"><center>Description of Goods</center></td>
+                            <td style="border: 1px solid #ccc;"><center>PO Number</center></td>
+                            <td style="border: 1px solid #ccc;"><center>Description of Goods</center></td>
+                            <td style="border: 1px solid #ccc;"><center>DC No</center></td>
+                            <th style="border: 1px solid #ccc;"><center></center></th>
+                        </tr>
+                        <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
+                            <th style="border: 1px solid #ccc;padding:4px;"><center>Driver Name</center></th>
+                            <td style="border: 1px solid #ccc;padding:4px;"><center></center></td>
+                            <td style="border: 1px solid #ccc;"><center></center></td>
+                            <td style="border: 1px solid #ccc;"><center></center></td>
+                            <td style="border: 1px solid #ccc;"><center>Batch No</center></td>
+                            <th style="border: 1px solid #ccc;"><center></center></th>
+                        </tr>
+                        <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
+                            <th style="border: 1px solid #ccc;padding:4px;"><center>Plant Name</center></th>
+                            <td style="border: 1px solid #ccc;padding:4px;"><center>Description of Goods</center></td>
+                            <td style="border: 1px solid #ccc;"><center>Mode of Unloading</center></td>
+                            <td style="border: 1px solid #ccc;"><center></center></td>
+                            <td style="border: 1px solid #ccc;"><center>DC Date</center></td>
+                            <th style="border: 1px solid #ccc;"><center></center><?= date('d-m-y')?></th>
                         </tr>
                     </thead>
                     <tbody style="border: 1px solid #ccc;">
-                       
-                            <tr style="border: 1px solid #ccc;" >
-                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;"><?= $quotation['product_name'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['hsn_name'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['quantity'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['uom'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $quotation['price'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $quotation['amount'] ?></td>
-                            </tr>
-
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="7" colspan="4">
-                        <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
-                        <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
-                        <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
-                        <p style="margin-left:10px;">IFSC Code : <?= $company['bank_ifsc'] ?></p>
-                        <p style="margin-left:10px;">Bank Address : <?= $company['bank_address'] ?></p>
+                    <br>
+                   
 
-                    </td>
-                    <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">Sub Total</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px; ">₹ <?= $quotation['sub_total'] ?></td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc; ">
-                            <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="4" align="right">SGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $quotation['sgst'] ?></td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">CGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $quotation['cgst'] ?></td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TCS (0.1%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TOTAL TAX</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
-                        </tr>
+                    <br>
+                
                     </tfoot>
-                    </table>`
+                    
+
+
+                    </table>
                     </tr>
+
+                    <tr><table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
+                  <br><br>
+                    <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
+                            <th style="border: 1px solid #ccc;padding:4px;"><center>Product</center></th>
+                            <th style="border: 1px solid #ccc;padding:4px;"><center>HSN / SAC CODE</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Grade</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Rate/Unit</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Amount</center></th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>1</center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>1</center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>1</center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>1</center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>1</center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>1</center></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center><p>CGST 9%</p></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center><p></p></center></td>
+                    </tr>
+                    <tr>
+                       <td style="border: 1px solid #ccc;padding:4px;"><center><p>SGST 9%</p></center></td>
+                       <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center><p></p></center></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center>Round Off</center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center><p></p></center></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ccc;padding:4px;">
+                        <td style="border-right: 1px solid #ccc;padding:4px;"><center>Total</center></td>
+                        <td style=''><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style="border: 1px solid #ccc;padding:4px;"><center><p></p></center></td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
+                        <td style="border-bottom:1px solid #ccc;border-top:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
+                        </tr>
+                    </table></tr>
+
+
                     <tr >
                     <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
-                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($quotation['grand_total'],2) ?></span> </td></H6>
+                      <br>
+                
+                       <br><br><br>
+                        <tr><table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
+                        <tr style="border-top:1px solid #ccc;">
+                            <th style="border-bottom:1px solid #ccc;">HSN/SAC</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Taxable Value :</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;" colspan="2">Central Tax</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;"colspan="2">State Tax</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Total Tax Payable</th>
                         </tr>
                         <tr>
-                        <td style="border-bottom:1px solid #ccc;">Mode of Transport:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LR/RR No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Eway Bill No.:</td>
+                        <td style="border-bottom:1px solid #ccc"rowspan="2">Mode of Unloading:</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;" rowspan="2">LR/RR Date:</td>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Rate 9%</th>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Amount</th>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Rate 9%</th>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #ccc;">Amount</th>
                         </tr>
                         <tr>
-                        <td style="border-bottom:1px solid #ccc">Mode of Unloading:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LR/RR Date:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Eway Bill Date:</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc">Pump Seriel No.:</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Pump Seriel No.:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Freight:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Incoterm: 35 days</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Pump Seriel No.:</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Freight:</td>
                         </tr>
                         <tr>
-                        <td style="border-bottom:1px solid #ccc">Vehicle Reg No.:</td>
+                        <td style="border-bottom:1px solid #ccc">Total :</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">KM:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LUT:</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;"></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Total :</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">KM:</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">1</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">2</td>
                         </tr>
                         <tr >
-                            <td style="border-bottom:1px solid #ccc" colspan="3">Remarks:</td>
-                        </tr>
-                        <tr >
-                            <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">
-                            <span style="font-weight: bold;">Terms and Conditions: </span><br><br>
-                            1. Price as applicable on the date of dispatch shall be charged.<br>
-                            2. Payment should be made by 'A/C Payee only' - bank draft/cheque or bank remmitance by NEFT/RTGS in favour of Sun-x Concrete India Private Limited.<br>
-                            3. Payments recieved beyond agreed credit period will attract an interest @ 24% per annum.<br>
-                            4. In case of EX,delivery of goods shall be completed as soon as the goods are delivered to the carrier and title & all the risk of goods stands transfer to buyer immediately.<br>
-                            5. All disputes are subject to Chennai jurisdiction only.<br>
-                            6. In case TCS is not charged in the invoice customer has to provide FORM 27c TCS will be charged.<br>
-                            7. Loading Weight Bridge weight is final.<br>
-                            8. Our Responsibility ceases immediately after the truck leaves our premises.<br>
-                            9. We are not responsible for any damage occurs during the transit.<br>
-                            10. Goods once sold will not be taken back or replaced.<br>
-                            11. All Disputes arising out of or in connection with this invoice or touching upon the invoice shall be reffered to sole Arbitration and the Sole Arbitrator shall be appointed by Sun-x Concete India Private Limited and the award 
-                            passes there on would be binding on both the parties. The Arbitration shall be conducted in accordance with the provisions of the Arbitration and Reconcilation Act 1996 or any amendment there of.  The seat of Arbitration shall be at 
-                            Chennai only.<br>
-                            12. Payment Shall be made within 30 days from the date of invoice.<br><br>
-                            
-                        </td>
-                        </tr>
-                        <tr >
-                            <td style="padding-bottom:50px;">Material Recieved in Good Condition & Quality</td>
-                            <td></td>
-                            <td style="text-align:right;padding-bottom:50px;">For Sun X Concrete India Private Limited</td>
-                        </tr>
+                        <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
+                        <td style="border-bottom:1px solid #ccc;border-top:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
+                                 </tr>
+                                 
+
                         <tr>
-                            <td style="">(Reciever's Signature with seal)</td>
-                            <td></td>
-                            <td style="text-align:right;">(Authorized Signatory)</td>
+
+                        </tr>
+              
+                        </table></tr>
+<br><br>
+                        <tr>
+                            <table  style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
+                                <tr >
+                                    <td style="border-bottom:1px solid #ccc; font-weight: bold;border-top:1px solid #ccc;border-right:1px solid #ccc;width:50%;text-align:center;" id="">Terms and Conditions</td>
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;border-right:1px solid #ccc;" id="">Our Bank Name : </td>
+                                </tr>
+                                <tr >
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;border-right:1px solid #ccc;" id="">1. Goods once sold cannot be taken back </td>
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;" id="">Branch : </td>
+                                </tr>
+                                <tr >
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;border-right:1px solid #ccc;" id="">2. Your payment for our supply is accepted only by way of DD/ RTGS/ NEFT</td>
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;" id="">Account No : </td>
+                                </tr>
+                                <tr >
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;border-right:1px solid #ccc;" id="">Cheque favouring </td>
+                                    <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;" id="">IFSC Code </td>
+                                </tr>
+                                <tr >
+                                    <td style=" border-top:1px solid #ccc;width:50%;border-right:1px solid #ccc;" id="">3. Interest @ 18% will be charged if payment is not made within assured time</td>
+                                    <!-- <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;" id=""></td> -->
+                                </tr>
+                                <tr >
+                                    <td style=" border-top:1px solid #ccc;width:50%;border-right:1px solid #ccc;" id="">4. Dispute, if any, arising from the deal are subject to chennai jurisdiction only</td>
+                                    <!-- <td style="border-bottom:1px solid #ccc; border-top:1px solid #ccc;width:50%;" id=""></td> -->
+                                </tr>
+                            </table>
                         </tr>
                     </table>
+                    </tr>
+                    <br><br>
+                    <tr>
+
+                        <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
+                            <tr style="margin:10px;">
+                                <td style="border: 1px solid #ccc;width:50%;text-align:top;"><p style="text-align: center">Received material as mentioned above in good condition.</p><p style="margin-top: 85px;text-align: center">Buyer signature with rubber</p></td>
+                                <td style="border: 1px solid #ccc;width:50%;text-align:top;"><p style="text-align: center"></p><p style="margin-top: 85px;text-align: center">Authorized signature</p></td>
+                            </tr>
+                        </table>
                     </tr>
                     </table><br>
                     </div>
