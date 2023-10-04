@@ -121,7 +121,7 @@ p{
                             
                            
                             <div class="col-md-6" style="text-align: left;">
-                            <img src="https://app.teamworksystem.com/company/1688627425.png" width="180px;">
+                            <img src="<?= base_url('assets/images/logo.jpg') ?>" width="180px;">
                           </div>
                          
                             <div class="col-md-6" style="text-align: right;">
@@ -138,94 +138,65 @@ p{
                                 <div class="col-md-6">
                                     <!-- <p style="font-weight: bold;color: #000;font-size: 20px;">Supplier</p> -->
 
-                                        <p style="font-weight: bold;font-size: 17px;">Taj Solution,</p>
-                                        <p> GST :  33BHIPP8670H1ZY</p>
+                                        <p style="font-weight: bold;font-size: 17px;">Bill To : </p>
+                                        <p><?= $sold_to_party['company_name'] ?>,</p>
                                         <p style="font-size: 17px;">
-                                        Old no 19 new no 21, 2nd floor,<br>
-                                         SBI officers colony 2nd street, Arumbakkam ,<br>
-                                        Chennai -600106.<br>
-                                    </p>
-                                    <p style="font-size: 17px;">PH :917305577411,<br>
-                                        Email : mohamed_unico@outlook.com.<br>
-                                    </p>
+                                        <p><?= $sold_to_party['customer_address_1'] ?>  </p>
+                                        <p><?= $sold_to_party['customer_city']  ?>  </p>
+                                        <p> <?= $sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode']  ?>
+                                      </p>
                                 </div>
 
 
                                 <div class="col-sm-6" style="text-align: right;">
-                                    <div  class="row">
-                                        <!-- <p style="font-weight: bold;text-align: right;font-size: 17px;">Purchase NO :</p>
-
-                                        <p style="font-weight: bold;text-align: right;font-size: 17px;">Purchase Date :  </p>
-                                        <p style="font-weight: bold;text-align: right;font-size: 17px;"></p>
-                                        -->
-                                        <p style="font-weight: bold;color: #000;font-size: 20px;">TeamWork System</p>
+                                    <!-- <div  class="row"> -->
+                                      
+                                        <p style="font-weight: bold;color: #000;font-size: 20px;"><?= date('d-m-y') ?></p>
+                                        <p style="font-weight: bold;color: #000;font-size: 20px;">Total : ₹<?= $salesItems['sale_price'] ?></p>
                                         <br>
-                                        <p> GST :  33BHIPP8670H1ZY</p>
-                                        <p style="font-size: 17px;"> Plot No. 13/71, 28th Street,1st Floor,</p>
-                                        <p>Kambar Colony,18th Main Road,</p>
-                                        <p> 57837 - 600040,<br> </p>
+                                      
                                         <p style="font-size: 17px;">PH :7698799999,<br>
                                                 Email : info@teamworksystem.com.<br>
                                             </p>
-                                            <!-- <div class="col-sm-3"><br><br>
+                                    <!-- </div> -->
 
-                                            <h1 style="text-align: right;font-size: 17px;">Contact Information</h1>
-
-                                            <p style="text-align: right;font-size: 17px;">7698799999</p>
-
-                                            <p style="text-align: right;font-size: 17px;">info@teamworksystem.com</p>
-
-                                            </div> -->
-                                    </div>
-                                    <div class="col-sm-6">
-                                            <!-- <p style="font-size: 17px;"></p>
+                                    <!-- <div class="col-sm-6">
                                             <p style="font-size: 17px;"></p>
-                                            -->
+                                            <p style="font-size: 17px;"></p>
+                                           
                                         <p style="font-size: 17px;"></p>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 </div>
                             </div>
                         </div><br>
 
 
-
-                        <div class="row" style="padding:30px;line-height: 27px;">
-                         <p> Dear Taj Solution,</p> 
-                                  <p>&nbsp;</p>
-
-<p style="line-height:27px;">We thank you for giving us an opportunity to work with you. We are happy to get associated with your company. We hope the demonstration and other discussions were up to your satisfaction. We would like to introduce ourselves as one of the leading Technology Solution Providers in southern parts of Tamil Nadu. We are marketing the entire range of Technology Automation products and IT products. We are one of the leading Technology Automation Companies with technological excellence in maintaining the Technology products with our strong service force. We have a well-established service center in Chennai at the below mentioned address to cater the support to the equipment we supply. We are providing service &amp; support in southern parts of Tamil Nadu.</p>
-                     </div> 
-
-
-
-
-
                           <div class="row mt-10" style="padding:30px;">
-							              <div class="col-12 " style="">
+							              <div class="col-125 " style="">
 								             
 									              
                                  
-                                        <table id="datatable_purchase" class="table table " >
+                                        <table id="datatable_purchase" class="table table" >
                                             <thead>
                                                 <tr >
-                                                    <th>S.No</th>
-                                                    <th>Product</th>
-                                                    <th>description</th>
-                                                    <th>Price</th>
-                                                    <th>Qty</th>
+                                                    <th>Quantity</th>
+                                                    <th>Item</th>
+                                                    <th>Options</th>
+                                                    <th>Rate</th>
+                                                    <th>Amount</th>
                                                                                                        
-                                                    <th>Tax(%)</th>
+                                                    <th>Tax Rate</th>
                                                     <th>Tax Amount</th>   
                                                     
-                                                    <th>Total</th>
+                                                    <th>Gross Amount</th>
                                                 </tr>
                                             </thead>
                                                                                                                                     <tbody>
                                                                                                 <tr>
-                                                    <td>1</td>
+                                                    <td><?= $salesOrders['receivedQuantity'] ?></td>
 
-                                                    <td>mobile-oppo-S3</td>
+                                                    <td><?= $salesOrders['receivedQuantity'] ?></td>
                                                     <td>68Gb Memory, 8Gb Ram</td>
                                                     <td align='right' style="padding-right: 3%;">2,000.00</td>
                                                     <td align='right' style="padding-right: 3%;">1</td>

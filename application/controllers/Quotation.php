@@ -175,15 +175,16 @@ class Quotation extends MY_Controller
             // echo "<pre>";
             // print_r($insert_array);
             // exit();
-            if ($status == 2) {
-                $message = 'Rejected';
-            }else{
-                $message = 'Accepted';
-            }
+
+            // if ($status == 2) {
+            //     $message = 'Rejected';
+            // }else{
+            //     $message = 'Accepted';
+            // }
 
             if ($update > '0') {
 
-                $this->session->set_flashdata('alert_success', 'Quotation ' .$message. ' Successfully!');
+                $this->session->set_flashdata('alert_success', 'Quotation Accepted Successfully!');
                 redirect('Quotation/view');
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
