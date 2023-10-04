@@ -142,10 +142,10 @@
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
                         </tr>
-                        <tr style="border: 1px solid #ccc;">
+                        <!-- <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TCS (0.1%)</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
+                        </tr> -->
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TOTAL TAX</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
