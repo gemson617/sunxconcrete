@@ -156,7 +156,7 @@
 
                     <div class="form-group mt-3">
                         <label for="qty">Quantity</label>
-                        <input type="number" class="form-control" min="1"  placeholder="Enter the Sales Order Quantity" id="qty" name="qty">
+                        <input type="number" required step="0.01" class="form-control" min="1"  placeholder="Enter the Sales Order Quantity" id="qty" name="qty">
                     </div>
                     <div class="form-group mt-3">
                     <label for="credit_bill">Credit Bill</label>
