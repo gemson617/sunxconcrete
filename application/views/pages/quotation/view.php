@@ -96,7 +96,7 @@
                                 </td> -->
                                 <td>
                                 <?php if ($q->qStatus == 1){ ?>
-                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal">Convert To Sale </button>
+                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal">To Sale </button>
                                         <?php  }else{ ?>
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         <?php  }  ?>
@@ -120,13 +120,11 @@
                                             }  ?>
                                             </a> -->
                                 </td>
-                                        
                                         <td>
-                                       
                                             <!-- <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a> -->
                                             <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
                                             <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-                                        <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
+                                            <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
                                            
                                             
                                             <!-- <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->product_id; ?>);"><i class="bx bx-check"></i></button>
