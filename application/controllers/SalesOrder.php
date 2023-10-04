@@ -256,4 +256,59 @@ class SalesOrder extends MY_Controller
         $this->load->view('base/base_template', $data);  
     }
 
+    public function deliveryChallan($id){
+                 
+      
+        $this->db->select('*,si.total_quantity as totalQuantity,
+                            si.available_quantity as availableQuantity,
+                            si.received_qty as receivedQuantity');
+        $this->db->from('sales_order as s'); 
+        $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
+        $this->db->where('si.sales_order_id',$id); 
+        $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        // $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $query = $this->db->get();
+        $view_data['salesOrders'] = $query->row_array(); 
+        // $view_data['salesOrders'] = $query->result(); 
+
+        $this->db->select('*,
+        s.status as sStatus,
+        s.id as sId');
+        $this->db->from('sales_order as s'); 
+        $this->db->where('s.id',$id); 
+        $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $view_data['salesOrder'] = $this->db->get()->row_array();
+        
+        $this->db->select('*,state.name as stateName');
+        $this->db->from('sales_order as s'); 
+        $this->db->where('s.id',$id); 
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->join('states as state', 'state.id = c.customer_state','left');       
+        $view_data['sold_to_party'] = $this->db->get()->row_array();
+
+        $this->db->select('*,state.name as stateName');
+        $this->db->from('sales_order as s'); 
+        $this->db->where('s.id',$id); 
+        $this->db->join('customer as c','c.customer_id = s.ship_to_party','left');
+        $this->db->join('states as state', 'state.id = c.customer_state','left');              
+        $view_data['ship_to_party'] = $this->db->get()->row_array();
+       
+        $view_data['company'] = $this->mcommon->specific_row('em_companies', array('id' => 1));
+        $view_data['salesItems'] = $this->mcommon->specific_row('sales_order_items', array('id' => $id));
+           
+        // echo "<pre>";
+        // print_r($view_data['salesOrders']);
+        // exit();       
+
+        $data = array(
+            'title' => 'Sales Order Items',
+            'content' => $this->load->view('pages/sales_order/delivery_challan', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);  
+    }
+
 }
