@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <div class="invoice" style="width: 800px; margin: 0 auto; padding: 20px; border: 0px solid #ccc;">
                         <div class="logo">
-                            <img src="<?= base_url('assets/images/logo.jpg') ?>" alt="Logo" style="max-width: 100px;">
+                            <img src="<?= base_url('assets/images/logo.jpg') ?>" align="right" alt="Logo" style="max-width: 100px;align-content-right;">
                             <span>
                             <h3 style="text-align: center; margin-top: 0;">QUOTATION</h3>
                             </span>
