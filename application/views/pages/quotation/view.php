@@ -68,7 +68,7 @@
                         ?>
                         <a href="<?php echo site_url('Product/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a>
                         <br>
-                        <h4 class="card-title mb-3">Product</h4>
+                        <h4 class="card-title mb-3">Quotation</h4>
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
