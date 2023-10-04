@@ -202,7 +202,7 @@
                              </div>
                                 <div class="col-md-4">
                                  
-                                 <div class="mb-3">
+                                 <!-- <div class="mb-3">
                                      <label for="validationCustom01" class="form-label">PO Number</label>
                                      <input type="text" name="po_no" class="form-control"  id="po_no" placeholder="Enter the PO Number"  required>
                                     <div class="valid-feedback">
@@ -211,7 +211,7 @@
                                      <div class="invalid-feedback">
                                      Place of supply Required.
                                      </div>
-                                 </div>
+                                 </div> -->
                              </div>
                             </div>
                         </div>
