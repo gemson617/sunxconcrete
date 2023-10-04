@@ -126,16 +126,21 @@ class Quotation extends MY_Controller
     public function accept($id)
     {
         if (isset($_POST['submit'])) {
+            // print_r($_POST);
+            // exit();
             $q_id = $id;    
-            $status = $this->input->post('status');    
+            $poNumber = $this->input->post('poNumber');    
+            $creditNote = $this->input->post('creditNote');    
               
             $update_array = array(
-                'status' => $status,               
+                'status' => 3,               
+                'po_number' => $poNumber,               
+                'credit_note' => $creditNote,               
             );
             $update = $this->mcommon->common_edit('quotation', $update_array,array('id' => $q_id));
 
 
-            if($status == 3){
+            // if($status == 3){
 
                     $data = $this->get_all_data($id);
                     // echo "<pre>";
@@ -170,7 +175,7 @@ class Quotation extends MY_Controller
                     }
                     $insert = $this->mcommon->common_insert('sales_order', $insert_array);
 
-            }
+            // }
 
             // echo "<pre>";
             // print_r($insert_array);

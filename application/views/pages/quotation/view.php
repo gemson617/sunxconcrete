@@ -66,9 +66,9 @@
                         <?php
                         }
                         ?>
-                        <a href="<?php echo site_url('Product/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a>
+                        <a href="<?php echo site_url('Quotation/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a>
                         <br>
-                        <h4 class="card-title mb-3">Product</h4>
+                        <h4 class="card-title mb-3">Quotation</h4>
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
@@ -115,7 +115,9 @@
                                 </td>
                                         
                                         <td>
-                                            <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a>
+                                        <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal">Accept </button>
+
+                                            <!-- <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a> -->
                                             <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
                                             <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
                                         <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
@@ -126,6 +128,48 @@
 
                                         </td>
                                     </tr>
+
+
+                                    <div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+​
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Convert To Sale Order</h4>
+                <button type="button" class="close btn btn-danger" data-dismiss="modal">&times;</button>
+            </div>
+​
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="myForm" method="POST" action="<?php echo site_url('Quotation/Accept/'.$q->id); ?>">
+                    <div class="form-group">
+                        <label for="qty">PO Number</label>
+                        <input type="text" class="form-control" min="1"  placeholder="Enter the PO Number" id="poNumber" name="poNumber">
+                    </div>
+                    <div class="form-group mt-3">
+                    <label for="credit_bill">Credit Note</label>
+                    <select class="form-control" name="creditNote"  id="creditNote" required>
+                                            <option value="">--Credit Note --</option>
+                                            
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                    </select>                     
+                    </div>
+                    
+                    <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Accept</button>
+                    <button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Cancel</button>
+                
+                </form>
+            </div>
+​
+            <!-- Modal footer -->
+           
+​
+        </div>
+    </div>
+</div>
+
                                 <?php } ?>
                             </tbody>
                         </table>
@@ -136,7 +180,36 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
+
+
+$(document).ready(function () {
+  
+  $(".delete-category").click(function () {
+      var id = $(this).data('id');
+      var qty = $(this).val();
+      var valid = parseFloat(qty);
+
+      $("#qty").attr("max", valid);
+      var form = document.getElementById("myForm");
+
+      var prefix = "<?php echo site_url('Quotation/accept/'); ?>"; 
+      var sufix = id;
+      var newAction = prefix + sufix;
+      // alert(newAction);
+      form.setAttribute("action", newAction);
+  //   var quantity = $("#qty").val();
+  //    alert(quantity);
+  
+});
+  });
+
+
+
     function delete_item(id) {
         Swal.fire({
             title: 'Are you sure?',
