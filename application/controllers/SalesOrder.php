@@ -22,6 +22,12 @@ class SalesOrder extends MY_Controller
         $this->db->order_by('s.id','DESC');       
         $query = $this->db->get();
         $view_data['salesOrder'] = $query->result();  
+
+        $this->db->select('*');
+        $this->db->from('plant_master as u'); 
+        $this->db->order_by('u.pm_id','DESC');       
+        $query = $this->db->get();
+        $view_data['plant'] = $query->result();
         //         echo "<pre>";
         // print_r($view_data['salesOrder']);
         // exit();       
@@ -55,8 +61,11 @@ class SalesOrder extends MY_Controller
     public function getQuantity($id)
     {
         if (isset($_POST['submit'])) {
+
+            $plant_id = $this->input->post('plant_id'); 
             $quantity = $this->input->post('qty'); 
             $credit_bill_status = $this->input->post('credit_bill'); 
+           
             
             
 
@@ -67,10 +76,13 @@ class SalesOrder extends MY_Controller
             $price = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'price');
        
             $quotation_id = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'quotation_id');
-
+            
+            
             $remaining_quantity = $available_quantity - $quantity;
             $received_quantity = $received_quantity + $quantity;
             $sale_price = $quantity * $price;
+            $tax = $sale_price * 18 /100;
+            $tottalamt = $tax + $sale_price;
             
     
             $update_array = array(
@@ -84,10 +96,13 @@ class SalesOrder extends MY_Controller
 
             $insert_array = array(
                 'sales_order_id'=>$id,
+                'plant_id'=>$plant_id,
                 'quotation_id'=>$quotation_id,
                 'total_quantity'=>$total_quantity,
                 'available_quantity' => $remaining_quantity,               
                 'sale_price' => $sale_price,               
+                'tax' => $tax,               
+                'tottalamt' => $tottalamt,               
                 'credit_bill_status' => $credit_bill_status,               
                 'received_qty' => $quantity,              
                 'created_on' => date('d-m-y'),               

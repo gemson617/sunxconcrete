@@ -75,6 +75,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
+                                    <th scope="col">PO.No</th>
                                     <th scope="col">Product Name</th>
                                     <th scope="col">Company Name</th>
                                     <th scope="col">HSN code</th>
@@ -92,6 +93,7 @@
                                 <?php foreach ($salesOrder as $key => $sales) { ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $sales->po_number; ?></td>
                                         <td><?php echo $sales->product_name; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->hsn_name; ?></td>
@@ -121,7 +123,7 @@
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">Sale </button>
-                                            <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a>
+                                            <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
                                             <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
                                         </td>                                     
                                     </tr>
@@ -141,7 +143,18 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="myForm" method="POST" action="<?php echo site_url('SalesOrder/getQuantity/'.$sales->id); ?>">
-                    <div class="form-group">
+                    
+                    <div class="form-group ">
+                        <label for="plant_id">Plant</label>
+                        <select class="form-control" name="plant_id"  id="plant_id" required>
+                                                <option value="">--Select Plant --</option>   
+                                                <?php foreach ($plant as $key => $plant) { ?>                                              
+                                                <option value="<?=$plant->pm_id?>"><?= $plant->plant_master_name ?></option>
+                                                <?php }  ?>
+                        </select>                     
+                    </div>
+
+                    <div class="form-group mt-3">
                         <label for="qty">Quantity</label>
                         <input type="number" class="form-control" min="1"  placeholder="Enter the Sales Order Quantity" id="qty" name="qty">
                     </div>

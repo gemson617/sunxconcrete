@@ -79,7 +79,7 @@
                         <?php
                         }
                         ?>
-                        <a href="<?php echo site_url('SalesOrder/itemsInvoice/'.$id); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light">Convert To Invoice</button></a>
+                        <!-- <a href="<?php echo site_url('SalesOrder/itemsInvoice/'.$id); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light">Convert To Invoice</button></a> -->
                         <br>
                         <h4 class="card-title mb-3">Sales Order Items</h4>
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -111,7 +111,7 @@
                                         <td><?php echo $sales->receivedQuantity; ?></td>
                                         <!-- <td><?php echo $sales->availableQuantity; ?></td> -->
                                         <td><?php echo $sales->uom; ?></td>
-                                        <td><?php echo $sales->sale_price; ?></td>
+                                        <td><?php echo $sales->tottalamt; ?></td>
 
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
