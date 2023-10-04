@@ -272,7 +272,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quantity</label>
-                                        <input type="text" name="qty" class="form-control qty"  id="qty" placeholder="Enter Quantity"  required>
+                                        <input type="number" step="0.01" name="qty" class="form-control qty"  id="qty" placeholder="Enter Quantity"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
