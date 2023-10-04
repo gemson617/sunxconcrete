@@ -119,8 +119,7 @@
                                            <?php if($sales->credit_bill_status == 1){ ?>
                                             <a href="<?php echo site_url('SalesOrder/creditBill/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Credit Bill</button></a>
                                             <?php } ?>
-                                        </td>
-                                     
+                                        </td>                                     
                                     </tr>
                                 <?php } ?>
                             </tbody>

@@ -162,7 +162,6 @@
                     <label for="credit_bill">Credit Bill</label>
                     <select class="form-control" name="credit_bill"  id="credit_bill" required>
                                             <option value="">--Credit Bill --</option>
-                                            
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                     </select>                     
