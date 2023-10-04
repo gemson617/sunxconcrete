@@ -94,36 +94,22 @@
                                         <td><?php echo $q->grand_total; ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->
-                                <td><a href="#" class="badge <?php if ($q->qStatus == 1)
-                                            {
-                                                echo "approved-btn ";
-                                            } else if ($q->qStatus == 2){
-                                                echo "new";
-                                            }  else if ($q->qStatus == 3){
-                                                echo "approved";
-                                            }  ?>">
+                                <td>
+                                        <?php if ($q->qStatus == 1)
+                                            {?>
+                                                <a  href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" style="width: 75%;" class=" btn-sm btn-info">Accept</button></a>
+                                        <?php } else if ($q->qStatus == 2){?>
+                                                <a href="#"><button type="button" style="width: 75%;" class=" btn-sm btn-danger">Rejected</button></a>
+                                        <?php  }  else if ($q->qStatus == 3){?>
+                                                <a href="#"><button type="button" style="width: 75%;" class=" btn-sm btn-success">Accepted</button></a>
+                                        <?php }  ?>
                                             
-                                            <?php if ($q->qStatus == 1)
-                                            {
-                                                echo "New";
-                                            } else if ($q->qStatus == 2){
-                                                echo "Rejected";
-                                            }  else if ($q->qStatus == 3){
-                                                echo "Accepted";
-                                            }  ?>
-                                            </a>
                                 </td>
                                         
                                         <td>
-                                        <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-
-                                        <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-success waves-effect waves-light">Accept</button></a>
-
-                                        
                                             <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
+                                            <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
                                         <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
-                                           
-                                            
                                             <!-- <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->product_id; ?>);"><i class="bx bx-check"></i></button>
                                             <button type="button" class="btn btn-sm btn-danger waves-effect waves-light" id="sa-success" onclick="delete_item(<?php echo $d->product_id; ?>);"><i class="bx bx-trash"></i></button> -->
 
