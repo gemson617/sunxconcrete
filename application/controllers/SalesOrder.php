@@ -215,8 +215,8 @@ class SalesOrder extends MY_Controller
         $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
         $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
         $query = $this->db->get();
-        $view_data['salesOrders'] = $query->row_array(); 
-        // $view_data['salesOrders'] = $query->result(); 
+        // $view_data['salesOrders'] = $query->row_array(); 
+        $view_data['salesOrders'] = $query->result(); 
 
         $this->db->select('*,
         s.status as sStatus,

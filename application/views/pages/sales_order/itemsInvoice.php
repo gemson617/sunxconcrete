@@ -99,28 +99,29 @@
                         <tr style="border: 1px solid #ccc; width:100%;">
                             <th style="border: 1px solid #ccc;"><center>Description of Goods</center></th>
                             <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>UOM</center></th>
                             <th style="border: 1px solid #ccc;"><center>Price</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Amount</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Tottal Amount</center></th>
                            
                         </tr>
                     </thead>
-                    <?php foreach($salesOrders as $salesOrder){ ?>
+                    
                     <tbody style="border: 1px solid #ccc;">
-                       
+                    <?php $sub_tot = ''; foreach($salesOrders as $salesOrder){ ?>
                             <tr style="border: 1px solid #ccc;" >
                                 <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;"><?= $salesOrder->product_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->hsn_name ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->received_qty ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->uom ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $salesOrder->price ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $salesOrder->amount ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->received_qty ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $salesOrder->sale_price ?> <?php $sub_tot += $salesOrder->sale_price?></td>
                             </tr>
-                    </tbody>
                     <?php } ?>
+                    </tbody>
+                    
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="9" colspan="6">
+                    <td rowspan="9" colspan="3">
                         <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
                         <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
                         <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
@@ -129,30 +130,30 @@
 
                     </td>
                     <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">Sub Total</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px; ">₹ </td>
+                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">Sub Total</td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px; ">₹ <?= $sub_tot ?></td>
                         </tr>
 
                     
                         <tr style="border: 1px solid #ccc; ">
-                            <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="4" align="right">SGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
+                            <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="2" align="right">SGST (9%)</td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->sgst ?></td>
                         </tr>
                         <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">CGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
+                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">CGST (9%)</td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->cgst ?></td>
                         </tr>
                         <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
+                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">IGST (18%)</td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->total_tax ?></td>
                         </tr>
+                        <!-- <tr style="border: 1px solid #ccc;">
+                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">TCS (0.1%)</td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ </td>
+                        </tr> -->
                         <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TCS (0.1%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr>
-                        <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TOTAL TAX</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
+                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">TOTAL TAX</td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->grand_total ?></td>
                         </tr>
                         <!-- <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">ROUND OFF</td>
