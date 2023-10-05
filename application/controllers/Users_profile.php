@@ -101,8 +101,7 @@ class Users_profile extends MY_Controller
                 } else {
                     $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
                 }
-                print_r($user_array);
-                exit();
+                
             }
             else{
                      //prepare update array

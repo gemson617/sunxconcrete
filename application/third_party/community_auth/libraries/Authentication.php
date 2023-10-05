@@ -237,6 +237,8 @@ class Authentication
 	 */
 	private function login( $requirement, $user_string, $passwd )
 	{
+
+	
 		// Keep post system session check from running
 		$this->post_system_sess_check = FALSE;
 
@@ -541,9 +543,12 @@ class Authentication
 	 */
 	public function check_passwd( $hash, $password )
 	{
+	
 		if( is_php('5.5') && password_verify( $password, $hash ) ){
+			
 			return TRUE;
 		}else if( $hash === crypt( $password, $hash ) ){
+
 			return TRUE;
 		}
 
