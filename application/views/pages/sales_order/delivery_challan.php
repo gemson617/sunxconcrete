@@ -6,58 +6,17 @@
                 <div class="card-body">
                     <div class="invoice" style="width: 800px; margin: 0 auto; border: 1px solid #ccc;">
                         <div class="logo" align="right" style="padding-right:5px;">
-                            <p style="padding-bottom: 0px;">Exclusive channel partner of</p>
+                            <p style="padding-bottom: 0px;margin-bottom:0px;">Exclusive channel partner of</p>
                             <img src="<?= base_url('assets/images/logo.jpg') ?>" align="right" alt="Logo" style="max-width: 100px;align-content-right;">
                             <span>
                             <h3 style="text-align: center; margin-top: 0;">Delivery Challan</h3>
                             </span>
                         </div>
                         <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ccc;">
-                        <!-- <tr style="width: 100%; height: 170px;">
-                        <td style="width: 50%;border-right: 1px solid #ccc;">
-                            <table style="width: 100%; height:170px;">
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">COMPANY DETAILS :</p></td>
-                                    <td><p style="text-align: left;margin-left:7px;"><?= $company['company_name'].', '.$company['company_address'].', '.$company['city'].', '.$company['state'].'-'.$company['pincode'].', India.' ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">GSTIN/UIN : </p></td>
-                                    <td><p style="text-align: left; margin-left:7px;"><?= $company['company_gstin']?></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">PHONE NO.:</p></td>
-                                    <td><p style="text-align: left;margin-left:7px;"><?= $company['company_phone_number']?></p></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="text-align: left;padding-left:7px;">TAN NO.:</p></td>
-                                    <td><p style="text-align: left;margin-left:7px;"><?= $company['company_tan_number']?></p></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td style="width: 50%;">
-                            <table style="width: 100%; ">
-                                <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Quotation No.:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= $company['quotation_starting_number'].$quotation['qId'] ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Qutotation Date:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= date('d-m-y') ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($quotation['tax_payable']==1) ? 'yes' : 'No' ?></p></td>
-                                </tr>
-                                <tr>
-                                    <td style="margin-left:10px;padding-left:7px;"><p style="text-align: left;">Place of Supply:</p></td>
-                                    <td style="margin-left:10px;"><p style="text-align: left;margin-right:10px;"><?= $quotation['place_of_supply'] ?></p></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr> -->
+                       
                     <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;border-left: 1px solid #ccc;">
-                        <td style=" width:50%;"><p style="text-align:left;font-weight: bold;";>Cosignee :</p></td>
-                        <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Delivery Address :</p></td>
+                        <td style=" width:50%;padding:1px;padding-bottom:0px;"><p style="text-align:left;font-weight: bold;">Cosignee :</p></td>
+                        <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;">Delivery Address :</p></td>
                     </tr>
                     <tr style="border-top: 1px solid #ccc; width:100%;margin-left:10px;">
                     <td style="width: 50%;">
@@ -73,7 +32,7 @@
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                         <td style="padding-right:3px;"><?= $ship_to_party['customer_city'] ?></td>
                         <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;justify-content:center;">pincode</td>
-                        <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;"><?= $ship_to_party['customer_pincode'] ?></td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;padding:1px;"><?= $ship_to_party['customer_pincode'] ?></td>
                     </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                             <td><?= $ship_to_party['stateName'] ?></td>
@@ -98,15 +57,15 @@
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                         <td><?= $sold_to_party['customer_city'] ?></td>
                         <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;">pincode</td>
-                        <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;"><?= $sold_to_party['customer_pincode'] ?></td>
+                        <td style="border-left: 1px solid #ccc;padding:1px;"><?= $sold_to_party['customer_pincode'] ?></td>
                     </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                             <td><?= $sold_to_party['stateName'] ?></td>
                         </tr>
                         <tr style="">
-                            <!-- <td style="padding-left:7px;">GSTIN/UID:</td> -->
                             <td style="border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;justify-content:center;">State Code</td>
-                        <td style="border-left: 1px solid #ccc;padding:1px;padding:1px;">33</td>                        </tr>
+                            <td style="border-left: 1px solid #ccc;padding:1px;padding:1px;">33</td>                       
+                         </tr>
                         </table>
                         </td>
                     </tr>
@@ -143,7 +102,7 @@
                     <tbody style="border: 1px solid #ccc;">
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <br>
+                   
                    
 
                     <br>
@@ -157,9 +116,9 @@
 
                     <tr><table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                   <br><br>
-                    <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
-                            <th style="border: 1px solid #ccc;padding:4px;"><center>Product</center></th>
-                            <th style="border: 1px solid #ccc;padding:4px;"><center>HSN / SAC CODE</center></th>
+                    <tr style="border: 1px solid #ccc; width:100%;padding:2px;">
+                            <th style="border: 1px solid #ccc;padding:2px;"><center>Product</center></th>
+                            <th style="border: 1px solid #ccc;padding:2px;"><center>HSN / SAC CODE</center></th>
                             <th style="border: 1px solid #ccc;"><center>Grade</center></th>
                             <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>Rate/Unit</center></th>
@@ -172,44 +131,44 @@
                             $total = $amount + $taxAmount;
                        ?>
                        <?php $grossAmount=$amount + $taxAmount; ?>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><?=$salesOrder['product_name'] ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><?=$salesOrder['hsn_name'] ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><?=$salesItems['received_qty'] ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center>₹<?=number_format($salesOrder['price'],2) ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center></center>₹<?= number_format($amount,2)  ?></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><?=$salesOrder['product_name'] ?></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><?=$salesOrder['hsn_name'] ?></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><?=$salesItems['received_qty'] ?></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center>₹<?=number_format($salesOrder['price'],2) ?></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center></center>₹<?= number_format($amount,2)  ?></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><p>CGST 9%</p></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><p>CGST 9%</p></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><p>₹<?= number_format($cgst,2) ?></p></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><p>₹<?= number_format($cgst,2) ?></p></center></td>
                     </tr>
                     <tr>
-                       <td style="border: 1px solid #ccc;padding:4px;"><center><p>SGST 9%</p></center></td>
+                       <td style="border: 1px solid #ccc;padding:2px;"><center><p>SGST 9%</p></center></td>
                        <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><p>₹<?= number_format($cgst,2) ?></p></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><p>₹<?= number_format($cgst,2) ?></p></center></td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center>Round Off</center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center>Round Off</center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><p></p></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><p></p></center></td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #ccc;padding:4px;">
-                        <td style="border-right: 1px solid #ccc;padding:4px;"><center>Total</center></td>
+                    <tr style="border-bottom: 1px solid #ccc;padding:2px;">
+                        <td style="border-right: 1px solid #ccc;padding:2px;"><center>Total</center></td>
                         <td style=''><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
-                        <td style="border: 1px solid #ccc;padding:4px;"><center><p>₹<?= number_format($total,2) ?></p></p></center></td>
+                        <td style="border: 1px solid #ccc;padding:2px;"><center><p>₹<?= number_format($total,2) ?></p></p></center></td>
                     </tr>
                     <tr>
                         <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
@@ -222,9 +181,9 @@
                     <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                       <br>
                 
-                       <br><br><br>
+                      <br>
                         <tr><table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
-                        <tr style="border-top:1px solid #ccc;">
+                        <tr style="border-top:1px solid #ccc;padding:5px;">
                             <th style="border-bottom:1px solid #ccc;">HSN/SAC</th>
                             <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Taxable Value :</th>
                             <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;" colspan="2">Central Tax</th>

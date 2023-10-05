@@ -81,7 +81,15 @@
                         ?>
                         <!-- <a href="<?php echo site_url('SalesOrder/itemsInvoice/'.$id); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light">Convert To Invoice</button></a> -->
                         <br>
-                        <h4 class="card-title mb-3">Sales Order Items</h4>
+                        <?php foreach ($salesOrder as $key => $sales) { 
+                         $po_number =   $sales->po_number;
+                        //  echo $po_number;
+                         } ?>
+                        <div class="row">
+                            <div class="col-md-6"><h4 class="card-title mb-3">Sales List</h4></div>
+                            <div class="col-md-6" style="text-align: right;"><h5>PO Number : <?= $po_number ?></h5></div>
+                        </div>
+                        
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>

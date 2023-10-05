@@ -52,7 +52,7 @@ class SalesOrder extends MY_Controller
         // print_r($view_data['salesOrder']);
         // exit();       
         $data = array(
-            'title' => 'Add Quotation',
+            'title' => 'Sales Invoice List',
             'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),
         );
         $this->load->view('base/base_template', $data);  
@@ -313,7 +313,7 @@ class SalesOrder extends MY_Controller
         // exit();   
 
         $data = array(
-            'title' => 'Sales Order Items',
+            'title' => 'Delivery Challan',
             'content' => $this->load->view('pages/sales_order/delivery_challan', $view_data, true),
         );
         $this->load->view('base/base_template', $data);  
