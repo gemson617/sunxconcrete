@@ -225,12 +225,12 @@
                 <div class="card">
                     <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                  
-                                    <div class="mb-3">
+                                    <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <select class="form-control" name="product" onchange="get_product(this.value)" id="product" required>
-                                            <option value="">--Select Product --</option>
+                                            <option value="">--Select --</option>
                                             <?php foreach($products as $product)
                                             {?>
                                             <option value="<?php echo $product->product_id; ?>"><?php echo $product->product_name; ?>
@@ -243,11 +243,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">HSN Code</label>
-                                        <input type="text" name="hsn" class="form-control" id="hsn" placeholder="Enter Hsn Code" readonly required>
-                                        <input type="text" name="hsn_id" hidden class="form-control" id="hsn_id" placeholder="Enter Hsn Code"  required>
+                                        <input type="text" name="hsn" class="form-control" id="hsn" placeholder=" HSN Code" readonly required>
+                                        <input type="text" name="hsn_id" hidden class="form-control" id="hsn_id" placeholder=" HSN Code"  required>
                                 <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -256,11 +256,11 @@
                                         </div>
                                     </div>
                                 </div>                                
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
-                                        <input type="text" name="uom" readonly class="form-control" id="uom" placeholder="Enter UOM" value="" required>
-                                        <input type="text" name="uom_id" hidden class="form-control" id="uom_id" placeholder="Enter UOM" value="" required>
+                                        <input type="text" name="uom" readonly class="form-control" id="uom" placeholder=" UOM" value="" required>
+                                        <input type="text" name="uom_id" hidden class="form-control" id="uom_id" placeholder=" UOM" value="" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -269,10 +269,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quantity</label>
-                                        <input type="number" step="0.01" name="qty" class="form-control qty"  id="qty" placeholder="Enter Quantity"  required>
+                                        <input type="number" step="0.01" name="qty" class="form-control qty"  id="qty" placeholder=" Quantity"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -281,10 +281,10 @@
                                         </div>
                                     </div>
                                 </div>                                
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price" class="form-control price" readonly id="price" placeholder="Enter Price"  required>
+                                        <input type="text" name="price" class="form-control price" readonly id="price" placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -293,10 +293,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount" class="form-control amount" readonly id="amount" placeholder="Enter the amount"  required>
+                                        <input type="text" name="amount" class="form-control amount" readonly id="amount" placeholder="Amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -309,26 +309,33 @@
 
 
                                 <div class="row row_spc">
-                            <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;"> SUB TOTAL :  </div>
+                            <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;">  Taxable Value of Supply of Goods :  </div>
                                 <div class="col-md-3"  >
                                     <input type="text" readonly class="form-control sub_total mb-2" id="sub_total" name="sub_total">
                                 </div>
                         </div>
                         <div class="row row_spc">
-                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;"> CGST :   </div>
+                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;"> CGST 9%:   </div>
                                 <div class="col-md-3">
                                     <input type="text" readonly class="form-control mb-2" id="cgst" name="cgst">
                                 </div>
                         </div>
                         <div class="row row_spc">
-                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;">SGST :   </div>
+                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;">SGST 9%:   </div>
                             <div class="col-md-3">
                                 <input type="text" readonly class="form-control mb-2" id="sgst" name="sgst">
                             </div>
                         </div>
+
+                        <div class="row row_spc">
+                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;">IGST 18%:   </div>
+                            <div class="col-md-3">
+                                <input type="text" readonly class="form-control mb-2" id="igst" name="igst">
+                            </div>
+                        </div>
                         
                         <div class="row row_spc">
-                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;">TOTAL TAX :  </div>
+                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;"> TAX TOTAL:  </div>
                             <div class="col-md-3"> 
                                 <input type="text" readonly class="form-control mb-2" id="total_tax" name="total_tax">
                             </div>
@@ -340,7 +347,7 @@
                             </div>
                         </div>
                         <div class="row row_spc">
-                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;">GRAND TOTAL :   </div>
+                        <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;"> TOTAL Invoice Value :   </div>
                                 <div class="col-md-3">
                                     <input type="text" readonly class="form-control mb-2" id="g_total" name="g_total">
                                 </div>
