@@ -164,7 +164,7 @@
             </div>
 </div>
 
-<div class="row">
+        <!-- <div class="row">
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
@@ -202,7 +202,7 @@
                              </div>
                                 <div class="col-md-4">
                                  
-                                 <!-- <div class="mb-3">
+                                 <div class="mb-3">
                                      <label for="validationCustom01" class="form-label">PO Number</label>
                                      <input type="text" name="po_no" class="form-control"  id="po_no" placeholder="Enter the PO Number"  required>
                                     <div class="valid-feedback">
@@ -211,13 +211,13 @@
                                      <div class="invalid-feedback">
                                      Place of supply Required.
                                      </div>
-                                 </div> -->
+                                 </div>
                              </div>
                             </div>
                         </div>
                 </div>
             </div>
-</div>
+        </div> -->
 
 
         <div class="row">
@@ -225,8 +225,7 @@
                 <div class="card">
                     <div class="card-body">
                             <div class="row">
-                                <div class="col-md-2">
-                                 
+                                <div class="col-md-2">                                 
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <select class="form-control" name="product" onchange="get_product(this.value)" id="product" required>
@@ -235,7 +234,8 @@
                                             {?>
                                             <option value="<?php echo $product->product_id; ?>"><?php echo $product->product_name; ?>
                                             <?php }?>
-                                        </select>                                          <div class="valid-feedback">
+                                        </select>                                          
+                                        <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
@@ -245,7 +245,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-3">
-                                        <label for="validationCustom01" class="form-label">HSN Code</label>
+                                        <label for="validationCustom01" class="form-label">HSN</label>
                                         <input type="text" name="hsn" class="form-control" id="hsn" placeholder=" HSN Code" readonly required>
                                         <input type="text" name="hsn_id" hidden class="form-control" id="hsn_id" placeholder=" HSN Code"  required>
                                 <div class="valid-feedback">
@@ -256,7 +256,7 @@
                                         </div>
                                     </div>
                                 </div>                                
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
                                         <input type="text" name="uom" readonly class="form-control" id="uom" placeholder=" UOM" value="" required>
@@ -269,10 +269,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2" style="width: 12%;"> 
                                     <div class="mb-3">
-                                        <label for="validationCustom01" class="form-label">Quantity</label>
-                                        <input type="number" step="0.01" name="qty" class="form-control qty"  id="qty" placeholder=" Quantity"  required>
+                                        <label for="validationCustom01" class="form-label">Qty</label>
+                                        <input type="number" step="0.01" name="qty" class="form-control qty"  id="qty" placeholder=" Qty"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -284,7 +284,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price" class="form-control price" readonly id="price" placeholder=" Price"  required>
+                                        <input type="text" name="price" class="form-control price"  id="price" placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -305,6 +305,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-1 mt-3" id="adremovebuttons"><br>
+                                    <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
+                                </div>
+                            </div>
 
 
 
@@ -360,11 +364,10 @@
                                 <button class="btn btn-primary" type="submit" value="submit" name="submit">Submit</button>
                                 <a href="#"><button onclick="window.location.reload()" class="btn btn-warning" type="button">Cancel</button></a>
                             </div>
-                        </form>
-                    </div>
-                </div>
+                        </form>                    
                 <!-- end card -->
-            </div> <!-- end col -->
+            </div> 
+            <!-- end col -->
         </div>
         <!-- end row -->
     </div>
