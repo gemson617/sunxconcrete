@@ -106,11 +106,12 @@ class Quotation extends MY_Controller
     }
 
     public function view(){
-        $this->db->select('*,q.status as qStatus');
+        $this->db->select('*,q.status as qStatus,q.created_on as created');
         $this->db->from('quotation as q'); 
         $this->db->join('product as p','p.product_id = q.product_id','left'); 
         $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
         $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
         $this->db->order_by('q.id','DESC');       
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
