@@ -14,6 +14,9 @@ class Dashboard extends MY_Controller
         			
                 //     redirect('/logout');
                 // }
+				if($this->auth_level!=9){
+					redirect('/logout');
+				}
 	}
 	public function index()
 	{

@@ -87,7 +87,7 @@
                          } ?>
                         <div class="row">
                             <div class="col-md-6"><h4 class="card-title mb-3">Sales List</h4></div>
-                            <div class="col-md-6" style="text-align: right;"><h5>PO Number : <?= $po_number ?></h5></div>
+                            <div class="col-md-6" style="text-align: right;"><h6>PO.Number : <?= $po_number ?></h6></div>
                         </div>
                         
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

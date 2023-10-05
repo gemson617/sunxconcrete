@@ -7,7 +7,10 @@ class Invoice extends MY_Controller
     {
         parent::__construct();
         $this->is_logged_in();
-       
+        
+        if($this->auth_level!=9){
+            redirect('/logout');
+        }
     }
     public function index()
     {

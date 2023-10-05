@@ -9,9 +9,9 @@ class Customer extends MY_Controller
         $this->is_logged_in();
 
         $this->load->model('authentication_model');
-        // if ($this->auth_level != 9) {
-        //     redirect('/logout');
-        // }
+            if ($this->auth_level != 9) {
+                redirect('/logout');
+            }
     }
     public function index()
     {

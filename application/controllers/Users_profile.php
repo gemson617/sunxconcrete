@@ -7,9 +7,9 @@ class Users_profile extends MY_Controller
     {
         parent::__construct();
         $this->is_logged_in();
-        // if($this->auth_level!=9){
-        //     redirect('/logout');
-        // }
+        if($this->auth_level!=9){
+            redirect('/logout');
+        }
     }
     public function index()
     {
@@ -71,8 +71,10 @@ class Users_profile extends MY_Controller
 	}
     public function edit($id)
     {
+       
         if (isset($_POST['submit'])) {
             //Receive Values
+            
             $email = $this->input->post('email');
             $contact_number = $this->input->post('contact_number');            
             $password = $this->input->post('password');
@@ -80,6 +82,7 @@ class Users_profile extends MY_Controller
             $first_name = $this->input->post('first_name');
             $last_name = $this->input->post('last_name');
             $address = $this->input->post('address');
+            
             if ($password) {
                 $user_array = array(
                     "username" => $email,
@@ -90,6 +93,7 @@ class Users_profile extends MY_Controller
                     "last_name" => $last_name,
                     "address" => $address,  
                 );
+              
                 $update_pass = $this->mcommon->common_edit('users', $user_array, array('user_id' => $id));
                 if ($update_pass) {
                     $this->session->set_flashdata('alert_success', 'Users updated successfully!');
@@ -97,6 +101,8 @@ class Users_profile extends MY_Controller
                 } else {
                     $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
                 }
+                print_r($user_array);
+                exit();
             }
             else{
                      //prepare update array
