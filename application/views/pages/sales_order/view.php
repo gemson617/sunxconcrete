@@ -98,7 +98,7 @@
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->hsn_name; ?></td>
                                         <td><?php echo $sales->total_quantity; ?></td>
-                                        <td><?php echo $sales->available_quantity; ?></td>
+                                        <td><?php echo $sales->received_qty; ?></td>
                                         <!-- <td><?php echo $sales->received_qty; ?></td> -->
                                         <td><?php echo $sales->uom; ?></td>
                                         <td><?php echo $sales->grand_total; ?></td>
@@ -122,7 +122,10 @@
                                 </td> -->
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
-                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button>
+                                            <?php if ($sales->salesStatus != 3)
+                                            { ?>
+                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button><br>
+                                            <?php } ?>
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
                                             <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
                                         </td>                                     

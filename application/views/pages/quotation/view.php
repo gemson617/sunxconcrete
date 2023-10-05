@@ -75,10 +75,10 @@
                                 <th scope="col">S.no</th>
                                 <th scope="col">Q.no</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Customer</th>
                                    
-                                    <th scope="col">HSN code</th>
-                                    <th scope="col">Quantity</th>
+                                    <th scope="col">HSN</th>
+                                    <th scope="col">Qty</th>
                                     <th scope="col">UOM</th>
                                     <th scope="col">Total Amount</th>
                                     <th scope="col">To Sale</th>
@@ -87,12 +87,19 @@
                             </thead>
 
                             <tbody style="text-align:center;">
-                                <?php foreach ($quotations as $key => $q) { ?>
+                                <?php foreach ($quotations as $key => $q) { 
+                                    $date = $q->created;
+                                    $dateObj = new DateTime($date);
+                                    $date2 = $dateObj->format("d-m-y");
+                                    // $date2 =  date_format($q->created,"d-m-y");
+                                    // echo $date2;
+?>
+                                    
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $q->product_name; ?></td>
-                                        <td><?php echo $q->product_name; ?></td>
-                                        <td><?php echo $q->product_name; ?></td>
+                                        <td><?php echo $date2; ?></td>
+                                        <td><?php echo $q->company_name; ?></td>
                                         <td><?php echo $q->hsn_name; ?></td>
                                         <td><?php echo $q->quantity; ?></td>
                                         <td><?php echo $q->uom; ?></td>
@@ -126,10 +133,17 @@
                                             </a> -->
                                 </td>
                                         <td>
-                                            <!-- <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a> -->
-                                            <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
-                                            <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-                                            <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
+                                            <table>
+                                                <tr>
+                                                    <td><a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a></td>
+                                                    <td> <?php if ($q->qStatus != 3)
+                                                            { ?>
+                                                            <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
+                                                            <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
+                                                            <?php } ?>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                            
                                             
                                             <!-- <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->product_id; ?>);"><i class="bx bx-check"></i></button>

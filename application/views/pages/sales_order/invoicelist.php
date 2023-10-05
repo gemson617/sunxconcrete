@@ -75,13 +75,13 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Company Name</th>
-                                    <th scope="col">HSN code</th>
-                                    <th scope="col">Total Quantity</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">HSN</th>
+                                    <th scope="col">Total Qty</th>
                                     <th scope="col">UOM</th>
                                     <th scope="col">Total Amount</th>
-                                    <th scope="col">Action</th>
+                                    <!-- <th scope="col">Action</th> -->
                                 </tr>
                             </thead>
 
@@ -99,8 +99,7 @@
                                         <td><?php echo $sales->grand_total; ?></td>
                                         
                                         <td>                                            
-                                            <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
-                                            <a href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a>
+                                            <!-- <a href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
                                         </td>
                                      
                                     </tr>
