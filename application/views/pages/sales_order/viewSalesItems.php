@@ -120,7 +120,6 @@
                                         <!-- <td><?php echo $sales->availableQuantity; ?></td> -->
                                         <td><?php echo $sales->uom; ?></td>
                                         <td><?php echo $sales->tottalamt; ?></td>
-
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
