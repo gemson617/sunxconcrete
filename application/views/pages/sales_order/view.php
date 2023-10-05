@@ -76,15 +76,15 @@
                                 <tr>
                                     <th scope="col">S.no</th>
                                     <th scope="col">PO.No</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Company Name</th>
-                                    <th scope="col">HSN code</th>
-                                    <th scope="col">Total Quantity</th>
-                                    <th scope="col">Available Quantity</th>
-                                    <th scope="col">Received Quantity</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">HSN </th>
+                                    <th scope="col"> Qty</th>
+                                    <th scope="col">Invoiced Qty</th>
+                                    <!-- <th scope="col">Received Quantity</th> -->
                                     <th scope="col">UOM</th>
                                     <th scope="col">Total Amount</th>
-                                    <th scope="col">Status</th>
+                                    <!-- <th scope="col">Status</th> -->
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -99,10 +99,10 @@
                                         <td><?php echo $sales->hsn_name; ?></td>
                                         <td><?php echo $sales->total_quantity; ?></td>
                                         <td><?php echo $sales->available_quantity; ?></td>
-                                        <td><?php echo $sales->received_qty; ?></td>
+                                        <!-- <td><?php echo $sales->received_qty; ?></td> -->
                                         <td><?php echo $sales->uom; ?></td>
                                         <td><?php echo $sales->grand_total; ?></td>
-                                        <td><a href="#" class="badge <?php if ($sales->salesStatus == 1)
+                                        <!-- <td><a href="#" class="badge <?php if ($sales->salesStatus == 1)
                                          {
                                                 echo "approved-btn";
                                             } else if ($sales->salesStatus == 2){
@@ -119,10 +119,10 @@
                                             }  else if ($sales->salesStatus == 3){
                                                 echo "Completed";
                                             }  ?></a>
-                                </td>
+                                </td> -->
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
-                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">Sale </button>
+                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button>
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
                                             <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
                                         </td>                                     

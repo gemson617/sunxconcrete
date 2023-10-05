@@ -72,8 +72,11 @@
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th scope="col">S.no</th>
-                                    <th scope="col">Product Name</th>
+                                <th scope="col">S.no</th>
+                                <th scope="col">Q.no</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Customer Name</th>
+                                   
                                     <th scope="col">HSN code</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">UOM</th>
@@ -88,6 +91,8 @@
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $q->product_name; ?></td>
+                                        <td><?php echo $q->product_name; ?></td>
+                                        <td><?php echo $q->product_name; ?></td>
                                         <td><?php echo $q->hsn_name; ?></td>
                                         <td><?php echo $q->quantity; ?></td>
                                         <td><?php echo $q->uom; ?></td>
@@ -96,7 +101,7 @@
                                 </td> -->
                                 <td>
                                 <?php if ($q->qStatus == 1){ ?>
-                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal">To Sale </button>
+                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal"> -> Sale Order </button>
                                         <?php  }else{ ?>
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                         <?php  }  ?>
