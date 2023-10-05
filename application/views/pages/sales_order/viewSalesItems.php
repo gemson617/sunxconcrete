@@ -38,7 +38,7 @@
     <div class="row">
                     <div class="col-lg-10"> </div>
                     <div class="col-lg-2">
-               <a href="<?php echo site_url('SalesOrder/view/' . $sales->id); ?>" ><button  type="button"    class="btn btn-success waves-effect waves-light mt-1 mb-3">Back</button></a>
+               <!-- <a href="<?php echo site_url('SalesOrder/view/' . $sales->id); ?>" ><button  type="button"    class="btn btn-success waves-effect waves-light mt-1 mb-3">Back</button></a> -->
                    
                 </div>
             </div>
@@ -87,16 +87,16 @@
                          } ?>
                         <div class="row">
                             <div class="col-md-6"><h4 class="card-title mb-3">Sales List</h4></div>
-                            <div class="col-md-6" style="text-align: right;"><h6>PO.Number : <?= $po_number ?></h6></div>
+                            <!-- <div class="col-md-6" style="text-align: right;"><h6>PO.Number : <?= $po_number ?></h6></div> -->
                         </div>
                         
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
-                                    <th scope="col">Product Name</th>
-                                    <th scope="col">Company Name</th>
-                                    <th scope="col">HSN code</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">HSN</th>
                                     <!-- <th scope="col">Total Quantity</th>
                                     <th scope="col">Quantity Before Sales</th> -->
                                     <th scope="col">Received Quantity</th>

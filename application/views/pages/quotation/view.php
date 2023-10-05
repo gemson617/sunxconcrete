@@ -133,13 +133,18 @@
                                             </a> -->
                                 </td>
                                         <td>
-                                            <!-- <a href="<?php echo site_url('Quotation/accept/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light">Accept</button></a> -->
-                                            <a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a>
-                                            <?php if ($q->qStatus != 3)
-                                            { ?>
-                                            <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-                                            <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
-                                           <?php } ?>
+                                            <table>
+                                                <tr>
+                                                    <td><a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a></td>
+                                                    <td> <?php if ($q->qStatus != 3)
+                                                            { ?>
+                                                            <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
+                                                            <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
+                                                            <?php } ?>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                           
                                             
                                             <!-- <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->product_id; ?>);"><i class="bx bx-check"></i></button>
                                             <button type="button" class="btn btn-sm btn-danger waves-effect waves-light" id="sa-success" onclick="delete_item(<?php echo $d->product_id; ?>);"><i class="bx bx-trash"></i></button> -->

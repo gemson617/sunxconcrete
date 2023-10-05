@@ -74,7 +74,10 @@ class Users_profile extends MY_Controller
        
         if (isset($_POST['submit'])) {
             //Receive Values
-            
+      
+         print_r($_POST);
+        die();
+
             $email = $this->input->post('email');
             $contact_number = $this->input->post('contact_number');            
             $password = $this->input->post('password');

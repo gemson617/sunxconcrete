@@ -114,7 +114,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo site_url('users_profile/edit/'.$default['user_id']); ?>" method="post" class="needs-validation" novalidate>
+                        <form id="myForm" action="<?php echo site_url('users_profile/edit/'.$default['user_id']); ?>" method="post" class="needs-validation" novalidate>
                             <div class="row">
                             <div class="col-md-6">
                                     <div class="mb-3">
@@ -227,7 +227,7 @@
                                                     
                             </div>
                             <div>
-                                <button class="btn btn-primary" type="submit" value="submit" name="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit" id="submitButton" value="submit" name="submit">Submit</button>
                                 <a href="<?php echo site_url('users_profile'); ?>"><button class="btn btn-warning" type="button">Back</button></a>
                             </div>
                         </form>
@@ -247,7 +247,8 @@
                 var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
                 var enoughRegex = new RegExp("(?=.{6,}).*", "g");
                 if (false === enoughRegex.test($(this).val())) {
-                    $('#passstrength').html('More Characters').css('color', 'red');
+                    $('#passstrength').html('More Characters needed').css('color', 'red');
+                    // $('#submitButton').prop('disabled', true);
                 } else if (strongRegex.test($(this).val())) {
                     $('#passstrength').className = 'ok';
                     $('#passstrength').html('Strong!').css('color', 'green');
@@ -265,9 +266,21 @@
                 } else if (mediumRegex.test($(this).val())) {
                     $('#passstrength').className = 'alert';
                     $('#passstrength').html('Medium!').css('color', 'red');
+                    $('#submitButton').prop('disabled', false);
+
                 } else {
                     $('#passstrength').className = 'error';
                     $('#passstrength').html('Weak!').css('color', 'red');
+                    // alert('hii');
+                        // $('#myForm').submit(function(event) {
+                        //     event.preventDefault();
+                        //    ('#submitButton') .addEventListener('click', function () {
+                        //     $('#passstrength').html('Very Weak to submit!').css('color', 'red');
+                        //     });
+                        // });
+
+                    // $('#submitButton').prop('disabled', true);
+                    //************************************************** */
                 }
                 return true;
             });

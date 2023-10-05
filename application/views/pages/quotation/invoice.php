@@ -95,7 +95,7 @@
                     <tr>
                     <table style="width: 100%; border-collapse: collapse; margin-top:-18px; ">
  
-                    `<thead style="width:100%;">
+                    <thead style="width:100%;">
                         <tr style="border: 1px solid #ccc; width:100%;">
                             <th style="border: 1px solid #ccc;"><center>Description of Goods</center></th>
                             <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
@@ -108,7 +108,7 @@
                     <tbody style="border: 1px solid #ccc;">
                        
                             <tr style="border: 1px solid #ccc;" >
-                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;"><?= $quotation['product_name'] ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;"><?= $quotation['product_name'] ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['hsn_name'] ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['quantity'] ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['uom'] ?></td>
@@ -118,7 +118,7 @@
 
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="7" colspan="4">
+                    <td rowspan="6" colspan="1">
                         <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
                         <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
                         <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
@@ -151,16 +151,17 @@
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
                         </tr>
                     </tfoot>
-                    </table>`
+                    </table>
                     </tr>
+                    <br>
                     <tr >
                     <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                         <tr>
-                        <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
+                        <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:5px;" id="">Qutotation Value in Words: </td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
                         <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($quotation['grand_total'],2) ?></span> </td></H6>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                         <td style="border-bottom:1px solid #ccc;">Mode of Transport:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LR/RR No.:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Eway Bill No.:</td>
@@ -179,9 +180,9 @@
                         <td style="border-bottom:1px solid #ccc">Vehicle Reg No.:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">KM:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LUT:</td>
-                        </tr>
+                        </tr> -->
                         <tr >
-                            <td style="border-bottom:1px solid #ccc" colspan="3">Remarks:</td>
+                            <td style="border-bottom:1px solid #ccc;padding-left:5px;" colspan="3">Remarks:</td>
                         </tr>
                         <tr >
                             <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">
