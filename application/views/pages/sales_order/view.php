@@ -124,7 +124,8 @@
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <?php if ($sales->salesStatus != 3)
                                             { ?>
-                                            <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button><br>
+                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
+                                            <!-- <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button><br> -->
                                             <?php } ?>
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
                                             <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
@@ -159,7 +160,7 @@
 
                     <div class="form-group ">
                         <label for="plant_id">Product</label>
-                        <select class="form-control" name="plant_id"  id="plant_id" required>
+                        <select class="form-control" name="product_id"  id="product" required>
                                                 <option value="">--Select Product --</option>   
                                                 <?php foreach ($product as $key => $pro) { ?>                                              
                                                 <option value="<?=$pro->pm_id?>"><?= $pro->plant_master_name ?></option>
@@ -221,25 +222,53 @@
 
 
 
-    $(document).ready(function () {
+//     $(document).ready(function () {
   
-    $(".delete-category").click(function () {
-        var id = $(this).data('id');
-        var qty = $(this).val();
-        var valid = parseFloat(qty);
+//     $(".delete-category").click(function () {
+     
+//         var id = $(this).data('id');
+//         var qty = $(this).val();
+//         var valid = parseFloat(qty);
+//         $("#qty").attr("max", valid);
 
-        $("#qty").attr("max", valid);
-        var form = document.getElementById("myForm");
+//         $.ajax({
+//             url: "<?php echo site_url() ?>SalesOrder/getProducts/",
+//             method: "POST",
+//             type: "ajax",
+//             data: {
+//                 sales_order_id: id
+//             },
+            
+//             success: function(result) {
+//                 var data = JSON.parse(result);
+//                 console.log(data);
+//                 $('#product')
+//                     .find('option')
+//                     .remove();
+//                 $.each(data, function(key, value) {
+//                     var option = '<option value="' + value.product_id + '">' + value.product_name +
+//                         '</option>';
+//                     $('#product').append(option);
+//                 });
+//             },
+//             error: function(error) {
+//                 console.log(error);
+//             }
+//         });
 
-        var prefix = "<?php echo site_url('SalesOrder/view/'); ?>"; 
-        var sufix = id;
-        var newAction = prefix + sufix;
-        // alert(newAction);
-        form.setAttribute("action", newAction);
-    //   var quantity = $("#qty").val();
-    //    alert(quantity);
+
+
+//         var form = document.getElementById("myForm");
+
+//         var prefix = "<?php echo site_url('SalesOrder/getQuantity/'); ?>"; 
+//         var sufix = id;
+//         var newAction = prefix + sufix;
+//         // alert(newAction);
+//         form.setAttribute("action", newAction);
+//     //   var quantity = $("#qty").val();
+//     //    alert(quantity);
     
-  });
-    });
+//   });
+//     });
 
 </script>
