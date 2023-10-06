@@ -236,35 +236,38 @@
                     <div class="card-body">
                         <div class="max rtl-bc" >
                             <div id="addProduct" class="">
+                                <?php foreach($quotations as $key => $q)
+                                {?>
                             <div class="row field0">
                                 <div class="col-md-2 count1">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Product</label>
-                                        <select class="form-control" name="product[]" onchange="get_product(this.value)" id="product0" required>
-                                            <option value="">--Select Product --</option>
+                                        <select class="form-control" name="product[]" onchange="get_product(this.value, $key)" id="product<?= $key?>" required>
+                                            <option value="">--Select --</option>
                                             <?php foreach($products as $product)
                                             {?>
-                                            <option value="<?php echo $product->product_id; ?>" <?= ($quotation['product_id'] == $product->product_id) ? 'selected' : '' ?>><?php echo $product->product_name; ?>
+                                            <option value="<?php echo $product->product_id; ?>" <?= ($q->product_id == $product->product_id) ? 'selected' : '' ?>><?php echo $product->product_name; ?>
                                             <?php }?>
-                                        </select>                                          <div class="valid-feedback">
+                                        </select>
+                                        <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
                                         Product Name Required.
                                         </div>
                                     </div>
-                                </div>
-                                            <input type="text" name="primary_id[]" hidden class="form-control" id="primary_id0" value="<?= $quotation['id']?>">
+                                            <input type="text" name="primary_id[]" hidden class="form-control" id="primary_id<?= $key?>" value="<?= $quotation['id']?>">
                                             <div id="removefield">
                                             </div>
+                                </div>
+                                           
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">HSN Code</label>
-                                        <?php foreach($quotations as $q)
-                                            {?>
-                                        <input type="text" name="hsn[]" class="form-control" value="<?= $q->hsn_name ?>" id="hsn0" placeholder=" Hsn " readonly required>
-                                        <?php }?>
-                                        <input type="text" name="hsn_id[]" hidden class="form-control" id="hsn_id0" value=" <?= $quotation['hsn_id']?>" placeholder=" Hsn "  required>
+                                        
+                                        <input type="text" name="hsn[]" class="form-control" value="<?= $q->hsn_name ?>" id="hsn<?= $key?>" placeholder=" Hsn " readonly required>
+                                        
+                                        <input type="text" name="hsn_id[]" hidden class="form-control" id="hsn_id<?= $key?>" value=" <?= $quotation['hsn_id']?>" placeholder=" Hsn "  required>
                                 <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -276,11 +279,8 @@
                                 <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
-                                        <?php foreach($quotations as $q)
-                                            {?>
-                                        <input type="text" name="uom[]" readonly class="form-control" id="uom0" placeholder="UOM" value="<?= $q->uom ?>" required>
-                                        <?php }?>
-                                        <input type="text" name="uom_id[]" hidden class="form-control" id="uom_id0" placeholder="UOM" value="<?= $quotation['uom_id']?>" required>
+                                        <input type="text" name="uom[]" readonly class="form-control" id="uom<?= $key?>" placeholder="UOM" value="<?= $q->uom ?>" required>
+                                        <input type="text" name="uom_id[]" hidden class="form-control" id="uom_id<?= $key?>" placeholder="UOM" value="<?= $quotation['uom_id']?>" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -292,7 +292,7 @@
                                 <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quantity</label>
-                                        <input type="text" name="qty[]" value="<?= $quotation['quantity'] ?>" class="form-control qty"  id="qty0" oninput="get_qty(this.value, 0)" placeholder=" Qty"  required>
+                                        <input type="text" name="qty[]" value="<?= $quotation['quantity'] ?>" class="form-control qty"  id="qty<?= $key?>" oninput="get_qty(this.value, 0)" placeholder=" Qty"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -304,7 +304,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" value="<?= $quotation['price'] ?>" class="form-control price"  id="price0" placeholder=" Price"  required>
+                                        <input type="text" name="price[]" value="<?= $quotation['price'] ?>" class="form-control price"  id="price<?= $key?>" placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -316,7 +316,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount[]" value="<?= $quotation['amount'] ?>" class="form-control amount" readonly id="amount0" oninput="get_amount(this.value, 0)" placeholder="amount"  required>
+                                        <input type="text" name="amount[]" value="<?= $quotation['amount'] ?>" class="form-control amount" readonly id="amount<?= $key?>" oninput="get_amount(this.value, 0)" placeholder="amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -327,6 +327,7 @@
                                 </div>                                
                                     <div class="col-md-1" style="width:4.333333%"><i class="fa fa-trash mt-5" onclick="removediv('+no+')" id="remove'+no+'" style="font-size:22px;color:red"></i></div>
                             </div>
+                            <?php }?>
                         </div>
                         <div class="col-md-1 mt-3" id="adremovebuttons"><br>
                             <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
@@ -409,9 +410,9 @@
             data: {
                 product_id: product_id
             },
-            success: function(result) {
+            success: function(result) {                
                 var data = JSON.parse(result);
-                // alert(data.uom);
+                alert(data.uom);
                 console.log(data);    
                 $('#hsn'+no).val(data.hsn_name);
                 $('#uom'+no).val(data.uom);

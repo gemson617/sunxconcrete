@@ -426,13 +426,18 @@ class Quotation extends MY_Controller
             // $this->db->where('id', $id);
             //  $result = $this->db->get();
             //  return $result->result();
-  
+            
+                    // qSub.id as qSubId,
+                    // qsub.quantity as subQty,
+                    // qsub.price as subPrice,
+                    // qsub.amount as subAmount,
+      
 
         $this->db->select('*,
-                    qSub.id as qSubId,
-                    qsub.quantity as subQty,
-                    qsub.price as subPrice,
-                    qsub.amount as subAmount,');
+                            qSub.id as qSubId,
+                            qSub.quantity as subQty,
+                            qSub.price as subPrice,
+                            qSub.amount as subAmount,');
         $this->db->from('quotation_sub as qSub'); 
         $this->db->where('qSub.quotation_id', $id); 
         $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
