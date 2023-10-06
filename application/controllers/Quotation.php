@@ -412,18 +412,18 @@ class Quotation extends MY_Controller
             //  return $result->result();
   
 
-        $this->db->select('*,q.status as qStatus,
+        $this->db->select('*,
                     qSub.id as qSubId,
                     qsub.quantity as subQty,
                     qsub.price as subPrice,
                     qsub.amount as subAmount,');
         $this->db->from('quotation_sub as qSub'); 
         $this->db->where('qSub.quotation_id', $id); 
-        $this->db->join('quotation as q','qSub.quotation_id = q.id','left'); 
+        // $this->db->join('quotation as q','qSub.quotation_id = q.id','left'); 
         $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
         $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
         $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
-        $this->db->order_by('q.id','DESC');       
+        // $this->db->order_by('q.id','DESC');       
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
         
