@@ -95,27 +95,27 @@
                     <tr>
                     <table style="width: 100%; border-collapse: collapse; margin-top:-18px; ">
  
-                    <thead style="width:100%;">
+                    <thead style="width:100%;"><br>
                         <tr style="border: 1px solid #ccc; width:100%;">
-                            <th style="border: 1px solid #ccc;"><center>Description of Goods</center></th>
+                            <th style="border: 1px solid #ccc;padding:5px;"><center>Description of Goods</center></th>
                             <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>UOM</center></th>
+                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>Price</center></th>
                             <th style="border: 1px solid #ccc;"><center>Amount</center></th>
                         </tr>
                     </thead>
                     <tbody style="border: 1px solid #ccc;">
-                       
+                       <?php foreach($quotation_sub as $q){ ?>
                             <tr style="border: 1px solid #ccc;" >
-                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;"><?= $quotation['product_name'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['hsn_name'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['quantity'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $quotation['uom'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $quotation['price'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $quotation['amount'] ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;"><?= $q->product_name ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->hsn_name ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->uom ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->subQty ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $q->subPrice ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $q->subAmount ?></td>
                             </tr>
-
+                        <?php } ?>
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
                     <td rowspan="6" colspan="1">

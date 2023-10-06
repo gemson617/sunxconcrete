@@ -16,13 +16,14 @@ class Quotation extends MY_Controller
     {
         if (isset($_POST['submit'])) {
             
-            echo "<pre>";
-            print_r($_POST);
-            exit();   
+            // echo "<pre>";
+            // print_r($_POST);
+            // exit();   
 
             $user_id =$this->auth_user_id; 
             $sold_to_party = $this->input->post('sold_to');    
             $ship_to_party = $this->input->post('ship_to');  
+            $remarks = $this->input->post('remarks');  
             $cgst = $this->input->post('cgst');    
             $sgst = $this->input->post('sgst');    
             $total_tax = $this->input->post('total_tax');    
@@ -52,6 +53,7 @@ class Quotation extends MY_Controller
                 'grand_total' => $g_total,    
                 'sold_to_party' => $sold_to_party,    
                 'ship_to_party' => $ship_to_party,               
+                'remarks' => $remarks,               
                
                 'created_on' => date('Y-m-d'),
             );
@@ -303,18 +305,34 @@ class Quotation extends MY_Controller
 
   
     public function quotationInvoice($id){
+       
         $this->db->select('*,
-        q.status as qStatus,
-        q.id as qId');
+                        q.status as qStatus,
+                        q.id as qId');
         $this->db->from('quotation as q'); 
         $this->db->where('q.id',$id); 
-        $this->db->join('product as p','p.product_id = q.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
-        // $this->db->join('states as s', 's.id = c.customer_state','left'); 
         $this->db->order_by('q.id','DESC');       
         $view_data['quotation'] = $this->db->get()->row_array();
         
+
+        $this->db->select('*,
+        qSub.id as qSubId,
+        qsub.quantity as subQty,
+        qsub.price as subPrice,
+        qsub.amount as subAmount,');
+        $this->db->from('quotation_sub as qSub'); 
+        $this->db->where('qSub.quotation_id', $id); 
+        $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
+        $this->db->order_by('qSub.id','DESC');     
+        $result = $this->db->get();
+        $view_data['quotation_sub'] = $result->result();
+
+
+        // echo "<pre>";
+        //     print_r($view_data['quotation_sub']);
+        //     exit(); 
 
         $this->db->select('*,s.name as stateName');
         $this->db->from('quotation as q'); 
@@ -331,9 +349,6 @@ class Quotation extends MY_Controller
         $view_data['ship_to_party'] = $this->db->get()->row_array();
         $view_data['company'] = $this->mcommon->specific_row('em_companies', array('id' => 1));
 
-        // echo "<pre>";
-        //     print_r($view_data['company']['company_name']);
-        //     exit(); 
         $data = array(
             'title' => 'Quotation',
             'content' => $this->load->view('pages/quotation/invoice', $view_data, true),
@@ -341,9 +356,10 @@ class Quotation extends MY_Controller
         $this->load->view('base/base_template', $data);   
     }
 
+
+
     public function edit($id){
-        
-    
+
         if (isset($_POST['submit'])) {
 
             $product = $this->input->post('product');    
@@ -419,11 +435,10 @@ class Quotation extends MY_Controller
                     qsub.amount as subAmount,');
         $this->db->from('quotation_sub as qSub'); 
         $this->db->where('qSub.quotation_id', $id); 
-        // $this->db->join('quotation as q','qSub.quotation_id = q.id','left'); 
         $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
         $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
         $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
-        // $this->db->order_by('q.id','DESC');       
+        $this->db->order_by('qSub.id','DESC');       
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
         
