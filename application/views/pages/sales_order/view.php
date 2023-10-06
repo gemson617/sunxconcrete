@@ -76,13 +76,13 @@
                                 <tr>
                                     <th scope="col">S.no</th>
                                     <th scope="col">PO.No</th>
-                                    <th scope="col">Product</th>
+                                    <!-- <th scope="col">Product</th> -->
                                     <th scope="col">Company</th>
-                                    <th scope="col">HSN </th>
+                                    <!-- <th scope="col">HSN </th> -->
                                     <th scope="col"> Qty</th>
-                                    <th scope="col">Invoiced Qty</th>
+                                    <!-- <th scope="col">Invoiced Qty</th> -->
                                     <!-- <th scope="col">Received Quantity</th> -->
-                                    <th scope="col">UOM</th>
+                                    <!-- <th scope="col">UOM</th> -->
                                     <th scope="col">Total Amount</th>
                                     <!-- <th scope="col">Status</th> -->
                                     <th scope="col">Action</th>
@@ -94,13 +94,13 @@
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $sales->po_number; ?></td>
-                                        <td><?php echo $sales->product_name; ?></td>
+                                        <!-- <td><?php echo $sales->product_name; ?></td> -->
                                         <td><?php echo $sales->company_name; ?></td>
-                                        <td><?php echo $sales->hsn_name; ?></td>
-                                        <td><?php echo $sales->total_quantity; ?></td>
-                                        <td><?php echo $sales->received_qty; ?></td>
+                                        <!-- <td><?php echo $sales->hsn_name; ?></td> -->
+                                        <td><?php echo $sales->total_qty; ?></td>
                                         <!-- <td><?php echo $sales->received_qty; ?></td> -->
-                                        <td><?php echo $sales->uom; ?></td>
+                                        <!-- <td><?php echo $sales->received_qty; ?></td> -->
+                                        <!-- <td><?php echo $sales->uom; ?></td> -->
                                         <td><?php echo $sales->grand_total; ?></td>
                                         <!-- <td><a href="#" class="badge <?php if ($sales->salesStatus == 1)
                                          {
@@ -153,6 +153,16 @@
                                                 <option value="">--Select Plant --</option>   
                                                 <?php foreach ($plant as $key => $plant) { ?>                                              
                                                 <option value="<?=$plant->pm_id?>"><?= $plant->plant_master_name ?></option>
+                                                <?php }  ?>
+                        </select>                     
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="plant_id">Product</label>
+                        <select class="form-control" name="plant_id"  id="plant_id" required>
+                                                <option value="">--Select Product --</option>   
+                                                <?php foreach ($product as $key => $pro) { ?>                                              
+                                                <option value="<?=$pro->pm_id?>"><?= $pro->plant_master_name ?></option>
                                                 <?php }  ?>
                         </select>                     
                     </div>
