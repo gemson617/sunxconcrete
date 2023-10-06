@@ -332,7 +332,7 @@
                                 <div class="row row_spc">
                             <div class="col-md-9 h6 mb-1 mt-3" style="text-align: right;"> Taxable Value of Supply of Goods :  </div>
                                 <div class="col-md-3"  >
-                                    <input type="text" readonly class="form-control sub_total mb-2" id="sub_total" >
+                                    <input type="text" readonly class="form-control sub_total mb-2" name="sub_total" id="sub_total" >
                                 </div>
                         </div>
                         <div class="row row_spc">
