@@ -197,7 +197,7 @@ class SalesOrder extends MY_Controller
         else{
 
             $this->db->select('*');
-            $this->db->from('sales_order_sub as Sub'); 
+            $this->db->from('sales_order_sub as sub'); 
             $this->db->where('sub.sales_order_id', $id); 
             $this->db->join('product as p','p.product_id = sub.product_id','left'); 
             $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
@@ -225,8 +225,8 @@ class SalesOrder extends MY_Controller
             $this->db->from('sales_order_sub as sub');
             $this->db->where('sub.sales_order_id',$id);    
             $this->db->join('product as p','p.product_id = sub.product_id','left'); 
-            $this->db->join('hsn_code as h', 'h.hsn_id = Sub.hsn_id','left'); 
-            $this->db->join('uom as u', 'u.uom_id = Sub.uom_id','left'); 
+            $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
+            $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
             $query = $this->db->get();
             // $view_data['products'] =  $query->result();
 
