@@ -14,15 +14,19 @@ class SalesOrder extends MY_Controller
     }
     public function view()
     {
+
         $this->db->select('*,s.status as salesStatus');
         $this->db->from('sales_order as s'); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
         $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
         $this->db->order_by('s.id','DESC');       
         $query = $this->db->get();
         $view_data['salesOrder'] = $query->result();  
+
+        $this->db->select('*');
+        $this->db->from('plant_master as u'); 
+        $this->db->order_by('u.pm_id','DESC');       
+        $query = $this->db->get();
+        $view_data['plant'] = $query->result();
 
         $this->db->select('*');
         $this->db->from('plant_master as u'); 
@@ -137,18 +141,21 @@ class SalesOrder extends MY_Controller
                             si.received_qty as receivedQuantity');
         $this->db->from('sales_order as s'); 
         $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
+        $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id'); 
         $this->db->where('si.sales_order_id',$id); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        $this->db->join('product as p','p.product_id = sub.product_id','left'); 
         $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
         // $this->db->order_by('si.id','DESC');       
         $query = $this->db->get();
         $view_data['salesOrder'] = $query->result(); 
         $view_data['id'] = $id;
+
         //         echo "<pre>";
         // print_r($view_data['salesOrder']);
         // exit();       
+
         $data = array(
             'title' => 'Sales Order Items',
             'content' => $this->load->view('pages/sales_order/viewSalesItems', $view_data, true),

@@ -222,6 +222,7 @@ class Quotation extends MY_Controller
                             'user_id' => $row->user_id,               
                             
                             'sub_total' => $row->sub_total,  
+                            'total_qty' => $row->total_qty,  
                             'cgst' => $row->cgst,  
                             'sgst' => $row->sgst,  
                             'total_tax' => $row->total_tax,  
