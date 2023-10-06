@@ -113,12 +113,12 @@
         }
         ?>
 
+<form action="<?php echo site_url('Quotation/add'); ?>" id="ynamic-form" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 
 <div class="row">
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?php echo site_url('Quotation/add'); ?>" id="ynamic-form" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                             <div class="row col-md-12">
                                 <div class="col-md-4">                                 
                                     <div class="mb-3">
