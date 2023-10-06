@@ -160,7 +160,7 @@
                                  </div>
                              </div>
 
-                             <div class="col-md-4">                                 
+                                <div class="col-md-4">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>
                                         <input type="text" class="form-control" name="remarks" id="remarks" >                                                                                 
@@ -391,7 +391,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-  function get_product(product_id,no) {
+    function get_product(product_id,no) {
         $.ajax({
             url: "<?php echo site_url() ?>Quotation/get_product",
             method: "POST",
@@ -408,19 +408,15 @@
                 $('#hsn_id'+no).val(data.hsn_id);
                 $('#uom_id'+no).val(data.uom_id);
                 $('#price'+no).val(data.product_rate);
-
             },
             error: function(error) {
                 console.log(error);
             }
-        });
-        
+        });        
     }
 
 
-        $(document).ready(function () {
-            
-           
+        $(document).ready(function () {                       
             // Add more fields
             $('.max').each(function() {                
                 var $wrapper = $('#addProduct', this);
@@ -432,7 +428,7 @@
                     row.appendTo($wrapper);   
                     $('.selectDrop').select2();
                 });
-            });            
+            });
         });
         // Remove fields
         function removediv(no){
