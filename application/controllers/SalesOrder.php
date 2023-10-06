@@ -12,59 +12,9 @@ class SalesOrder extends MY_Controller
             redirect('/logout');
         }
     }
-    public function view()
+    public function view($id)
     {
 
-        $this->db->select('*,s.status as salesStatus');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->order_by('s.id','DESC');       
-        $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result();  
-
-        $this->db->select('*');
-        $this->db->from('plant_master as u'); 
-        $this->db->order_by('u.pm_id','DESC');       
-        $query = $this->db->get();
-        $view_data['plant'] = $query->result();
-
-        $this->db->select('*');
-        $this->db->from('plant_master as u'); 
-        $this->db->order_by('u.pm_id','DESC');       
-        $query = $this->db->get();
-        $view_data['plant'] = $query->result();
-        //         echo "<pre>";
-        // print_r($view_data['salesOrder']);
-        // exit();       
-        $data = array(
-            'title' => 'Sales Orders',
-            'content' => $this->load->view('pages/sales_order/view', $view_data, true),
-        );
-        $this->load->view('base/base_template', $data);  
-    }
-
-    public function invoice_list(){
-        $this->db->select('*,s.status as salesStatus');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
-        $this->db->order_by('s.id','DESC');       
-        $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result();  
-        //         echo "<pre>";
-        // print_r($view_data['salesOrder']);
-        // exit();       
-        $data = array(
-            'title' => 'Sales Invoice List',
-            'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),
-        );
-        $this->load->view('base/base_template', $data);  
-    }
-      
-    public function getQuantity($id)
-    {
         if (isset($_POST['submit'])) {
 
             $plant_id = $this->input->post('plant_id'); 
@@ -130,8 +80,61 @@ class SalesOrder extends MY_Controller
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
             }
-        }
+        }else{
+
+        $this->db->select('*,s.status as salesStatus');
+        $this->db->from('sales_order as s'); 
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->order_by('s.id','DESC');       
+        $query = $this->db->get();
+        $view_data['salesOrder'] = $query->result();  
+
+        $this->db->select('*');
+        $this->db->from('plant_master as u'); 
+        $this->db->order_by('u.pm_id','DESC');       
+        $query = $this->db->get();
+        $view_data['plant'] = $query->result();
+
+        $this->db->select('*');
+        $this->db->from('plant_master as u'); 
+        $this->db->order_by('u.pm_id','DESC');       
+        $query = $this->db->get();
+        $view_data['plant'] = $query->result();
+        //         echo "<pre>";
+        // print_r($view_data['salesOrder']);
+        // exit();       
+        $data = array(
+            'title' => 'Sales Orders',
+            'content' => $this->load->view('pages/sales_order/view', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);  
+      }
     }
+
+    public function invoice_list(){
+        $this->db->select('*,s.status as salesStatus');
+        $this->db->from('sales_order as s'); 
+        $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $this->db->order_by('s.id','DESC');       
+        $query = $this->db->get();
+        $view_data['salesOrder'] = $query->result();  
+        //         echo "<pre>";
+        // print_r($view_data['salesOrder']);
+        // exit();       
+        $data = array(
+            'title' => 'Sales Invoice List',
+            'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);  
+    }
+      
+    // public function getQuantity($id)
+    // {
+       
+    // }
 
     
     public function viewSalesItems($id)

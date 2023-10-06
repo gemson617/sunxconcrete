@@ -231,7 +231,7 @@
         $("#qty").attr("max", valid);
         var form = document.getElementById("myForm");
 
-        var prefix = "<?php echo site_url('SalesOrder/getQuantity/'); ?>"; 
+        var prefix = "<?php echo site_url('SalesOrder/view/'); ?>"; 
         var sufix = id;
         var newAction = prefix + sufix;
         // alert(newAction);
