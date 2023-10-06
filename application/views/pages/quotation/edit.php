@@ -256,7 +256,7 @@
                                         Product Name Required.
                                         </div>
                                     </div>
-                                            <input type="text" name="primary_id[]" hidden class="form-control" id="primary_id<?= $key?>" value="<?= $quotation['id']?>">
+                                            <input type="text" name="primary_id[]" hidden class="form-control" id="primary_id<?= $key?>" value="<?= $q->id?>">
                                             <div id="removefield">
                                             </div>
                                 </div>
@@ -267,7 +267,7 @@
                                         
                                         <input type="text" name="hsn[]" class="form-control" value="<?= $q->hsn_name ?>" id="hsn<?= $key?>" placeholder=" Hsn " readonly required>
                                         
-                                        <input type="text" name="hsn_id[]" hidden class="form-control" id="hsn_id<?= $key?>" value=" <?= $quotation['hsn_id']?>" placeholder=" Hsn "  required>
+                                        <input type="text" name="hsn_id[]" hidden class="form-control" id="hsn_id<?= $key?>" value=" <?=$q->hsn_id?>" placeholder=" Hsn "  required>
                                 <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -280,7 +280,7 @@
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
                                         <input type="text" name="uom[]" readonly class="form-control" id="uom<?= $key?>" placeholder="UOM" value="<?= $q->uom ?>" required>
-                                        <input type="text" name="uom_id[]" hidden class="form-control" id="uom_id<?= $key?>" placeholder="UOM" value="<?= $quotation['uom_id']?>" required>
+                                        <input type="text" name="uom_id[]" hidden class="form-control" id="uom_id<?= $key?>" placeholder="UOM" value="<?= $q->uom_id ?>" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -292,7 +292,7 @@
                                 <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quantity</label>
-                                        <input type="text" name="qty[]" value="<?= $quotation['quantity'] ?>" class="form-control qty"  id="qty<?= $key?>" oninput="get_qty(this.value, 0)" placeholder=" Qty"  required>
+                                        <input type="text" name="qty[]" value="<?= $q->subQty ?>" class="form-control qty"  id="qty<?= $key?>" oninput="get_qty(this.value, 0)" placeholder=" Qty"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -304,7 +304,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" value="<?= $quotation['price'] ?>" class="form-control price"  id="price<?= $key?>" placeholder=" Price"  required>
+                                        <input type="text" name="price[]" value="<?= $q->subPrice ?>" class="form-control price"  id="price<?= $key?>" placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -316,7 +316,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount[]" value="<?= $quotation['amount'] ?>" class="form-control amount" readonly id="amount<?= $key?>" oninput="get_amount(this.value, 0)" placeholder="amount"  required>
+                                        <input type="text" name="amount[]" value="<?= $q->subAmount ?>" class="form-control amount" readonly id="amount<?= $key?>" oninput="get_amount(this.value, 0)" placeholder="amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -384,12 +384,12 @@
                         </div>
 
 
-
-                            </div>
                             <div>
                             <button class="btn btn-primary" type="submit" value="submit" name="submit">Submit</button>
                                 <a href="#"><button onclick="window.location.reload()" class="btn btn-warning" type="button">Cancel</button></a>
                             </div>
+                        </div>
+                           
                         </form>
                         </div>
                     </div>
@@ -403,6 +403,7 @@
     <script>
 
     function get_product(product_id,no) {
+        alert('fhfg');
         $.ajax({
             url: "<?php echo site_url() ?>Quotation/get_product",
             method: "POST",
