@@ -249,7 +249,6 @@
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <select class="form-control" name="product[]" onchange="get_product(this.value, 0)" id="product0" required>
                                             <option value="">--Select --</option>
-                                            <option value="">--Select --</option>
                                             <?php foreach($products as $product)
                                             {?>
                                             <option value="<?php echo $product->product_id; ?>"><?php echo $product->product_name; ?>
