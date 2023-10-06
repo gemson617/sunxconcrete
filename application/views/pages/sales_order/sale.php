@@ -139,7 +139,7 @@
                                 </div>
 
                                
-
+<!-- 
                                 <div class="col-md-6">                                 
                                  <div class="">
                                      <label for="validationCustom01" class="form-label">Credit Bill</label>
@@ -154,7 +154,7 @@
                                      Ship to party is Required.
                                      </div>
                                  </div>
-                             </div>
+                             </div> -->
                             </div>
                         </div>
                 </div>
@@ -217,7 +217,7 @@
                                 <div class="col-md-2" style="width: 12%;"> 
                                     <div class="mb-3">
                                         <label for="" class="form-label">Qty</label>
-                                        <input type="number" min="1" value="0.00"  max="<?= $pro->available_qty ?>" required name="qty[]" class="form-control" id="" placeholder="Qty <?= $pro->available_qty ?>" >
+                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>"  name="qty[]" class="form-control" id="" placeholder="Qty <?= $pro->available_qty ?>" >
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

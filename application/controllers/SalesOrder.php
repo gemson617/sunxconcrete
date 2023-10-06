@@ -78,6 +78,7 @@ class SalesOrder extends MY_Controller
             $amount = $this->input->post('amount'); 
 
             $rowcount = count($qty);
+            $uniqueId = md5(uniqid());
             for ($i = 0; $i < $rowcount; $i++) 
             {
                 if($qty[$i] != '')
@@ -97,9 +98,10 @@ class SalesOrder extends MY_Controller
                             $update = $this->mcommon->common_edit('sales_order_sub', $update_array,array('id'=>$subId[$i]));
                            
                             $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
-
+                      
                             $insert_array = array(
                                 'plant_id' => $plant_id,
+                                'transaction_id' => $uniqueId,
                                 'credit_bill_status' => $credit_bill_status,
                                 'sales_order_id' => $sales_order_id,
                                 'product_id' => $product[$i],
@@ -289,7 +291,8 @@ class SalesOrder extends MY_Controller
         $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
         $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
         $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
-        // $this->db->order_by('si.id','DESC');       
+        $this->db->order_by('si.id','DESC');       
+        $this->db->group_by('si.transaction_id');       
         $query = $this->db->get();
         $view_data['salesOrder'] = $query->result(); 
         $view_data['id'] = $id;
