@@ -73,13 +73,10 @@
                             <thead>
                                 <tr>
                                 <th scope="col">S.no</th>
-                                <th scope="col">Q.no</th>
+                                <!-- <th scope="col">Q.no</th> -->
                                     <th scope="col">Date</th>
                                     <th scope="col">Customer</th>
-                                   
-                                    <th scope="col">HSN</th>
-                                    <th scope="col">Qty</th>
-                                    <th scope="col">UOM</th>
+                                    <th scope="col">Total Qty</th>
                                     <th scope="col">Total Amount</th>
                                     <th scope="col">To Sale</th>
                                     <th scope="col">Action</th>
@@ -97,12 +94,11 @@
                                     
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $q->product_name; ?></td>
+                                        <!-- <td><?php echo $q->product_name; ?></td> -->
+                                 
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>
-                                        <td><?php echo $q->hsn_name; ?></td>
-                                        <td><?php echo $q->quantity; ?></td>
-                                        <td><?php echo $q->uom; ?></td>
+                                        <td><?php echo $q->totalQty; ?></td>
                                         <td><?php echo $q->grand_total; ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->
