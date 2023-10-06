@@ -377,12 +377,17 @@ class Quotation extends MY_Controller
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
       
-        $this->db->select('*,q.status as qStatus');
-        $this->db->from('quotation as q'); 
-        $this->db->where('q.id', $id); 
-        $this->db->join('product as p','p.product_id = q.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->select('*,q.status as qStatus,
+                    qSub.id as qSubId,
+                    qsub.quantity as subQty,
+                    qsub.price as subPrice,
+                    qsub.amount as subAmount,');
+        $this->db->from('quotation_sub as qSub'); 
+        $this->db->where('qSub.quotation_id', $id); 
+        $this->db->join('quotation as q','qSub.quotation_id = q.id','left'); 
+        $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
         $this->db->order_by('q.id','DESC');       
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
