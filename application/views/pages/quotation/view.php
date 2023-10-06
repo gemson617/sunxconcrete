@@ -98,7 +98,7 @@
                                  
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>
-                                        <td><?php echo $q->totalQty; ?></td>
+                                        <td><?php echo $q->total_qty; ?></td>
                                         <td><?php echo $q->grand_total; ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->

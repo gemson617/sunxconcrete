@@ -15,6 +15,10 @@ class Quotation extends MY_Controller
     public function add()
     {
         if (isset($_POST['submit'])) {
+            
+            echo "<pre>";
+            print_r($_POST);
+            exit();   
 
             $user_id =$this->auth_user_id; 
             $sold_to_party = $this->input->post('sold_to');    
@@ -51,9 +55,6 @@ class Quotation extends MY_Controller
                
                 'created_on' => date('Y-m-d'),
             );
-            // echo "<pre>";
-            // print_r($insert_array);
-            // exit();   
 
 
  
@@ -78,7 +79,26 @@ class Quotation extends MY_Controller
                 $insert = $this->mcommon->common_insert('quotation_sub', $insert_array_new);
 
             }
+          
+
+          $qtyData = $this->getTotalQuantity($quotation_id);
+
+             $quantity = 0;
+            //  print_r($qtyData);
+            //  exit();
+
+             foreach ($qtyData as $qty){
+               $quantity += $qty->quantity;
+            //    print_r($quantity);
+            //    exit();
+             }
+
+             $update_array_new = array(
+                'total_qty'=>$quantity
+             );
               
+             $update_new = $this->mcommon->common_edit('quotation', $update_array_new,array('id' => $quotation_id));
+
             // $price = $this->input->post('price');    
             // $quantity = $this->input->post('qty');    
             // $amount = $this->input->post('amount');   
@@ -95,7 +115,7 @@ class Quotation extends MY_Controller
 
            
 
-            if ($insert > '0') {
+            if ($update_new > '0') {
                 $this->session->set_flashdata('alert_success', 'Quotation added successfully!');
                 redirect('Quotation/add');
             } else {
@@ -113,6 +133,14 @@ class Quotation extends MY_Controller
             'content' => $this->load->view('pages/quotation/add', $view_data, true),
         );
         $this->load->view('base/base_template', $data);
+    }
+
+    public function getTotalQuantity($quotation_id){
+        // $this->db->select('sum(quantity)'); 
+        $this->db->from('quotation_sub'); 
+        $this->db->where('quotation_id', $quotation_id);
+         $result = $this->db->get();
+         return $result->result();
     }
 
     public function get_product()
@@ -136,9 +164,9 @@ class Quotation extends MY_Controller
     }
 
     public function view(){
-        $this->db->select('*,q.status as qStatus,q.created_on as created , qSub.id as qSubId,q.id as id');
+        $this->db->select('*,q.status as qStatus,q.created_on as created');
         $this->db->from('quotation as q'); 
-        $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
+        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
         // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
         // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
         $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
@@ -377,6 +405,13 @@ class Quotation extends MY_Controller
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
       
+     
+            // $this->db->from('quotation'); 
+            // $this->db->where('id', $id);
+            //  $result = $this->db->get();
+            //  return $result->result();
+  
+
         $this->db->select('*,q.status as qStatus,
                     qSub.id as qSubId,
                     qsub.quantity as subQty,
@@ -394,7 +429,8 @@ class Quotation extends MY_Controller
         
         //         echo "<pre>";
         // print_r($view_data['quotations']);
-        // exit();      
+        // exit();   
+
         $data = array(
             'title' => 'Edit Quotation',
             'content' => $this->load->view('pages/quotation/edit', $view_data, true),
