@@ -79,6 +79,7 @@ class SalesOrder extends MY_Controller
 
             $rowcount = count($qty);
             $uniqueId = md5(uniqid());
+
             for ($i = 0; $i < $rowcount; $i++) 
             {
                 if($qty[$i] != '')
@@ -90,6 +91,8 @@ class SalesOrder extends MY_Controller
                         $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
                         $available_qty=$available_qty - $qty[$i];
                             
+                  
+
                         $update_array = array(
                                 'received_qty' => $qty[$i],
                                 'available_qty' => $available_qty,
@@ -99,6 +102,8 @@ class SalesOrder extends MY_Controller
                            
                             $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
                       
+                            $igst = $amount[$i] * 18/100;
+
                             $insert_array = array(
                                 'plant_id' => $plant_id,
                                 'transaction_id' => $uniqueId,
@@ -296,9 +301,9 @@ class SalesOrder extends MY_Controller
         $view_data['salesOrder'] = $query->result(); 
         $view_data['id'] = $id;
 
-                echo "<pre>";
-        print_r($view_data['salesOrder']);
-        exit();       
+        //         echo "<pre>";
+        // print_r($view_data['salesOrder']);
+        // exit();       
 
         $data = array(
             'title' => 'Sales Order Items',

@@ -214,10 +214,11 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-2" style="width: 12%;"> 
                                     <div class="mb-3">
                                         <label for="" class="form-label">Qty</label>
-                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>"  name="qty[]" class="form-control" id="" placeholder="Qty <?= $pro->available_qty ?>" >
+                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, 0)" name="qty[]" class="form-control" id="qty0" placeholder="Qty <?= $pro->available_qty ?>" >
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -225,11 +226,12 @@
                                         Qty Required.
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>   
+
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price0" oninput="get_amount(this.value, 0)" placeholder=" Price"  required>
+                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price0"  placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -241,7 +243,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount[]" value=" <?= $pro->amount ?>" class="form-control amount" readonly  id="amount0" placeholder="Amount"  required>
+                                        <input type="text" name="amount[]" value=" " class="form-control amount" readonly  id="amount0" placeholder="Amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -439,10 +441,12 @@
     $('#amount'+no).val(amountValue.toFixed(2));
         calculateAmount();
     }
+
     function get_amount(value, no){
         
     var qtyValue = parseFloat($('#qty'+no).val()) || 0;
     var priceValue = parseFloat($('#price'+no).val()) || 0;
+   
     var amountValue = qtyValue * priceValue;
     $('#amount'+no).val(amountValue.toFixed(2));
         calculateAmount();
