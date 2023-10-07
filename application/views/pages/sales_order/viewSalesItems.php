@@ -98,6 +98,7 @@
                                     <!-- <th scope="col">Total Quantity</th>
                                     <th scope="col">Quantity Before Sales</th> -->
                                     <th scope="col">Received Quantity</th>
+                                    <th scope="col">Sale Date</th>
                                     <!-- <th scope="col">Remaining Quantity</th> -->
                                     <th scope="col">Amount</th>
                                     <th scope="col">Action</th>
@@ -105,20 +106,26 @@
                             </thead>
 
                             <tbody>
-                                <?php foreach ($salesOrder as $key => $sales) { ?>
+                                <?php foreach ($salesOrder as $key => $sales) {
+                                          $date = $sales->created_date;
+                                          $dateObj = new DateTime($date);
+                                          $date2 = $dateObj->format("d-m-y");
+                                            ?>
                                     <tr>
+                                        
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
                                         <!-- <td><?php echo $sales->totalQuantity; ?></td>
                                         <td><?php echo $sales->receivedQuantity + $sales->availableQuantity; ?></td> -->
                                         <td><?php echo $sales->receivedQty; ?></td>
+                                        <td><?php echo $date2; ?></td>
                                         <!-- <td><?php echo $sales->availableQuantity; ?></td> -->
-                                        <td><?php echo $sales->tottalamt; ?></td>
+                                        <td>₹ <?php echo number_format($sales->totalAmount,2); ?></td>
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
                                            
-                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Invoice CUM DC</button></a>
+                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $sales->transaction_id); ?>" ><button  type="button"    class="btn btn-sm btn-success waves-effect waves-light mt-1 ">Invoice CUM DC</button></a>
                                       
                                         </td>                                     
                                     </tr>

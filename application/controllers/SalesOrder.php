@@ -103,6 +103,7 @@ class SalesOrder extends MY_Controller
                             $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
                       
                             $igst = $amount[$i] * 18/100;
+                            $totalAmount = $amount[$i] + $igst;
 
                             $insert_array = array(
                                 'plant_id' => $plant_id,
@@ -113,7 +114,10 @@ class SalesOrder extends MY_Controller
                                 'total_quantity'=>$total_qty,
                                 'available_quantity'=>$available_qty,
                                 'received_qty'=>$qty[$i],
-                                'sale_price'=>$amount[$i]
+                                'sale_price'=>$amount[$i],
+                                'tax'=>$igst,
+                                'tottalamt'=>$totalAmount,
+                                'created_on'=>date('d-m-y')
                             );
 
                             $insert = $this->mcommon->common_insert('sales_order_items', $insert_array);
@@ -288,7 +292,10 @@ class SalesOrder extends MY_Controller
         $this->db->select('*,si.total_quantity as totalQuantity,
                             si.available_quantity as availableQuantity,
                             sum(si.received_qty) as receivedQty,
-                            sum(si.sale_price) as salePrice');
+                            sum(si.tottalamt) as totalAmount,
+                            si.transaction_id as transaction_id,
+                            si.created_on as created_date
+                            ');
         $this->db->from('sales_order as s'); 
         $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
         // $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id'); 
@@ -422,10 +429,11 @@ class SalesOrder extends MY_Controller
                             si.received_qty as receivedQuantity');
         $this->db->from('sales_order as s'); 
         $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
-        $this->db->where('si.id',$id); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $this->db->join('sales_order_sub as sub','sub.sales_order_id = si.sales_order_id'); 
+        $this->db->where('si.transaction_id',$id); 
+        $this->db->join('product as p','p.product_id = si.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
         $query = $this->db->get();
         $view_data['salesOrders'] = $query->row_array(); 
         // $view_data['salesOrders'] = $query->result(); 
@@ -435,15 +443,16 @@ class SalesOrder extends MY_Controller
         // echo "<pre>";
         // print_r($salesId);
         // exit();
-        $this->db->select('*,
-        s.status as sStatus,
-        s.id as sId');
-        $this->db->from('sales_order as s'); 
-        $this->db->where('s.id', $salesId); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
-        $view_data['salesOrder'] = $this->db->get()->row_array();
+
+        // $this->db->select('*,
+        // s.status as sStatus,
+        // s.id as sId');
+        // $this->db->from('sales_order as s'); 
+        // $this->db->where('s.id', $salesId); 
+        // $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        // $view_data['salesOrder'] = $this->db->get()->row_array();
 
         
         $this->db->select('*,state.name as stateName');
