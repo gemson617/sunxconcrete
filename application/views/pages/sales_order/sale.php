@@ -168,18 +168,19 @@
                         <div class="max rtl-bc" >
                             <div id="addProduct" class="">
                             <div class="row field0">
-<?php foreach($products as $pro){ ?>
+<?php foreach($products as $key => $pro){ ?>
                                 <div class="col-md-2 count1">
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <input type="hidden" name="subId[]" id="subid" value="<?= $pro->id ?>">
-                                        <select class="form-control" name="product[]"  id="product0" required>
-                                            <option value="">--Select --</option>
+                                        <select disabled class="form-control" name="product1[]"  id="product1<?= $key ?>" >
+                                            
                                             <?php foreach($products as $product)
                                             {?>
                                             <option value="<?php echo $product->product_id; ?>" <?= ($pro->product_id == $product->product_id) ? 'selected' : '' ?>><?php echo $product->product_name; ?>
                                             <?php }?>
-                                        </select>                                          
+                                        </select>   
+                                        <input type="hidden" id="product<?= $key ?>" name="product[]" value="<?= $pro->product_id?>">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -191,8 +192,8 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">HSN</label>
-                                        <input type="text" name="hsn[]" value="<?= $pro->hsn_code ?>" class="form-control" id="hsn0" placeholder=" HSN Code" readonly required>
-                                        <input type="text" name="hsn_id[]" value="<?= $pro->hsn_name ?>" hidden class="form-control" id="hsn_id0" placeholder=" HSN Code"  required>
+                                        <input type="text" name="hsn[]" value="<?= $pro->hsn_code ?>" class="form-control" id="hsn<?= $key ?>" placeholder=" HSN Code" readonly required>
+                                        <input type="text" name="hsn_id[]" value="<?= $pro->hsn_name ?>" hidden class="form-control" id="hsn_id<?= $key ?>" placeholder=" HSN Code"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -204,8 +205,8 @@
                                 <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
-                                        <input type="text" name="uom[]" value="<?= $pro->uom_id ?>" readonly class="form-control" id="uom0" placeholder="UOM" value="" required>
-                                        <input type="text" name="uom_id[]" value="<?= $pro->uom ?>" hidden class="form-control" id="uom_id0" placeholder=" UOM" value="" required>
+                                        <input type="text" name="uom[]" value="<?= $pro->uom_id ?>" readonly class="form-control" id="uom<?= $key ?>" placeholder="UOM" value="" required>
+                                        <input type="text" name="uom_id[]" value="<?= $pro->uom ?>" hidden class="form-control" id="uom_id<?= $key ?>" placeholder=" UOM" value="" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -218,7 +219,7 @@
                                 <div class="col-md-2" style="width: 12%;"> 
                                     <div class="mb-3">
                                         <label for="" class="form-label">Qty</label>
-                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, 0)" name="qty[]" class="form-control" id="qty0" placeholder="Qty <?= $pro->available_qty ?>" >
+                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, <?= $key ?>)" name="qty[]" class="form-control" id="qty<?= $key?>" placeholder="Qty <?= $pro->available_qty ?>" >
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -231,7 +232,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price0"  placeholder=" Price"  required>
+                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price<?= $key ?>"  placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -243,7 +244,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount[]" value=" " class="form-control amount" readonly  id="amount0" placeholder="Amount"  required>
+                                        <input type="text" name="amount[]" value=" " class="form-control amount" readonly  id="amount<?= $key ?>" placeholder="Amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
