@@ -113,7 +113,7 @@ class SalesOrder extends MY_Controller
                                 'po_no' => $po_number,
                                 'transaction_id' => $uniqueId,
                                 'credit_bill_status' => $credit_bill_status,
-                                'sales_order_id' => $sales_order_id,
+                                'sales_order_id' => $id,
                                 'product_id' => $product[$i],
                                 'total_quantity'=>$total_qty,
                                 'available_quantity'=>$available_qty,
