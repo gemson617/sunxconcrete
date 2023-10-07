@@ -12,6 +12,57 @@ class Quotation extends MY_Controller
             redirect('/logout');
         }
     }
+    public function index()
+    {
+        $this->db->select('*,cn.status as qStatus,cn.created_on as created');
+        $this->db->from('credit_note as cn'); 
+        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
+        $this->db->order_by('cn.id','DESC');       
+        $query = $this->db->get();
+        $view_data['credit_note'] = $query->result();  
+        
+        $data = array(
+            'title' => 'View Credit Note',
+            'content' => $this->load->view('pages/credit_note/view_credit_note', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);  
+
+    }
+
+    public function creditInvoice($id){
+       
+        // echo "<pre>";
+        //     print_r($view_data['quotation_sub']);
+        //     exit(); 
+
+        $this->db->select('*,cn.status as qStatus,cn.created_on as created');
+        $this->db->from('credit_note as cn'); 
+        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
+        $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
+        $this->db->join('states as s', 's.id = c.customer_state','left'); 
+        
+        $this->db->where('cn.id',$id);       
+        $query = $this->db->get();
+        $view_data['result'] = $query->row();
+        // print_r($view_data['result']);
+        //      exit(); 
+
+        $view_data['credit_note']= $this->mcommon->specific_row('credit_note',array('id',$id));
+        $data = array(
+            'title' => 'Credit Invoice',
+            'content' => $this->load->view('pages/credit_note/creditNote', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);   
+    }
+
+
+
+
+
     public function add()
     {
         if(isset($_POST['submit'])) {
@@ -161,7 +212,32 @@ class Quotation extends MY_Controller
         );
         $this->load->view('base/base_template', $data);   
     }
+
+    public function credit_note_view(){
+        $this->db->select('*,q.status as qStatus,q.created_on as created');
+        $this->db->from('quotation as q'); 
+        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
+        $this->db->order_by('q.id','DESC');       
+        $query = $this->db->get();
+        $view_data['quotations'] = $query->result();  
+        
+        //         echo "<pre>";
+        // print_r($view_data['quotations']);
+        // exit();      
+
+        $data = array(
+            'title' => 'Add Quotation',
+            'content' => $this->load->view('pages/quotation/view', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);   
+    }
+
+
     
+  
     public function accept($id)
     {
         if (isset($_POST['submit'])) {
@@ -170,6 +246,42 @@ class Quotation extends MY_Controller
             $q_id = $id;    
             $poNumber = $this->input->post('poNumber');    
             $creditNote = $this->input->post('creditNote');    
+            if( $creditNote==1)
+            {
+
+        $this->db->select('*,q.status as qStatus,q.created_on as created');
+        $this->db->from('quotation as q'); 
+        //  $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
+        $this->db->where('q.id',$q_id);   
+        // $this->db->order_by('q.id','DESC');       
+        $query = $this->db->get();
+        $result= $query->row(); 
+        $company= $this->mcommon->specific_row('em_companies', array('id' => 1));
+
+            //    $records= $this->mcommon->specific_row('quotation',array('id'=>$q_id));
+                // print_r($result);exit();
+               $insert_array = array(
+                'user_id' => $this->auth_user_id,   
+                'credit_note_starting_number'=> $company['credit_note_starting_number'],                                               
+                'customer_id' => $result->customer_id,
+                'quotation_id ' => $result->id,
+                'company_id'   => $company['id'],
+                'po_number'   =>  $poNumber,
+                'grand_total' => $result->grand_total,
+                'credit_percentage'  => $company['credit_note_percentage'],
+                'credit_amount'  => $result->grand_total*($company['credit_note_percentage']/100 ),
+                
+                         
+               
+                // 'created_on' => date('Y-m-d h:i:s'),
+            );
+            // print_r($insert_array);exit();
+            $this->mcommon->common_insert('credit_note',$insert_array,true);
+               
+            }
               
             $update_array = array(
                 'status' => 3,               
