@@ -533,13 +533,6 @@ class Quotation extends MY_Controller
                 }
             }
 
-         
-            //     for ($i = 0; $i < $rowcount; $i++) 
-            //     {
-                  
-            //     }
-            // }
-
 
             $qtyData = $this->getTotalQuantity($id);
              $quantity = 0;
