@@ -120,20 +120,85 @@
                 <div class="card">
                     <div class="card-body">
                             <div class="row col-md-12">
-                                <div class="col-md-6">                                 
+                                <div class="col-md-4">                                 
                                     <div class="">
-                                                                <label for="plant_id">Plant</label>
-                        <select class="form-control" name="plant_id"  id="plant_id" required>
+                                        <label for="plant_id">Plant Name</label>
+                                        <select class="form-control" name="plant_id"  id="plant_id" required>
                                                 <option value="">--Select Plant --</option>   
                                                 <?php foreach ($plant as $key => $plant) { ?>                                              
                                                 <option value="<?=$plant->pm_id?>"><?= $plant->plant_master_name ?></option>
                                                 <?php }  ?>
-                        </select>                                          
+                                        </select>                                          
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        Sold to party is Required.
+                                        Plant Name is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">Truck Number</label>
+                                        <input type="text" name="truck_no" value="" class="form-control" id="truck_no" placeholder="Truck Number" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Truck Number is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">Diver Name</label>
+                                        <input type="text" name="driver_name" value="" class="form-control" id="driver_name" placeholder="Diver Name" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Diver Name is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">DC No</label>
+                                        <input type="text" name="dc_no" value="" class="form-control" id="dc_no" placeholder="DC Number" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        DC Number is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">Batch No</label>
+                                        <input type="text" name="batch_no" value="" class="form-control" id="batch_no" placeholder="Batch Number" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Batch Number is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">DC Date</label>
+                                        <input type="date" name="dc_date" value="" class="form-control" id="dc_date" placeholder="dc_date" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        DC Date is Required.
                                         </div>
                                     </div>
                                 </div>
@@ -168,18 +233,19 @@
                         <div class="max rtl-bc" >
                             <div id="addProduct" class="">
                             <div class="row field0">
-<?php foreach($products as $pro){ ?>
+<?php foreach($products as $key => $pro){
+    if($pro->available_qty != 0) {?>
                                 <div class="col-md-2 count1">
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <input type="hidden" name="subId[]" id="subid" value="<?= $pro->id ?>">
-                                        <select class="form-control" name="product[]"  id="product0" required>
-                                            <option value="">--Select --</option>
-                                            <?php foreach($products as $product)
-                                            {?>
+                                        <select disabled class="form-control" name="product1[]"  id="product1<?= $key ?>" >
+                                            
+                                            <?php foreach($products as $product) {?>
                                             <option value="<?php echo $product->product_id; ?>" <?= ($pro->product_id == $product->product_id) ? 'selected' : '' ?>><?php echo $product->product_name; ?>
                                             <?php }?>
-                                        </select>                                          
+                                        </select>   
+                                        <input type="hidden" id="product<?= $key ?>" name="product[]" value="<?= $pro->product_id?>">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -188,11 +254,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="po_number" id="po_number" value="<?= $pro->po_number ?>">
+
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">HSN</label>
-                                        <input type="text" name="hsn[]" value="<?= $pro->hsn_code ?>" class="form-control" id="hsn0" placeholder=" HSN Code" readonly required>
-                                        <input type="text" name="hsn_id[]" value="<?= $pro->hsn_name ?>" hidden class="form-control" id="hsn_id0" placeholder=" HSN Code"  required>
+                                        <input type="text" name="hsn[]" value="<?= $pro->hsn_code ?>" class="form-control" id="hsn<?= $key ?>" placeholder=" HSN Code" readonly required>
+                                        <input type="text" name="hsn_id[]" value="<?= $pro->hsn_name ?>" hidden class="form-control" id="hsn_id<?= $key ?>" placeholder=" HSN Code"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -204,8 +272,8 @@
                                 <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
-                                        <input type="text" name="uom[]" value="<?= $pro->uom_id ?>" readonly class="form-control" id="uom0" placeholder="UOM" value="" required>
-                                        <input type="text" name="uom_id[]" value="<?= $pro->uom ?>" hidden class="form-control" id="uom_id0" placeholder=" UOM" value="" required>
+                                        <input type="text" name="uom[]" value="<?= $pro->uom_id ?>" readonly class="form-control" id="uom<?= $key ?>" placeholder="UOM" value="" required>
+                                        <input type="text" name="uom_id[]" value="<?= $pro->uom ?>" hidden class="form-control" id="uom_id<?= $key ?>" placeholder=" UOM" value="" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -218,12 +286,12 @@
                                 <div class="col-md-2" style="width: 12%;"> 
                                     <div class="mb-3">
                                         <label for="" class="form-label">Qty</label>
-                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, 0)" name="qty[]" class="form-control" id="qty0" placeholder="Qty <?= $pro->available_qty ?>" >
+                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, <?= $key ?>)" name="qty[]" class="form-control" id="qty<?= $key?>" placeholder="Qty <?= $pro->available_qty ?>" >
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        Qty Required.
+                                        Qty is Maximum <?= $pro->available_qty ?> or Null.
                                         </div>
                                     </div>
                                 </div>   
@@ -231,7 +299,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price0"  placeholder=" Price"  required>
+                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price<?= $key ?>"  placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -243,7 +311,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount[]" value=" " class="form-control amount" readonly  id="amount0" placeholder="Amount"  required>
+                                        <input type="text" name="amount[]" value=" " class="form-control amount" readonly  id="amount<?= $key ?>" placeholder="Amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -252,12 +320,12 @@
                                         </div>
                                     </div>
                                 </div>
-                <?php } ?>
+                            <?php }
+                            } ?>
                                 <!-- <div class="col-md-1 mt-3" id="adremovebuttons"><br>
                                     <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
                                 </div> -->
                             </div>
-
                             </div>
                         </div>
 
