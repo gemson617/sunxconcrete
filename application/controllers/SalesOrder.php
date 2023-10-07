@@ -272,7 +272,8 @@ class SalesOrder extends MY_Controller
 
 
     public function getProducts(){
-      
+    // fchfgjghj
+
         $sales_order_id = $this->input->post("sales_order_id");
         $result =  $this->db->select('p.product_id,p.product_name');
         $this->db->from('sales_order_sub as sub');
@@ -298,6 +299,7 @@ class SalesOrder extends MY_Controller
         $this->db->order_by('si.id','DESC');
         $this->db->group_by('si.transaction_id');
         $query = $this->db->get();
+        
 
         $view_data['salesOrder'] = $query->result();
         $view_data['id'] = $id;
