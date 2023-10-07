@@ -421,22 +421,48 @@ class SalesOrder extends MY_Controller
         $this->db->select('*,si.total_quantity as totalQuantity,
                             si.available_quantity as availableQuantity,
                             si.received_qty as receivedQuantity');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
-        $this->db->join('sales_order_sub as sub','sub.sales_order_id = si.sales_order_id'); 
-        $this->db->where('si.transaction_id',$id); 
-        $this->db->join('product as p','p.product_id = si.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
+       
+        $this->db->from('sales_order_items as si'); 
+        $this->db->where('si.transaction_id',$id);  
+        $this->db->join('sales_order_sub as sub','si.sales_order_id=sub.sales_order_id '); 
+
+
+        // // $this->db->join('sales_order as s','si.sales_order_id = s.id'); 
+     
+        // $this->db->join('product as p','p.product_id = si.product_id','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
         $query = $this->db->get();
-        $view_data['salesOrders'] = $query->row_array(); 
-        // $view_data['salesOrders'] = $query->result(); 
+        // $view_data['salesOrders'] = $query->row_array(); 
+        $view_data['salesOrders'] = $query->result(); 
          
         $salesId = $view_data['salesOrders']['sales_order_id'];
 
-        // echo "<pre>";
-        // print_r($salesId);
-        // exit();
+        echo "<pre>";
+        print_r($view_data['salesOrders']);
+        exit();
+
+        echo "<pre>";
+        print_r($salesId);
+        exit();
+
+        $this->db->select('*,si.total_quantity as totalQuantity,
+                            si.available_quantity as availableQuantity,
+                            si.received_qty as receivedQuantity');
+       
+        $this->db->from('sales_order_items as si'); 
+        // $this->db->join('sales_order_sub as sub','sub.sales_order_id = si.sales_order_id'); 
+
+        $this->db->where('si.transaction_id',$id); 
+        // // $this->db->join('sales_order as s','si.sales_order_id = s.id'); 
+     
+        // $this->db->join('product as p','p.product_id = si.product_id','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
+        $query = $this->db->get();
+        $view_data['salesOrders'] = $query->row_array(); 
+        // $view_data['salesOrders'] = $query->result();
+
 
         // $this->db->select('*,
         // s.status as sStatus,
@@ -475,8 +501,8 @@ class SalesOrder extends MY_Controller
         // exit();   
 
         $data = array(
-            'title' => 'Delivery Challan',
-            'content' => $this->load->view('pages/sales_order/delivery_challan', $view_data, true),
+            'title' => 'Sales Invoice',
+            'content' => $this->load->view('pages/sales_order/salesInvoice', $view_data, true),
         );
         $this->load->view('base/base_template', $data);  
     }
