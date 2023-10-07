@@ -120,20 +120,85 @@
                 <div class="card">
                     <div class="card-body">
                             <div class="row col-md-12">
-                                <div class="col-md-6">                                 
+                                <div class="col-md-4">                                 
                                     <div class="">
-                                                                <label for="plant_id">Plant</label>
-                        <select class="form-control" name="plant_id"  id="plant_id" required>
+                                        <label for="plant_id">Plant Name</label>
+                                        <select class="form-control" name="plant_id"  id="plant_id" required>
                                                 <option value="">--Select Plant --</option>   
                                                 <?php foreach ($plant as $key => $plant) { ?>                                              
                                                 <option value="<?=$plant->pm_id?>"><?= $plant->plant_master_name ?></option>
                                                 <?php }  ?>
-                        </select>                                          
+                                        </select>                                          
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        Sold to party is Required.
+                                        Plant Name is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">Truck Number</label>
+                                        <input type="text" name="truck_no" value="" class="form-control" id="truck_no" placeholder="Truck Number" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Truck Number is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">Diver Name</label>
+                                        <input type="text" name="driver_name" value="" class="form-control" id="driver_name" placeholder="Diver Name" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Diver Name is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">DC No</label>
+                                        <input type="text" name="dc_no" value="" class="form-control" id="dc_no" placeholder="DC Number" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        DC Number is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">Batch No</label>
+                                        <input type="text" name="batch_no" value="" class="form-control" id="batch_no" placeholder="Batch Number" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Batch Number is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 mt-4">                                 
+                                    <div class="">
+                                        <label for="plant_id">DC Date</label>
+                                        <input type="date" name="dc_date" value="" class="form-control" id="dc_date" placeholder="dc_date" required>                                        
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        DC Date is Required.
                                         </div>
                                     </div>
                                 </div>
@@ -168,15 +233,15 @@
                         <div class="max rtl-bc" >
                             <div id="addProduct" class="">
                             <div class="row field0">
-<?php foreach($products as $key => $pro){ ?>
+<?php foreach($products as $key => $pro){
+    if($pro->available_qty != 0) {?>
                                 <div class="col-md-2 count1">
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <input type="hidden" name="subId[]" id="subid" value="<?= $pro->id ?>">
                                         <select disabled class="form-control" name="product1[]"  id="product1<?= $key ?>" >
                                             
-                                            <?php foreach($products as $product)
-                                            {?>
+                                            <?php foreach($products as $product) {?>
                                             <option value="<?php echo $product->product_id; ?>" <?= ($pro->product_id == $product->product_id) ? 'selected' : '' ?>><?php echo $product->product_name; ?>
                                             <?php }?>
                                         </select>   
@@ -226,7 +291,7 @@
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        Qty Required.
+                                        Qty is Maximum <?= $pro->available_qty ?> or Null.
                                         </div>
                                     </div>
                                 </div>   
@@ -255,12 +320,12 @@
                                         </div>
                                     </div>
                                 </div>
-                <?php } ?>
+                            <?php }
+                            } ?>
                                 <!-- <div class="col-md-1 mt-3" id="adremovebuttons"><br>
                                     <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
                                 </div> -->
                             </div>
-
                             </div>
                         </div>
 
