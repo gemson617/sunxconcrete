@@ -216,7 +216,7 @@ class SalesOrder extends MY_Controller
         }
         else{
 
-            $this->db->select('*');
+            $this->db->select('*,sub.id as subId');
             $this->db->from('sales_order_sub as sub'); 
             $this->db->where('sub.sales_order_id', $id); 
             $this->db->join('sales_order as s','s.id = sub.sales_order_id','left'); 

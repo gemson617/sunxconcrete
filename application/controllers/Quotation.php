@@ -171,6 +171,7 @@ class Quotation extends MY_Controller
          return $result->result();
     }
 
+
     public function get_product()
     {
         $product_id = $this->input->post("product_id");
@@ -451,6 +452,9 @@ class Quotation extends MY_Controller
 
         if (isset($_POST['submit'])) {
            
+            $removeid = $this->input->post('removeid');    
+           
+
 
             $user_id =$this->auth_user_id; 
             $sold_to_party = $this->input->post('sold_to');    
@@ -533,14 +537,7 @@ class Quotation extends MY_Controller
                 }
             }
 
-         
-            //     for ($i = 0; $i < $rowcount; $i++) 
-            //     {
-                  
-            //     }
-            // }
-
-
+ 
             $qtyData = $this->getTotalQuantity($id);
              $quantity = 0;
 
@@ -553,6 +550,17 @@ class Quotation extends MY_Controller
              );
               
              $update_new = $this->mcommon->common_edit('quotation', $update_array_new,array('id' => $id));
+
+
+
+             $rowcount2 = count($removeid);
+
+             for ($i = 0; $i < $rowcount2; $i++) 
+             {
+                $delete = $this->mcommon->common_delete('quotation_sub',array('id' => $removeid[$i]));
+   
+             }
+
 
             if ($update) {
                 $this->session->set_flashdata('alert_success', 'Quotation updated successfully!');

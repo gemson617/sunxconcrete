@@ -238,7 +238,7 @@
                                 <div class="col-md-2 count1">
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
-                                        <input type="hidden" name="subId[]" id="subid" value="<?= $pro->id ?>">
+                                        <input type="hidden" name="subId[]" id="subid" value="<?= $pro->subId ?>">
                                         <select disabled class="form-control" name="product1[]"  id="product1<?= $key ?>" >
                                             
                                             <?php foreach($products as $product) {?>
