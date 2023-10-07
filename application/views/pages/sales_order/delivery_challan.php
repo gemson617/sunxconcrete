@@ -80,6 +80,9 @@
                         $po_no = $sales->po_no;
                      }
                      ?>
+
+
+
                     <table style="width: 100%; border-collapse: collapse; margin-top:-18px; ">
                     
                     <thead style="width:100%;">
