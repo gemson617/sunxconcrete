@@ -254,6 +254,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="hidden" name="po_number" id="po_number" value="<?= $pro->po_number ?>">
+
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">HSN</label>
