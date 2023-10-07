@@ -50,6 +50,8 @@
                             <!--  <li><a href="<?php echo site_url('Role_master'); ?>" key="t-crypto">Role Management</a></li> -->
                             <li><a href="<?php echo site_url('Quotation/add'); ?>" key="t-crypto">Add Quotation</a></li>
                             <li><a href="<?php echo site_url('Quotation/view'); ?>" key="t-crypto">View Quotation</a></li>
+                            <li><a href="<?php echo site_url('Quotation/'); ?>" key="t-crypto">View Credit note</a></li>
+
                         </ul>
                     </li>
 

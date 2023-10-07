@@ -22,12 +22,13 @@
                         <tr style="width: 100%; height: 170px;">
                         <td style="width: 50%;border-right: 1px solid #ccc;">
                             <table style="width: 100%; height:170px;">
+                             
                                 <tr>
                                     <td><h4 style="text-align: left;padding-left:7px;">Bill To : </h4>
-                                  <p style="text-align: left;padding-left:11px;"><?= $company['company_name'] ?><br>
-                                  <?= $company['company_address'] ?><br>
-                                  <?= $company['city'] ?><br>
-                                  <?= $company['state'].'-'.$company['pincode'].', India.'?></p>
+                                  <p style="text-align: left;padding-left:11px;"><?= $result->company_name ?><br>
+                                  <?= $result->customer_address_1 ?><br>
+                                  <?= $result->customer_city ?><br>
+                                  <?= $result->name.'-'.$result->customer_pincode?><br> India.</p>
                                 </td>
                                     <td>
                                       <!-- <p style="text-align: left;margin-left:7px;"><?= $company['company_name'].', '.$company['company_address'].', '.$company['city'].', '.$company['state'].'-'.$company['pincode'].', India.' ?></p> -->
@@ -47,7 +48,7 @@
                                 </tr>
                                 <tr>
                                     <!-- <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td> -->
-                                    <td  style=""><h5 style="text-align: right;">Total ₹<?= $salesItems['sale_price'] ?></h5></td>
+                                    <td  style=""><h5 style="text-align: right;">Total ₹<?= $result -> credit_amount ?></h5></td>
                                 </tr>
                            
                             </table>
@@ -55,7 +56,7 @@
                     </tr>
                     <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;border-left: 1px solid #ccc;">
                         <td style=" width:50%;"><p style="text-align:left;font-weight: bold;padding-left:7px;";>PO #</p>
-                        <p style="text-align:left;padding-left:12px;";><?= $salesOrders['po_number'] ?></p>
+                        <p style="text-align:left;padding-left:12px;";><?= $result -> po_number ?></p>
                       </td>
                         <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Shipping Method</p></td>
                     </tr>
