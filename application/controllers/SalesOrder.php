@@ -64,16 +64,15 @@ class SalesOrder extends MY_Controller
       
     public function getQuantity($id)
     {
-       
         if (isset($_POST['submit'])) {
            
             $plant_id = $this->input->post('plant_id'); 
             $credit_bill_status = $this->input->post('credit_bill'); 
 
-            $subId = $this->input->post('subId'); 
+            $subId = $this->input->post('subId');
             $product = $this->input->post('product'); 
-            $qty = $this->input->post('qty'); 
-            $amount = $this->input->post('amount'); 
+            $qty = $this->input->post('qty');
+            $amount = $this->input->post('amount');
 
             $truck_no = $this->input->post('truck_no'); 
             $driver_name = $this->input->post('driver_name'); 
@@ -96,7 +95,6 @@ class SalesOrder extends MY_Controller
                         $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
                         $available_qty=$available_qty - $qty[$i];
                             
-                  
 
                         $update_array = array(
                                 'received_qty' => $qty[$i],

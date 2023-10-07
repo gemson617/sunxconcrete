@@ -38,35 +38,38 @@
                          <li><a href="<?php echo site_url('uom'); ?>" key="t-saas">UOM</a></li>
                               <li><a href="<?php echo site_url('product'); ?>" key="t-crypto">Product</a></li>
                               <li><a href="<?php echo site_url('plant_master');?>" key="t-country">Plant Master</a></li>
-
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript: void(0);" class="waves-effect">
+                        <a href="<?php echo site_url('Quotation/view'); ?>" class="waves-effect">
                             <i class="bx bx-edit-alt"></i>
                             <span key="t-settings">Quotation</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <!--  <li><a href="<?php echo site_url('Role_master'); ?>" key="t-crypto">Role Management</a></li> -->
-                            <li><a href="<?php echo site_url('Quotation/add'); ?>" key="t-crypto">Add Quotation</a></li>
-                            <li><a href="<?php echo site_url('Quotation/view'); ?>" key="t-crypto">View Quotation</a></li>
-                            <li><a href="<?php echo site_url('Quotation/'); ?>" key="t-crypto">View Credit note</a></li>
-
-                        </ul>
+                        </a>                        
                     </li>
+                    <!-- <li>
+                        <a  href="<?php echo site_url('Quotation/'); ?>" key="t-crypto">
+                        <i class="bx bx-check">
+                            <span key="t-settings">View Credit note</span></a></i></li> -->
+                            <li>
+                                
+                        <a  href="<?php echo site_url('Quotation/'); ?>"  class="waves-effect">
+                            <i class="bx bx-check"></i>
+                            <span key="t-settings">View Credit note</span>
+                        </a></li>
 
                     <li>
-                        <a href="javascript: void(0);" class="waves-effect">
+                        <a href="<?php echo site_url('SalesOrder/view'); ?>" class="waves-effect">
                             <i class="bx bx-check"></i>
                             <span key="t-settings">Sales Order</span>
                         </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <!-- <li><a href="<?php echo site_url('Quotation/add'); ?>" key="t-crypto">Add Quotation</a></li> -->
-                            <li><a href="<?php echo site_url('SalesOrder/view'); ?>" key="t-crypto">Sales Order</a></li>
-                            <li><a href="<?php echo site_url('SalesOrder/invoice_list'); ?>" key="t-crypto">Invoice List</a></li>
-                            <!-- <li><a href="<?php echo site_url('SalesOrder/viewSalesItems'); ?>" key="t-crypto">View Sales</a></li> -->
-                        </ul>
+                        
                     </li>
+                    <li>
+                                
+                                <a  href="<?php echo site_url('SalesOrder/invoice_list'); ?>"  class="waves-effect">
+                                    <i class="bx bx-check"></i>
+                                    <span key="t-settings">Invoice List</span>
+                                </a></li>
 
                    
                 </ul>
