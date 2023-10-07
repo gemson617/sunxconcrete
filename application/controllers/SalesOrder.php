@@ -286,7 +286,7 @@ class SalesOrder extends MY_Controller
     public function viewSalesItems($id)
     {
         $this->db->select('*,si.total_quantity as totalQuantity,
-                            si.available_quantity as availableQuantity,
+                            si.available_quantity as availableQuantity, 
                             sum(si.received_qty) as receivedQty,
                             sum(si.sale_price) as salePrice');
         $this->db->from('sales_order as s'); 
