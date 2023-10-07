@@ -157,7 +157,7 @@
                                 <div class="col-md-4">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>
-                                        <input type="text" class="form-control" name="remarks" id="remarks" > 
+                                        <input type="text" class="form-control" value="<?php echo $quotation['remarks']; ?>" name="remarks" id="remarks" > 
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
