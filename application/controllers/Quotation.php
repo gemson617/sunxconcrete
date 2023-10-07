@@ -28,7 +28,7 @@ class Quotation extends MY_Controller
             'title' => 'View Credit Note',
             'content' => $this->load->view('pages/credit_note/view_credit_note', $view_data, true),
         );
-        $this->load->view('base/base_template', $data);  
+        $this->load->view('base/base_template', $data);
 
     }
 
@@ -595,7 +595,7 @@ class Quotation extends MY_Controller
         $view_data['quotations'] = $query->result();  
         
         //         echo "<pre>";
-        // print_r($view_data['quotations']);
+        // print_r($view_data['quotation']);
         // exit();   
 
         $data = array(
