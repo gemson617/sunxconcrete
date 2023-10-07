@@ -182,7 +182,9 @@
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LUT:</td>
                         </tr> -->
                         <tr >
-                            <td style="border-bottom:1px solid #ccc;padding-left:5px;" colspan="3">Remarks:</td>
+                           <td style="border-bottom:1px solid #ccc;" colspan="3">&nbsp;Remarks :   &nbsp;<?= $quotation['remarks'] ?></td>
+                        <td style="padding-left:10px;"></td>
+                        <td></td>
                         </tr>
                         <tr >
                             <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">

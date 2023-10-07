@@ -52,7 +52,7 @@ class Quotation extends MY_Controller
                 'ship_to_party' => $ship_to_party,               
                 'remarks' => $remarks,               
                
-                'created_on' => date('Y-m-d'),
+                'created_on' => date('Y-m-d h:i:s'),
             );
 
 

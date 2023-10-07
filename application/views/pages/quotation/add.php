@@ -144,7 +144,7 @@
                                 <div class="col-md-4">                                 
                                  <div class="mb-3">
                                      <label for="validationCustom01" class="form-label">Ship to party</label>
-                                     <select class="form-control" name="ship_to" id="sold_to" required>
+                                     <select class="form-control" name="ship_to" id="ship_to" required>
                                          <option value="">--Select Customer --</option>
                                          <?php foreach($customers as $customer)
                                          {?>
@@ -163,7 +163,7 @@
                                 <div class="col-md-4">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>
-                                        <input type="text" class="form-control" name="remarks" id="remarks"  >                                                                                 
+                                        <input type="text" class="form-control" required name="remarks" id="remarks" placeholder="Enter remarks" >                                                                                 
                                        
                                         <div class="valid-feedback">
                                             Looks good!
@@ -449,8 +449,11 @@
         var subTotal = Number(document.getElementById('sub_total').value);
         cgst = subTotal * 9 / 100;
         sgst = subTotal * 9 / 100;
+        igst = cgst + igst;
+        alert(igst);
         $('#cgst').val(cgst.toFixed(2));
         $('#sgst').val(sgst.toFixed(2));
+        $('#igst').val(igst.toFixed(2));
 
     //     document.getElementById('cgst').value = cgst;
     //     document.getElementById('sgst').value = sgst;
@@ -484,8 +487,10 @@
         var subTotal = Number(document.getElementById('sub_total').value);
         cgst = subTotal * 9 / 100;
         sgst = subTotal * 9 / 100;
+        igst = cgst + sgst;
         $('#cgst').val(cgst.toFixed(2));
         $('#sgst').val(sgst.toFixed(2));
+        $('#igst').val(igst.toFixed(2));
 
     //     document.getElementById('cgst').value = cgst;
     //     document.getElementById('sgst').value = sgst;

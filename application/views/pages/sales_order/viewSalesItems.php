@@ -94,14 +94,11 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
-                                    <th scope="col">Product</th>
                                     <th scope="col">Customer</th>
-                                    <th scope="col">HSN</th>
                                     <!-- <th scope="col">Total Quantity</th>
                                     <th scope="col">Quantity Before Sales</th> -->
                                     <th scope="col">Received Quantity</th>
                                     <!-- <th scope="col">Remaining Quantity</th> -->
-                                    <th scope="col">UOM</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -111,14 +108,11 @@
                                 <?php foreach ($salesOrder as $key => $sales) { ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $sales->product_name; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
-                                        <td><?php echo $sales->hsn_name; ?></td>
                                         <!-- <td><?php echo $sales->totalQuantity; ?></td>
                                         <td><?php echo $sales->receivedQuantity + $sales->availableQuantity; ?></td> -->
-                                        <td><?php echo $sales->receivedQuantity; ?></td>
+                                        <td><?php echo $sales->receivedQty; ?></td>
                                         <!-- <td><?php echo $sales->availableQuantity; ?></td> -->
-                                        <td><?php echo $sales->uom; ?></td>
                                         <td><?php echo $sales->tottalamt; ?></td>
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
