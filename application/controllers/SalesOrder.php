@@ -43,32 +43,28 @@ class SalesOrder extends MY_Controller
 
     public function invoice_list(){
         $this->db->select('*,s.status as salesStatus');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
-        $this->db->order_by('s.id','DESC');       
+        $this->db->from('sales_order as s');
+        $this->db->join('sales_order_sub as sob','sob.sales_order_id=s.id','left');
+        $this->db->join('product as p','p.product_id = sob.product_id','left');
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left');
+        $this->db->join('hsn_code as h', 'h.hsn_id = sob.hsn_id','left');
+        $this->db->join('uom as u', 'u.uom_id = sob.uom_id','left');
+        $this->db->order_by('s.id','DESC');
         $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result();  
-        //         echo "<pre>";
-        // print_r($view_data['salesOrder']);
-        // exit();       
+        $view_data['salesOrder'] = $query->result();
+        
         $data = array(
             'title' => 'Sales Invoice List',
             'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),
         );
-        $this->load->view('base/base_template', $data);  
+        $this->load->view('base/base_template', $data);
     }
       
     public function getQuantity($id)
     {
        
         if (isset($_POST['submit'])) {
-            //     ECHO'<PRE>';
-            // print_r($_POST);
-            // exit();
-
+           
             $plant_id = $this->input->post('plant_id'); 
             $credit_bill_status = $this->input->post('credit_bill'); 
 
@@ -289,22 +285,20 @@ class SalesOrder extends MY_Controller
                             si.available_quantity as availableQuantity, 
                             sum(si.received_qty) as receivedQty,
                             sum(si.sale_price) as salePrice');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
-        // $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id'); 
-        $this->db->where('si.sales_order_id',$id); 
-        // $this->db->join('product as p','p.product_id = sub.product_id','left'); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->order_by('si.id','DESC');       
-        $this->db->group_by('si.transaction_id');       
+        $this->db->from('sales_order as s');
+        $this->db->join('sales_order_items as si','si.sales_order_id = s.id');
+        // $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id');
+        $this->db->where('si.sales_order_id',$id);
+        // $this->db->join('product as p','p.product_id = sub.product_id','left');
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left');
+        $this->db->order_by('si.id','DESC');
+        $this->db->group_by('si.transaction_id');
         $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result(); 
+        $view_data['salesOrder'] = $query->result();
         $view_data['id'] = $id;
-
         //         echo "<pre>";
         // print_r($view_data['salesOrder']);
-        // exit();       
-
+        // exit();
         $data = array(
             'title' => 'Sales Order Items',
             'content' => $this->load->view('pages/sales_order/viewSalesItems', $view_data, true),
