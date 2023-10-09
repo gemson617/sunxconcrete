@@ -443,9 +443,6 @@ class Quotation extends MY_Controller
         $view_data['quotation_sub'] = $result->result();
 
 
-        // echo "<pre>";
-        //     print_r($view_data['quotation_sub']);
-        //     exit(); 
 
         $this->db->select('*,s.name as stateName');
         $this->db->from('quotation as q'); 
@@ -454,6 +451,9 @@ class Quotation extends MY_Controller
         $this->db->join('states as s', 's.id = c.customer_state','left');       
         $view_data['sold_to_party'] = $this->db->get()->row_array();
 
+        // echo "<pre>";
+        //     print_r($view_data['sold_to_party']);
+        //     exit(); 
         $this->db->select('*,s.name as stateName');
         $this->db->from('quotation as q'); 
         $this->db->where('q.id',$id); 

@@ -49,7 +49,7 @@
                                   
                                 </tr>
                                 <tr>
-                                    <td style="margin-left:10px;padding-left:7px;"><p style="text-align: left;">Place of Supply:&nbsp;&nbsp;<?= $ship_to_party['stateName'] ?></p></td>
+                                    <td style="margin-left:10px;padding-left:7px;"><p style="text-align: left;">Place of Supply:&nbsp;&nbsp;<?= $sold_to_party['stateName'] ?></p></td>
                                     <td style="margin-left:10px;"><p style="text-align: left;margin-right:10px;"></p></td>
                                 </tr>
                             </table>
@@ -128,12 +128,12 @@
                         <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
                         <p style="margin-left:10px;">IFSC Code : <?= $company['bank_ifsc'] ?></p>
                         <p style="margin-left:10px;">Bank Address : <?= $company['bank_address'] ?></p>
-
                     </td>
                     <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">Sub Total</td>
                             <td style="border: 1px solid #ccc;padding-left:50px; ">₹ <?= $quotation['sub_total'] ?></td>
                         </tr>
+                        <?php if ($sold_to_party['stateName']=="Tamil Nadu"){ ?>
                         <tr style="border: 1px solid #ccc; ">
                             <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="4" align="right">SGST (9%)</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $quotation['sgst'] ?></td>
@@ -142,10 +142,13 @@
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">CGST (9%)</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $quotation['cgst'] ?></td>
                         </tr>
+                            <?php }else{ ?>
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
                         </tr>
+                        <?php } ?>
+
                         <!-- <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TCS (0.1%)</td>
                             <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
