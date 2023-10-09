@@ -211,13 +211,15 @@ class Quotation extends MY_Controller
     }
 
     public function view(){
-        $this->db->select('*,q.status as qStatus,q.created_on as created');
+        $this->db->select('*,q.status as qStatus,q.created_on as created,
+                SUM(qSub.quantity) as totalQuantity,
+                q.grand_total as gtotal,
+                q.id as id');
         $this->db->from('quotation as q'); 
-        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
-        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-        // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+        $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
         $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
         $this->db->order_by('q.id','DESC');       
+        $this->db->group_by('qSub.quotation_id','DESC');       
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
         
@@ -270,16 +272,13 @@ class Quotation extends MY_Controller
 
                 $this->db->select('*,q.status as qStatus,q.created_on as created');
                 $this->db->from('quotation as q'); 
-                //  $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
-                // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-                // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
                 $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
                 $this->db->where('q.id',$q_id);   
-                // $this->db->order_by('q.id','DESC');       
                 $query = $this->db->get();
                 $result= $query->row(); 
                 $company= $this->mcommon->specific_row('em_companies', array('id' => 1));
-
+//   echo '<pre>';
+//   print_r($result); exit();
                 $this->db->select('*');
                 $this->db->from('em_companies'); 
                 $this->db->where('id',1); 
