@@ -94,13 +94,14 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
+                                    <th scope="col">Sale Date</th>
                                     <th scope="col">Customer</th>
                                     <!-- <th scope="col">Total Quantity</th>
                                     <th scope="col">Quantity Before Sales</th> -->
-                                    <th scope="col">Received Quantity</th>
-                                    <th scope="col">Sale Date</th>
+                                    <th scope="col">Invoiced Quantity</th>
+                                   
                                     <!-- <th scope="col">Remaining Quantity</th> -->
-                                    <th scope="col">Amount</th>
+                                    <th scope="col">Invoiced Amount</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -109,16 +110,16 @@
                                 <?php foreach ($salesOrder as $key => $sales) {
                                           $date = $sales->created_date;
                                           $dateObj = new DateTime($date);
-                                          $date2 = $dateObj->format("d-m-y");
+                                          $date2 = $dateObj->format("y-m-d");
                                             ?>
                                     <tr>
                                         
                                         <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $date2; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
                                         <!-- <td><?php echo $sales->totalQuantity; ?></td>
                                         <td><?php echo $sales->receivedQuantity + $sales->availableQuantity; ?></td> -->
                                         <td><?php echo $sales->receivedQty; ?></td>
-                                        <td><?php echo $date2; ?></td>
                                         <!-- <td><?php echo $sales->availableQuantity; ?></td> -->
                                         <td>₹ <?php echo number_format($sales->totalAmount,2); ?></td>
                                         <td>                                            

@@ -75,17 +75,19 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Sale.No</th>
                                     <th scope="col">PO.No</th>
                                     <!-- <th scope="col">Product</th> -->
-                                    <th scope="col">Company</th>
+                                    <th scope="col">Customer</th>
                                     <!-- <th scope="col">HSN </th> -->
                                     <th scope="col"> Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
 
-                                    <th scope="col">Received Quantity</th>
-                                    <th scope="col">Received Amount</th>
+                                    <th scope="col">Invoiced Qty</th>
+                                    <th scope="col"> Invoiced Amt</th>
 
-                                    <th scope="col">Total Amount</th>
+                                    <th scope="col">Total Amt</th>
                                     <!-- <th scope="col">Status</th> -->
                                     <th scope="col">Action</th>
                                 </tr>
@@ -95,6 +97,8 @@
                                 <?php foreach ($salesOrder as $key => $sales) { ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $sales->created_on; ?></td>
+                                        <td><?php echo $sales->sale_no; ?></td>
                                         <td><?php echo $sales->po_number; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->total_qty; ?></td>
