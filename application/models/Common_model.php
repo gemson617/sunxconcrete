@@ -141,6 +141,16 @@ class Common_model extends CI_Model
         return $result;
     }
 
+    public function last_inserid($table)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->order_by('id', 'desc');
+        $this->db->limit('1');
+        $result = $this->db->get()->row();
+        return $result;
+    }
+
     public function common_table_last_updated($table, $pm_key, $date_column)
     {
         $this->db->select($date_column);

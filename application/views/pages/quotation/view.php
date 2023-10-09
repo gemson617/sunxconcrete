@@ -72,8 +72,8 @@
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                <th scope="col">S.no</th>
-                                <!-- <th scope="col">Q.no</th> -->
+                                <th scope="col">S.No</th>
+                                <th scope="col">Q.No</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Customer</th>
                                     <th scope="col">Total Qty</th>
@@ -83,18 +83,18 @@
                                 </tr>
                             </thead>
 
-                            <tbody style="text-align:center;">
+                            <tbody >
                                 <?php foreach ($quotations as $key => $q) { 
                                     $date = $q->created;
                                     $dateObj = new DateTime($date);
                                     $date2 = $dateObj->format("d-m-y");
                                     // $date2 =  date_format($q->created,"d-m-y");
                                     // echo $date2;
-?>
+                                ?>
                                     
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <!-- <td><?php echo $q->product_name; ?></td> -->
+                                        <td><?php echo $q->quotation_no; ?></td>
                                  
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>

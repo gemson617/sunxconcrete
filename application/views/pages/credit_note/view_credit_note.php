@@ -73,6 +73,7 @@
                             <thead>
                                 <tr >
                                 <th scope="col">S.no</th>
+                                <th scope="col">Credit.No</th>
                                 <th scope="col">PO Number</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Customer</th>
@@ -94,7 +95,8 @@
 ?>
                                     
                                     <tr>
-                                        <td><?php echo $key + 1; ?></td>  
+                                    <td><?php echo $key + 1; ?></td>  
+                                        <td><?php echo $cn->credit_no; ?></td>  
                                         <td><?php echo $cn->po_number; ?></td>
 
                                         <td><?php echo $date2; ?></td>

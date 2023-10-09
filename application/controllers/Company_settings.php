@@ -42,10 +42,6 @@ class Company_settings extends MY_Controller
     public function edit($id)
     {
         if (isset($_POST['submit'])) {    
-        //     echo '<pre>';
-        //     print_r($_POST);
-        //   exit();
-            //Receive Values
             $company_name = $this->input->post('company_name');			
 			$company_phone_number = $this->input->post('company_phone_number');
 			$company_address = $this->input->post('company_address');
@@ -70,6 +66,39 @@ class Company_settings extends MY_Controller
             $bank_address = $this->input->post('bank_address');                
             $bank_ifsc = $this->input->post('bank_ifsc');                
             $terms = $this->input->post('terms');                
+
+
+            $this->db->select('*');
+            $this->db->from('em_companies'); 
+            $this->db->where('id',1); 
+            $result = $this->db->get()->row();
+
+            if($result->quotation_starting_number != $quotation_starting_number){
+                $q_order_status = 1;
+                $prifix_array = array(                
+                    'quotation_starting_number'=>$quotation_starting_number,                
+                    'quotation_sn_status'=>$q_order_status,                          
+                );
+                $update_prfix = $this->mcommon->common_edit('em_companies', $prifix_array, array('id' => $id));
+            }
+
+            if($result->credit_note_starting_number != $credit_note_starting_number){
+                $credit_order_status = 1;
+                $prifix_array = array( 
+                    'credit_note_starting_number' => $credit_note_starting_number,
+                    'creditnote_sn_status' => $credit_order_status,                                  
+                );
+                $update_prfix = $this->mcommon->common_edit('em_companies', $prifix_array, array('id' => $id));
+            }
+
+            if($result->sales_starting_number != $sales_starting_number){
+                $sales_order_status = 1;
+                $prifix_array = array(  
+                    'sales_starting_number' => $sales_starting_number,  
+                    'sales_sn_status' => $sales_order_status,               
+                );
+                $update_prfix = $this->mcommon->common_edit('em_companies', $prifix_array, array('id' => $id));
+            }
 
             
             if ($_FILES['company_logo']['name']) {
@@ -103,8 +132,7 @@ class Company_settings extends MY_Controller
                 'website_link'=>$website_link,
                 'company_gstin'=>$company_gstin,
                 'invoice_str_num'=>$invoice_str_num,                
-                'company_tan_number'=>$company_tan_number,                
-                'quotation_starting_number'=>$quotation_starting_number,                
+                'company_tan_number'=>$company_tan_number,  
                 'company_email' => $company_email,
                 'company_pan' =>$company_pan,
                 'bank_name' => $bank_name,
@@ -112,11 +140,8 @@ class Company_settings extends MY_Controller
                 'bank_account_no' => $bank_account_no,              
                 'bank_address' => $bank_address,              
                 'bank_ifsc' => $bank_ifsc,              
-                'terms' => $terms,     
-                'credit_note_starting_number' => $credit_note_starting_number,
-                'sales_starting_number' => $sales_starting_number,         
+                'terms' => $terms, 
             );
-      
             //insert values in database
             $update = $this->mcommon->common_edit('em_companies', $update_array, array('id' => $id));
             if ($update) {               
@@ -139,24 +164,20 @@ class Company_settings extends MY_Controller
                     'company_gstin'=>$company_gstin,
                     'invoice_str_num'=>$invoice_str_num, 
                     'company_tan_number'=>$company_tan_number,                
-                    'quotation_starting_number'=>$quotation_starting_number,                
                      'company_email' => $company_email,
                      'company_pan' =>$company_pan,
                      'bank_name' => $bank_name,
                      'credit_note_percentage' => $credit_note_percentage,
-                     'credit_note_starting_number' => $credit_note_starting_number,
-                     'sales_starting_number' => $sales_starting_number,  
                     'bank_account_no' => $bank_account_no,              
                     'bank_address' => $bank_address,              
                     'bank_ifsc' => $bank_ifsc,              
-                    'terms' => $terms,      
+                    'terms' => $terms,                        
                 );
               
-               
+                
                 //insert values in database
                 $update = $this->mcommon->common_edit('em_companies', $update_array, array('id' => $id));
-                // print_r($update_array);
-                // exit();
+
                 
                 if ($update) {               
                     $this->session->set_flashdata('alert_success', 'Company Settings updated successfully!');

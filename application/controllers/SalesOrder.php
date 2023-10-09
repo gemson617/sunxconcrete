@@ -21,13 +21,12 @@ class SalesOrder extends MY_Controller
         $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id','left'); 
         $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
         $this->db->order_by('s.id','DESC');       
-        $this->db->group_by('sub.sales_order_id');       
+        $this->db->group_by('sub.sales_order_id');
         $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result();  
-
+        $view_data['salesOrder'] = $query->result();
         $this->db->select('*');
-        $this->db->from('plant_master as u'); 
-        $this->db->order_by('u.pm_id','DESC');       
+        $this->db->from('plant_master as u');
+        $this->db->order_by('u.pm_id','DESC');
         $query = $this->db->get();
         $view_data['plant'] = $query->result();
 

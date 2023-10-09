@@ -69,11 +69,13 @@ class Quotation extends MY_Controller
           
       
             $user_id =$this->auth_user_id; 
+            $qno = $this->input->post('qno');
             $sold_to_party = $this->input->post('sold_to');    
             $ship_to_party = $this->input->post('ship_to');  
             $remarks = $this->input->post('remarks');  
             $cgst = $this->input->post('cgst');    
             $sgst = $this->input->post('sgst');    
+            $igst = $this->input->post('igst');    
             $total_tax = $this->input->post('total_tax');    
             $round_off = $this->input->post('round_off');    
             $g_total = $this->input->post('g_total');  
@@ -91,12 +93,13 @@ class Quotation extends MY_Controller
            
 
             $insert_array = array(
-                'user_id' => $user_id,    
-                
+                'user_id' => $user_id,  
+                'quotation_no' => 'Q'.$qno,                
                 'sub_total' => $sub_total,               
-                'cgst' => $cgst,               
-                'sgst' => $sgst,               
-                'total_tax' => $total_tax,    
+                'cgst' => $cgst,
+                'sgst' => $sgst,
+                'igst' => $igst,
+                'total_tax' => $total_tax,
                 'round_off' => $round_off,    
                 'grand_total' => $g_total,    
                 'sold_to_party' => $sold_to_party,    
@@ -132,6 +135,8 @@ class Quotation extends MY_Controller
             }
           
 
+            $update_com_status = $this->mcommon->common_edit('em_companies',array('quotation_sn_status'=>0),array('id' =>1));
+
           $qtyData = $this->getTotalQuantity($quotation_id);
              $quantity = 0;
 
@@ -155,7 +160,20 @@ class Quotation extends MY_Controller
 
         $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
+        // $view_data['qno'] = $this->mcommon->records_all('em_companies', array('id' => 1))->row();
+        $this->db->select('*');
+        $this->db->from('em_companies'); 
+        $this->db->where('id',1); 
+        $result = $this->db->get()->row();
+        // print_r($result); exit();
         
+            if ($result->quotation_sn_status == 1) {
+                $view_data['qnumber'] = $result->quotation_starting_number;
+            } else {
+                $quotationRecord = $this->mcommon->last_inserid('quotation');
+                $view_data['qnumber'] = !empty($quotationRecord) ? $quotationRecord->quotation_no : null;
+            }
+       
         $data = array(
             'title' => 'Add Quotation',
             'content' => $this->load->view('pages/quotation/add', $view_data, true),
@@ -250,22 +268,34 @@ class Quotation extends MY_Controller
             if( $creditNote==1)
             {
 
-        $this->db->select('*,q.status as qStatus,q.created_on as created');
-        $this->db->from('quotation as q'); 
-        //  $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
-        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-        // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
-        $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
-        $this->db->where('q.id',$q_id);   
-        // $this->db->order_by('q.id','DESC');       
-        $query = $this->db->get();
-        $result= $query->row(); 
-        $company= $this->mcommon->specific_row('em_companies', array('id' => 1));
+                $this->db->select('*,q.status as qStatus,q.created_on as created');
+                $this->db->from('quotation as q'); 
+                //  $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
+                // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
+                // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
+                $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
+                $this->db->where('q.id',$q_id);   
+                // $this->db->order_by('q.id','DESC');       
+                $query = $this->db->get();
+                $result= $query->row(); 
+                $company= $this->mcommon->specific_row('em_companies', array('id' => 1));
 
-            //    $records= $this->mcommon->specific_row('quotation',array('id'=>$q_id));
-                // print_r($result);exit();
+                $this->db->select('*');
+                $this->db->from('em_companies'); 
+                $this->db->where('id',1); 
+                $result = $this->db->get()->row();
+                // print_r($result); exit();
+                
+                    if ($result->creditnote_sn_status == 1) {
+                        $cnumber = $result->credit_note_starting_number;
+                    } else {
+                        $creditNoteRecord = $this->mcommon->last_inserid('credit_note');
+                        $cnumber = !empty($creditNoteRecord) ? $creditNoteRecord->credit_no : null;
+                    }
+
                $insert_array = array(
                 'user_id' => $this->auth_user_id,   
+                'credit_no' => 'C'.$cnumber,   
                 'credit_note_starting_number'=> $company['credit_note_starting_number'],                                               
                 'customer_id' => $result->customer_id,
                 'quotation_id ' => $result->id,
@@ -274,13 +304,10 @@ class Quotation extends MY_Controller
                 'grand_total' => $result->grand_total,
                 'credit_percentage'  => $company['credit_note_percentage'],
                 'credit_amount'  => $result->grand_total*($company['credit_note_percentage']/100 ),
-                
-                         
-               
-                // 'created_on' => date('Y-m-d h:i:s'),
-            );
-            // print_r($insert_array);exit();
-            $this->mcommon->common_insert('credit_note',$insert_array,true);
+                    
+                );
+                $this->mcommon->common_insert('credit_note',$insert_array,true);
+                $update_com_status = $this->mcommon->common_edit('em_companies',array('creditnote_sn_status'=>0),array('id' =>1));
                
             }
               
@@ -292,22 +319,29 @@ class Quotation extends MY_Controller
             $update = $this->mcommon->common_edit('quotation', $update_array,array('id' => $q_id));
 
 
-            // if($status == 3){
 
                     $data = $this->get_all_data($id);
                     $datas= $this->get_all_datas($id);
 
-                    // echo "<pre>";
-                    // foreach ($data as $row) {
-                    // print_r($row->total_tax);
-                    // }
-                    // exit();
+                    $this->db->select('*');
+                    $this->db->from('em_companies'); 
+                    $this->db->where('id',1); 
+                    $result = $this->db->get()->row();
+                
+                    if ($result->sales_sn_status == 1) {
+                        $snumber = $result->sales_starting_number;
+                    } else {
+                        $saleOrderRecord = $this->mcommon->last_inserid('sales_order');
+                        $snumber = !empty($saleOrderRecord) ? $saleOrderRecord->sale_no : null;
+                    }
 
 
                     foreach ($data as $row) {
                         $insert_array = array(
-                            'quotation_id' => $id,               
-                            'user_id' => $row->user_id,               
+                            'user_id' => $row->user_id, 
+                            'quotation_id' => $id, 
+                            'sale_no' => $snumber,
+                            'quotation_no' => $row->quotation_no,               
                             
                             'sub_total' => $row->sub_total,  
                             'total_qty' => $row->total_qty,  
@@ -327,10 +361,11 @@ class Quotation extends MY_Controller
 
                     $insert = $this->mcommon->common_insert('sales_order', $insert_array);
                     $last_insert_id = $this->db->insert_id();
-// print_r($datas);
-// exit();
+                    $update_com_status = $this->mcommon->common_edit('em_companies',array('sales_sn_status'=>0),array('id' =>1));
+
+
                     foreach($datas as $data2){
-                        $insert_array_new=array(
+                        $insert_array_new=array(                            
                             'quotation_id' => $data2->quotation_id,
                             'sales_order_id' => $last_insert_id,
                             'user_id' => $data2->user_id,
@@ -348,18 +383,6 @@ class Quotation extends MY_Controller
 
 
 
-
-            // }
-
-            // echo "<pre>";
-            // print_r($insert_array);
-            // exit();
-
-            // if ($status == 2) {
-            //     $message = 'Rejected';
-            // }else{
-            //     $message = 'Accepted';
-            // }
 
             if ($update > '0') {
 
@@ -602,10 +625,6 @@ class Quotation extends MY_Controller
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
         
-        //         echo "<pre>";
-        // print_r($view_data['quotation']);
-        // exit();   
-
         $data = array(
             'title' => 'Edit Quotation',
             'content' => $this->load->view('pages/quotation/edit', $view_data, true),
