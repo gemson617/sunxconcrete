@@ -16,9 +16,6 @@ class Quotation extends MY_Controller
     {
         $this->db->select('*,cn.status as qStatus,cn.created_on as created');
         $this->db->from('credit_note as cn'); 
-        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
-        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-        // $this->db->join('uom as u', 'u.uom_id = q.uom_id','left'); 
         $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
         $this->db->order_by('cn.id','DESC');       
         $query = $this->db->get();
@@ -38,17 +35,34 @@ class Quotation extends MY_Controller
         //     print_r($view_data['quotation_sub']);
         //     exit(); 
 
-        $this->db->select('*,cn.status as qStatus,cn.created_on as created');
+        // $this->db->select('*,cn.status as qStatus,cn.created_on as created');
+        // $this->db->from('credit_note as cn'); 
+        // $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
+        // $this->db->join('states as s', 's.id = c.customer_state','left'); 
+        // $this->db->where('cn.id',$id);       
+        // $query = $this->db->get();
+        // $view_data['result'] = $query->row();
+
+
+        $this->db->select('*,state.name as stateName');
         $this->db->from('credit_note as cn'); 
-        // $this->db->join('quotation_sub as qSub','q.id = qSub.quotation_id ','left'); 
-        // $this->db->join('hsn_code as h', 'h.hsn_id = q.hsn_id','left'); 
-        $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
-        $this->db->join('states as s', 's.id = c.customer_state','left'); 
-        
-        $this->db->where('cn.id',$id);       
+        $this->db->where('cn.id',$id); 
+        $this->db->join('sales_order as s','s.quotation_id = cn.quotation_id','left'); 
+        $this->db->join('customer as c','c.customer_id = cn.customer_id','left'); 
+        $this->db->join('states as state', 'state.id = c.customer_state','left');       
+        $view_data['result'] = $this->db->get()->row_array();
+       
+        $this->db->select('*');
+        $this->db->from('credit_note as cn'); 
+        $this->db->where('cn.id',$id); 
+        $this->db->join('sales_order as s','s.quotation_id = cn.quotation_id','left'); 
+        $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
+        $this->db->join('product as p','p.product_id = si.product_id','left');
         $query = $this->db->get();
-        $view_data['result'] = $query->row();
-        // print_r($view_data['result']);
+        $view_data['products'] = $query->result();
+
+        // echo '<pre>';
+        // print_r($view_data['products']);
         //      exit(); 
 
         $view_data['credit_note']= $this->mcommon->specific_row('credit_note',array('id',$id));

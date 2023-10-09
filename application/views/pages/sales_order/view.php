@@ -109,7 +109,7 @@
                         
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
-                                            <?php if ($sales->availableQty != 0)
+                                            <?php if ($sales->received_quantity != $sales->total_qty)
                                             { ?>
                                             <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
                                             <!-- <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button><br> -->
