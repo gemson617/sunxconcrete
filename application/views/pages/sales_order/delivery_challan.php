@@ -204,8 +204,6 @@
                         <td style="padding-left:7px;border-bottom:1px solid #ccc;border-top:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
                         </tr>
                     </table></tr>
-
-
                     <tr >
                     <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                       <br>
