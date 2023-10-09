@@ -94,7 +94,7 @@ class Quotation extends MY_Controller
 
             $insert_array = array(
                 'user_id' => $user_id,  
-                'quotation_no' => 'Q'.$qno,                
+                'quotation_no' => $qno,                
                 'sub_total' => $sub_total,               
                 'cgst' => $cgst,
                 'sgst' => $sgst,
@@ -296,8 +296,8 @@ class Quotation extends MY_Controller
 
                $insert_array = array(
                 'user_id' => $this->auth_user_id,   
-                'credit_no' => 'C'.$cnumber,   
-                // 'credit_note_starting_number'=>'C'.$cnumber,                                               
+                'credit_no' => $cnumber,   
+                'credit_note_starting_number'=>'C'.$cnumber,                                               
                 'customer_id' => $result->customer_id,
                 'quotation_id ' => $result->id,
                 'company_id'   => $company['id'],
@@ -341,13 +341,14 @@ class Quotation extends MY_Controller
                         $insert_array = array(
                             'user_id' => $row->user_id, 
                             'quotation_id' => $id, 
-                            'sale_no' => 'S'.$snumber,
+                            'sale_no' => $snumber,
                             'quotation_no' => $row->quotation_no,               
                             
                             'sub_total' => $row->sub_total,  
                             'total_qty' => $row->total_qty,  
                             'cgst' => $row->cgst,  
                             'sgst' => $row->sgst,  
+                            'igst' => $row->igst,  
                             'total_tax' => $row->total_tax,  
                             'round_off' => $row->round_off,  
                             'grand_total' => $row->grand_total,    
