@@ -104,7 +104,7 @@
                         </tr>
                         <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
                             <th style="border: 1px solid #ccc;padding:4px;"><center>Plant Name</center></th>
-                            <td style="border: 1px solid #ccc;padding:4px;"><center><?= $plant_name?></center></td>
+                            <td style="border: 1px solid #ccc;padding:4px;"><center><?= $plant_name ?></center></td>
                             <td style="border: 1px solid #ccc;"><center>Mode of Unloading</center></td>
                             <td style="border: 1px solid #ccc;"><center></center></td>
                             <td style="border: 1px solid #ccc;"><center>DC Date</center></td>

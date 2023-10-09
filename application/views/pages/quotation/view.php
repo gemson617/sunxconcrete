@@ -99,7 +99,7 @@
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>
                                         <td><?php echo $q->total_qty; ?></td>
-                                        <td><?php echo $q->grand_total; ?></td>
+                                        <td><?php echo number_format($q->grand_total,2, '.', ','); ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->
                                 <td>
@@ -167,8 +167,8 @@
                         <input type="text" class="form-control" min="1"  placeholder="Enter the PO Number" id="poNumber" name="poNumber">
                     </div>
                     <div class="form-group mt-3">
-                    <label for="credit_bill">Credit Note</label>
-                    <select class="form-control" name="creditNote"  id="creditNote" required>
+                    <label for="credit_bill">Credit Note</label><br>
+                    <select class="form-control" name="creditNote"  id="creditNote">
                                             <option value="">--Credit Note --</option>
                                             
                                             <option value="1">Yes</option>
@@ -176,7 +176,7 @@
                     </select>                     
                     </div>
                     
-                    <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Accept</button>
+                    <button type="submit" name='submit' id="submit" class="btn btn-primary ">Accept</button>
                     <button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Cancel</button>
                 
                 </form>

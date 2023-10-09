@@ -159,7 +159,7 @@
                         <tr>
                         <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:5px;" id="">Qutotation Value in Words: </td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
-                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($quotation['grand_total'],2) ?></span> </td></H6>
+                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($quotation['grand_total'], 2, '.', ',') ?></span> </td></H6>
                         </tr>
                         <!-- <tr>
                         <td style="border-bottom:1px solid #ccc;">Mode of Transport:</td>

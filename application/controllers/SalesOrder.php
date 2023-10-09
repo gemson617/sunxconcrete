@@ -444,9 +444,19 @@ class SalesOrder extends MY_Controller
         $query = $this->db->get();
         $view_data['salesOrders'] = $query->result(); 
 
-//    echo "<pre>";
-//         print_r($view_data['salesOrders']);
+
+        $plant_id = 0;
+        foreach ($view_data['salesOrders'] as $plant){
+            $plant_id = $plant->plant_id;
+          }
+       
+    
+        $view_data['plant_name'] = $this->mcommon->specific_row_value('plant_master', array('pm_id' => $plant_id),'plant_master_name');    
+
+//  echo "<pre>";
+//         print_r($view_data['plant_name']);
 //         exit();  
+
 
         $sales_order_id = $this->mcommon->specific_row_value('sales_order_items', array('transaction_id' => $id), 'sales_order_id');
 

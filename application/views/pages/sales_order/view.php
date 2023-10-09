@@ -81,8 +81,10 @@
                                     <!-- <th scope="col">HSN </th> -->
                                     <th scope="col"> Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
-                                    <!-- <th scope="col">Received Quantity</th> -->
-                                    <!-- <th scope="col">UOM</th> -->
+
+                                    <!-- <th scope="col">Received Quantity</th>
+                                    <th scope="col">Received Amount</th> -->
+
                                     <th scope="col">Total Amount</th>
                                     <!-- <th scope="col">Status</th> -->
                                     <th scope="col">Action</th>
@@ -94,32 +96,14 @@
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $sales->po_number; ?></td>
-                                        <!-- <td><?php echo $sales->product_name; ?></td> -->
                                         <td><?php echo $sales->company_name; ?></td>
-                                        <!-- <td><?php echo $sales->hsn_name; ?></td> -->
                                         <td><?php echo $sales->total_qty; ?></td>
-                                        <!-- <td><?php echo $sales->received_qty; ?></td> -->
-                                        <!-- <td><?php echo $sales->received_qty; ?></td> -->
-                                        <!-- <td><?php echo $sales->uom; ?></td> -->
+
+                                        <!-- <td><?php echo $sales->received_qty; ?></td>
+                                        <td><?php echo $sales->received_amount; ?></td> -->
+
                                         <td><?php echo $sales->grand_total; ?></td>
-                                        <!-- <td><a href="#" class="badge <?php if ($sales->salesStatus == 1)
-                                         {
-                                                echo "approved-btn";
-                                            } else if ($sales->salesStatus == 2){
-                                                echo "approved";
-                                            }  else if ($sales->salesStatus == 3){
-                                                echo "update";
-                                            }  ?>">
-                                           
-                                            <?php if ($sales->salesStatus == 1)
-                                            {
-                                                echo "New";
-                                            } else if ($sales->salesStatus == 2){
-                                                echo "Processing";
-                                            }  else if ($sales->salesStatus == 3){
-                                                echo "Completed";
-                                            }  ?></a>
-                                </td> -->
+                        
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <?php if ($sales->availableQty != 0)
