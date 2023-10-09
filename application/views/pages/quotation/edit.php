@@ -490,23 +490,17 @@
                         sub_total += parseFloat(ob.value);
                     }
                 });
-    // var qtyValue = parseFloat($('#qty').val()) || 0;
-    // var priceValue = parseFloat($('#price').val()) || 0;
-    // var amountValue = qtyValue * priceValue;
-    // $('#amount').val(amountValue.toFixed(2));
+
     $('#sub_total').val(sub_total.toFixed(2));
 
-    // document.getElementById('sub_total').value = totalSubtotal.toFixed(2);
+     // document.getElementById('sub_total').value = totalSubtotal.toFixed(2);
         var subTotal = Number(document.getElementById('sub_total').value);
         cgst = subTotal * 9 / 100;
         sgst = subTotal * 9 / 100;
         $('#cgst').val(cgst.toFixed(2));
         $('#sgst').val(sgst.toFixed(2));
         $('#igst').val((parseFloat(sgst)+parseFloat(cgst)).toFixed(2));
-        
 
-    //     document.getElementById('cgst').value = cgst;
-    //     document.getElementById('sgst').value = sgst;
         var gst = cgst + sgst;
 
         grandTotal = subTotal + gst;

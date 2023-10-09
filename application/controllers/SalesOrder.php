@@ -103,11 +103,14 @@ $query = $this->db->get();
                         $sales_order_id = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'sales_order_id');
                         $total_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'total_qty');
                         $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
+                        $receivedQty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'received_qty');
+                        
+                        $received_qty = $receivedQty + $qty[$i];
                         $available_qty=$available_qty - $qty[$i];
                             
 
                         $update_array = array(
-                                'received_qty' => $qty[$i],
+                                'received_qty' => $received_qty,
                                 'available_qty' => $available_qty,
                             );
 
