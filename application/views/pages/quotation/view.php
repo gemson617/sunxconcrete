@@ -176,7 +176,7 @@
                     </select>                     
                     </div>
                     
-                    <button type="submit" name='submit' id="submit" class="btn btn-primary ">Accept</button>
+                    <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Accept</button>
                     <button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Cancel</button>
                 
                 </form>
