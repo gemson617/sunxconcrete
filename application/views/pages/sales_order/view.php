@@ -82,8 +82,8 @@
                                     <th scope="col"> Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
 
-                                    <!-- <th scope="col">Received Quantity</th>
-                                    <th scope="col">Received Amount</th> -->
+                                    <th scope="col">Received Quantity</th>
+                                    <th scope="col">Received Amount</th>
 
                                     <th scope="col">Total Amount</th>
                                     <!-- <th scope="col">Status</th> -->
@@ -99,20 +99,20 @@
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->total_qty; ?></td>
 
-                                        <!-- <td><?php echo $sales->received_qty; ?></td>
-                                        <td><?php echo $sales->received_amount; ?></td> -->
+                                        <td><?php echo $sales->received_quantity; ?></td>
+                                        <td><?php echo number_format($sales->received_amount,2); ?></td>
 
-                                        <td><?php echo $sales->grand_total; ?></td>
+                                        <td><?php echo number_format($sales->grand_total,2); ?></td>
                         
                                         <td>                                            
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <?php if ($sales->availableQty != 0)
                                             { ?>
-                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->sales_order_id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
+                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
                                             <!-- <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button><br> -->
                                             <?php } ?>
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->sales_order_id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
-                                            <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->sales_order_id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
+                                            <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">View Sales</button></a>
                                         </td>                                     
                                     </tr>
 
