@@ -98,8 +98,8 @@
                                  
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>
-                                        <td><?php echo $q->total_qty; ?></td>
-                                        <td><?php echo number_format($q->grand_total,2, '.', ','); ?></td>
+                                        <td><?php echo $q->totalQuantity; ?></td>
+                                        <td><?php echo number_format($q->gtotal,2, '.', ','); ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->
                                 <td>
