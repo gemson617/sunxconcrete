@@ -36,58 +36,55 @@
                         <td style="width: 50%;">
                             <table style="width: 100%; ">
                                 <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Quotation No.:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= $company['quotation_starting_number'].$quotation['qId'] ?></p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Quotation No.:&nbsp;&nbsp;<?= $company['quotation_starting_number'].$quotation['qId'] ?></p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"></p></td>
                                 </tr>
                                 <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Qutotation Date:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= date('d-m-y') ?></p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;">Qutotation Date : &nbsp;&nbsp;<?= date('d-m-y') ?></p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;text-align: left;"><p style=""></p></td>
                                 </tr>
                                 <tr>
-                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td>
-                                    <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($quotation['tax_payable']==1) ? 'yes' : 'No' ?></p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable <br> on reverse charge basis: &nbsp;&nbsp; Y/N</p></td>
+                                    <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"></td>
+                                  
                                 </tr>
                                 <tr>
-                                    <td style="margin-left:10px;padding-left:7px;"><p style="text-align: left;">Place of Supply:</p></td>
-                                    <td style="margin-left:10px;"><p style="text-align: left;margin-right:10px;"><?= $quotation['place_of_supply'] ?></p></td>
+                                    <td style="margin-left:10px;padding-left:7px;"><p style="text-align: left;">Place of Supply:&nbsp;&nbsp;<?= $ship_to_party['stateName'] ?></p></td>
+                                    <td style="margin-left:10px;"><p style="text-align: left;margin-right:10px;"></p></td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
-                    <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;border-left: 1px solid #ccc;">
-                        <td style=" width:50%;"><p style="text-align:left;font-weight: bold;";>Sold to Party</p></td>
-                        <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Ship to Party</p></td>
+                    <tr style="border-top: 1px solid #ccc; width:100%;border-left: 1px solid #ccc;padding-left:5px;padding:5px;">
+                        <td style=" width:50%;"><p style="text-align:left;font-weight: bold;padding-left:5px;padding:5px;";>Sold to Party</p></td>
+                        <td style="width:50%;border-left: 1px solid #ccc;padding-left:5px;"><p style="text-align:left;font-weight: bold;padding:5px;";>Ship to Party</p></td>
                     </tr>
-                    <tr style="border-top: 1px solid #ccc; width:100%;"margin-left:10px;">
-                    <td style="width: 50%;">
-                            <table style="width: 100%; height:170px;">
+                    <tr style="border-top: 1px solid #ccc; width:100%;padding-left:10px;">
+                    <td style="width: 50%;padding-left:10px;">
+                            <table style="width: 100%; height:20px;">
                         <tr>
-                            <td style="padding-left:7px;">Name:</td>
-                            <td><?= $sold_to_party['company_name'] ?></td>
+                            
+                            <td style="padding:5px;"><?= $sold_to_party['company_name'] ?></td>
                         </tr>
                         <tr>
-                            <td style="padding-left:7px;">Address:</td>
-                            <td><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="padding:5px;"><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr>
-                            <td style="padding-left:7px;">GSTIN/UID:</td>
-                            <td><?= $sold_to_party['customer_gst_no'] ?></td>
+                            <td style="padding:5px;">GSTIN/UID :&nbsp;&nbsp;<?= $sold_to_party['customer_gst_no'] ?></td>
+                            
                         </tr>
                         </table>
                     </td>
                     <td style="width: 50%;">
-                            <table style="width: 100%; height:170px; border-left: 1px solid #ccc;">
+                            <table style="width: 100%; height:20px; border-left: 1px solid #ccc;">
                         <tr>
-                            <td style="padding-left:7px;">Name:</td>
-                            <td><?= $ship_to_party['company_name'] ?></td>
+                            <td style="padding:5px;"><?= $ship_to_party['company_name'] ?></td>
                         </tr>
                         <tr>
-                            <td style="padding-left:7px;">Address:</td>
-                            <td><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="padding:5px;"><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr>
-                            <td style="padding-left:7px;">GSTIN/UID:</td>
-                            <td><?= $ship_to_party['customer_gst_no'] ?></td>
+                            <td style="padding:5px;">GSTIN/UID :&nbsp;&nbsp;<?= $ship_to_party['customer_gst_no'] ?></td>
                         </tr>
                         </table>
                         </td>
@@ -97,6 +94,7 @@
  
                     <thead style="width:100%;"><br>
                         <tr style="border: 1px solid #ccc; width:100%;">
+                            <th style="border: 1px solid #ccc;padding:5px;"><center>S.No.</center></th>
                             <th style="border: 1px solid #ccc;padding:5px;"><center>Description of Goods</center></th>
                             <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
                             <th style="border: 1px solid #ccc;"><center>UOM</center></th>
@@ -106,19 +104,25 @@
                         </tr>
                     </thead>
                     <tbody style="border: 1px solid #ccc;">
-                       <?php foreach($quotation_sub as $q){ ?>
+                       <?php
+                         $i= 1; 
+                         foreach($quotation_sub as $q){ 
+                       ?>
                             <tr style="border: 1px solid #ccc;" >
+                                <td style="border: 1px solid #ccc;text-align:center;"><?= $i ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;"><?= $q->product_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->hsn_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->uom ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->subQty ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $q->subPrice ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $q->subAmount ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;padding-left:50px;">₹ <?= $q->subAmount ?></td>
                             </tr>
-                        <?php } ?>
+                        <?php 
+                            $i++;
+                         } ?>
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="6" colspan="1">
+                    <td rowspan="6" colspan="2">
                         <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
                         <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
                         <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
@@ -153,41 +157,23 @@
                     </tfoot>
                     </table>
                     </tr>
-                    <br>
-                    <tr >
+                    
+                    <tr>
                     <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:5px;" id="">Qutotation Value in Words: </td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id="inWords"></td>
-                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($quotation['grand_total'],2) ?></span> </td></H6>
-                        </tr>
-                        <!-- <tr>
-                        <td style="border-bottom:1px solid #ccc;">Mode of Transport:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LR/RR No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Eway Bill No.:</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc">Mode of Unloading:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LR/RR Date:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Eway Bill Date:</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc">Pump Seriel No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Freight:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Incoterm: 35 days</td>
-                        </tr>
-                        <tr>
-                        <td style="border-bottom:1px solid #ccc">Vehicle Reg No.:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">KM:</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">LUT:</td>
-                        </tr> -->
-                        <tr >
+                      <tr style="padding:5px;"> <br> 
+                        <td style="padding:5px;width:60%;border-bottom:1px solid #ccc; font-weight: bold;padding-left:5px;" id="inWords">Qutotation Value in Words: </td>
+                        <!-- <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id=""></td> -->
+                        <td style="padding:5px;width:40%;border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;font-weight: bold;">TOTAL QUOTATION VALUE : ₹ <?= number_format($quotation['grand_total'], 2, '.' , ',') ?></td>
+                      </tr>
+                     
+                    <tr >
                            <td style="border-bottom:1px solid #ccc;" colspan="3">&nbsp;Remarks :   &nbsp;<?= $quotation['remarks'] ?></td>
                         <td style="padding-left:10px;"></td>
                         <td></td>
-                        </tr>
-                        <tr >
-                            <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">
+                    </tr>
+                        
+                    <tr >
+                        <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">
                             <span style="font-weight: bold;">Terms and Conditions: </span><br><br>
                             1. Price as applicable on the date of dispatch shall be charged.<br>
                             2. Payment should be made by 'A/C Payee only' - bank draft/cheque or bank remmitance by NEFT/RTGS in favour of Sun-x Concrete India Private Limited.<br>
@@ -202,19 +188,18 @@
                             11. All Disputes arising out of or in connection with this invoice or touching upon the invoice shall be reffered to sole Arbitration and the Sole Arbitrator shall be appointed by Sun-x Concete India Private Limited and the award 
                             passes there on would be binding on both the parties. The Arbitration shall be conducted in accordance with the provisions of the Arbitration and Reconcilation Act 1996 or any amendment there of.  The seat of Arbitration shall be at 
                             Chennai only.<br>
-                            12. Payment Shall be made within 30 days from the date of invoice.<br><br>
-                            
+                            12. Payment Shall be made within 30 days from the date of invoice.<br><br> 
                         </td>
-                        </tr>
+                    </tr>
                         <tr >
-                            <td style="padding-bottom:50px;">Material Recieved in Good Condition & Quality</td>
-                            <td></td>
-                            <td style="text-align:right;padding-bottom:50px;">For Sun X Concrete India Private Limited</td>
+                            <td style="padding-left:5px;padding-bottom:50px;width:50%;padding-left:7px;">Material Recieved in Good Condition & Quality</td>
+                            <!-- <td></td> -->
+                            <td style="padding-bottom:50px;width:50%;text-align:right;">For Sun X Concrete India Private Limited</td>
                         </tr>
                         <tr>
-                            <td style="">(Reciever's Signature with seal)</td>
-                            <td></td>
-                            <td style="text-align:right;">(Authorized Signatory)</td>
+                            <td style="padding-left:7px;">(Reciever's Signature with seal)</td>
+                            <!-- <td></td> -->
+                            <td style="text-align:right;padding-right:5px;">(Authorized Signatory)</td>
                         </tr>
                     </table>
                     </tr>
@@ -309,7 +294,7 @@ const capitalizedWord = capitalizeWords(inputString);
 
 word =  capitalizedWord;
 
-document.getElementById("inWords").textContent = word;
+document.getElementById("inWords").textContent ='Qutotation Value in Words: ' + word;
 
 
 

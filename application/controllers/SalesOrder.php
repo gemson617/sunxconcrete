@@ -16,14 +16,24 @@ class SalesOrder extends MY_Controller
     public function view()
         
     {
-        $this->db->select('*,s.status as salesStatus,sum(sub.available_qty) as availableQty, s.total_qty,s.grand_total');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id','left'); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->order_by('s.id','DESC');       
-        $this->db->group_by('sub.sales_order_id');
-        $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result();
+        $this->db->select('*,s.id as id,s.status as salesStatus,  
+        sum(si.received_qty) as received_quantity,
+        sum(si.tottalamt) as received_amount,
+        sum(si.available_quantity) as availableQty, 
+        s.total_qty,
+        s.grand_total,
+        ');
+$this->db->from('sales_order as s'); 
+// $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id','left'); 
+$this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
+$this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+$this->db->order_by('s.id','DESC');       
+$this->db->group_by('si.sales_order_id');       
+$query = $this->db->get();
+
+
+        $view_data['salesOrder'] = $query->result();  
+
         $this->db->select('*');
         $this->db->from('plant_master as u');
         $this->db->order_by('u.pm_id','DESC');
@@ -33,7 +43,8 @@ class SalesOrder extends MY_Controller
 
         //         echo "<pre>";
         // print_r($view_data['salesOrder']);
-        // exit();       
+        // exit();    
+
         $data = array(
             'title' => 'Sales Orders',
             'content' => $this->load->view('pages/sales_order/view', $view_data, true),
@@ -92,11 +103,14 @@ class SalesOrder extends MY_Controller
                         $sales_order_id = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'sales_order_id');
                         $total_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'total_qty');
                         $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
+                        $receivedQty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'received_qty');
+                        
+                        $received_qty = $receivedQty + $qty[$i];
                         $available_qty=$available_qty - $qty[$i];
                             
 
                         $update_array = array(
-                                'received_qty' => $qty[$i],
+                                'received_qty' => $received_qty,
                                 'available_qty' => $available_qty,
                             );
 
@@ -443,9 +457,19 @@ class SalesOrder extends MY_Controller
         $query = $this->db->get();
         $view_data['salesOrders'] = $query->result(); 
 
-//    echo "<pre>";
-//         print_r($view_data['salesOrders']);
+
+        $plant_id = 0;
+        foreach ($view_data['salesOrders'] as $plant){
+            $plant_id = $plant->plant_id;
+          }
+       
+    
+        $view_data['plant_name'] = $this->mcommon->specific_row_value('plant_master', array('pm_id' => $plant_id),'plant_master_name');    
+
+//  echo "<pre>";
+//         print_r($view_data['plant_name']);
 //         exit();  
+
 
         $sales_order_id = $this->mcommon->specific_row_value('sales_order_items', array('transaction_id' => $id), 'sales_order_id');
 

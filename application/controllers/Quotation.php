@@ -226,7 +226,7 @@ class Quotation extends MY_Controller
         // exit();      
 
         $data = array(
-            'title' => 'Add Quotation',
+            'title' => 'View Quotation',
             'content' => $this->load->view('pages/quotation/view', $view_data, true),
         );
         $this->load->view('base/base_template', $data);   
