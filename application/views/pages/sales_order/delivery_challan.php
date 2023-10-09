@@ -108,7 +108,7 @@
                             <td style="border: 1px solid #ccc;"><center>Mode of Unloading</center></td>
                             <td style="border: 1px solid #ccc;"><center></center></td>
                             <td style="border: 1px solid #ccc;"><center>DC Date</center></td>
-                            <th style="border: 1px solid #ccc;"><center></center><?= $dc_date ?></th>
+                            <th style="border: 1px solid #ccc;text-align:center"><center></center><?= $dc_date ?></th>
                         </tr>
                     </thead>
                     <tbody style="border: 1px solid #ccc;">
@@ -154,7 +154,7 @@
                         <td style="border: 1px solid #ccc;padding:2px;"><center></center></td>
                         <td style="border: 1px solid #ccc;padding:2px;"><center><?=$sales->received_qty ?></center></td>
                         <td style="border: 1px solid #ccc;padding:2px;"><center>₹<?=number_format($sales->price,2) ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:2px;"><center></center>₹<?= number_format($sales->sale_price,2)  ?></td>
+                        <td style="border: 1px solid #ccc;padding:2px;text-align:center;"><center></center>₹<?= number_format($sales->sale_price,2)  ?></td>
                        
                     </tr>
                     <?php } ?>
@@ -197,7 +197,7 @@
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style="border-left: 1px solid #ccc;padding:4px;border-bottom: 1px solid #ccc; ">Total :</td>
-                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;"> &nbsp;  &nbsp;₹<?= number_format($total,2) ?></td>
+                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;text-align:right;"> &nbsp;  &nbsp;₹<?= number_format($total,2) ?></td>
                     </tr>
                     <tr>
                         <td style="padding-left:7px;border-bottom:1px solid #ccc; font-weight: bold;padding:4px;" id="">Qutotation Value in Words: </td>
@@ -231,7 +231,7 @@
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">9.00</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($taxAmount,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:center;">₹<?= number_format($taxAmount,2)  ?></td>
                         </tr>
                         <tr>
                         <td style="border-bottom:1px solid #ccc">Total :</td>
@@ -240,7 +240,7 @@
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;"></td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($taxAmount,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:center;">₹<?= number_format($taxAmount,2)  ?></td>
                         </tr>
                         <tr >
                         <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
