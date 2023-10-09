@@ -77,7 +77,7 @@
                                 <th scope="col">PO Number</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Customer</th>
-                                    <th scope="col">Credit Percentage</th>
+                                    <th scope="col">Credit %</th>
                                     <th scope="col">Total Amount</th>
                                     <th scope="col">Credit Amount</th>
                                     <th scope="col">Invoice</th>
@@ -92,16 +92,16 @@
                                     $date2 = $dateObj->format("d-m-y");
                                     // $date2 =  date_format($q->created,"d-m-y");
                                     // echo $date2;
-?>
+                                                                        ?>
                                     
                                     <tr>
                                     <td><?php echo $key + 1; ?></td>  
-                                        <td><?php echo $cn->credit_no; ?></td>  
+                                        <td><?php echo 'C'.$cn->credit_no; ?></td>  
                                         <td><?php echo $cn->po_number; ?></td>
 
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $cn->cp_name; ?></td>
-                                        <td><?php echo $cn->credit_percentage; ?></td>
+                                        <td><?php echo $cn->credit_percentage.'%'; ?></td>
                                         <td><?php echo $cn->grand_total; ?></td>
                                         <td><?php echo $cn->credit_amount; ?></td>
                                 

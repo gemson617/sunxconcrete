@@ -94,7 +94,7 @@
                                     
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $q->quotation_no; ?></td>
+                                        <td><?php echo 'Q'.$q->quotation_no; ?></td>
                                  
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>

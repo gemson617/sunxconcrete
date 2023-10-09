@@ -97,7 +97,7 @@
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $sales->created_on; ?></td>
-                                        <td><?php echo $sales->sale_no; ?></td>
+                                        <td><?php echo 'S'.$sales->sale_no; ?></td>
                                         <td><?php echo $sales->po_number; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->total_qty; ?></td>
