@@ -83,7 +83,6 @@
                                     <!-- <th scope="col">HSN </th> -->
                                     <th scope="col"> Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
-
                                     <th scope="col">Invoiced Qty</th>
                                     <th scope="col"> Invoiced Amt</th>
 

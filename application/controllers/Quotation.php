@@ -283,20 +283,21 @@ class Quotation extends MY_Controller
                 $this->db->select('*');
                 $this->db->from('em_companies'); 
                 $this->db->where('id',1); 
-                $result = $this->db->get()->row();
-                // print_r($result); exit();
+                $comresult = $this->db->get()->row();
+                // print_r($comresult->creditnote_sn_status); exit();
                 
-                    if ($result->creditnote_sn_status == 1) {
-                        $cnumber = $result->credit_note_starting_number;
+                    if ($comresult->creditnote_sn_status == 1) {
+                        $cnumber = $comresult->credit_note_starting_number;
                     } else {
                         $creditNoteRecord = $this->mcommon->last_inserid('credit_note');
                         $cnumber = !empty($creditNoteRecord) ? $creditNoteRecord->credit_no : null;
+                        $cnumber = $cnumber +1;                   
                     }
 
                $insert_array = array(
                 'user_id' => $this->auth_user_id,   
                 'credit_no' => 'C'.$cnumber,   
-                'credit_note_starting_number'=> $company['credit_note_starting_number'],                                               
+                // 'credit_note_starting_number'=>'C'.$cnumber,                                               
                 'customer_id' => $result->customer_id,
                 'quotation_id ' => $result->id,
                 'company_id'   => $company['id'],
@@ -340,7 +341,7 @@ class Quotation extends MY_Controller
                         $insert_array = array(
                             'user_id' => $row->user_id, 
                             'quotation_id' => $id, 
-                            'sale_no' => $snumber,
+                            'sale_no' => 'S'.$snumber,
                             'quotation_no' => $row->quotation_no,               
                             
                             'sub_total' => $row->sub_total,  
