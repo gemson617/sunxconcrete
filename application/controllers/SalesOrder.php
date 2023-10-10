@@ -29,8 +29,7 @@ class SalesOrder extends MY_Controller
                    si.driver_name,
                    si.truck_no,
                    si.transaction_id,
-                   c.company_name,
-                   
+                   c.company_name,                   
                    ');
         $this->db->from('sales_order as s');
         $this->db->join('sales_order_items as si', 'si.sales_order_id = s.id', 'left');
@@ -38,8 +37,7 @@ class SalesOrder extends MY_Controller
         $this->db->group_by('si.sales_order_id, si.id');
         $query = $this->db->get()->result();
         
-        // echo "<pre>";print_r($query);
-        // die();
+
 
         $resultArr = array();
 
@@ -274,7 +272,7 @@ class SalesOrder extends MY_Controller
         }
         else{
 
-            $this->db->select('*,sub.id as subId,sub.available_qty as available_qty');
+            $this->db->select('*,sub.id as subId, sub.price as sprice,sub.available_qty as available_qty');
             $this->db->from('sales_order_sub as sub'); 
             $this->db->where('sub.sales_order_id', $id); 
             $this->db->join('sales_order as s','s.id = sub.sales_order_id','left'); 

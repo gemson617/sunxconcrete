@@ -313,7 +313,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" value=" <?= $pro->price ?>" readonly class="form-control price"  id="price<?= $key ?>"  placeholder=" Price"  required>
+                                        <input type="text" name="price[]" value=" <?= $pro->sprice ?>" readonly class="form-control price"  id="price<?= $key ?>"  placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

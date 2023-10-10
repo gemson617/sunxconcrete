@@ -163,7 +163,7 @@
                       <tr style="padding:5px;"> <br> 
                         <td style="padding:5px;width:60%;border-bottom:1px solid #ccc; font-weight: bold;padding-left:5px;" id="inWords">Qutotation Value in Words: </td>
                         <!-- <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;" id=""></td> -->
-                        <td style="padding:5px;width:40%;border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;font-weight: bold;">TOTAL QUOTATION VALUE : ₹ <?= number_format($quotation['grand_total'], 2, '.' , ',') ?></td>
+                        <td style="padding:5px;width:40%;border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold; font-weight: bold;">TOTAL QUOTATION VALUE : <span style="text-align:right;">₹ <?= number_format($quotation['grand_total'], 2, '.' , ',') ?></span></td>
                       </tr>
                      
                     <tr >
