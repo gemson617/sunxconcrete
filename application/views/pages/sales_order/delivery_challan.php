@@ -153,8 +153,8 @@
                         <td style="border: 1px solid #ccc;padding:2px;"><center><?=$sales->hsn_name ?></center></td>
                         <td style="border: 1px solid #ccc;padding:2px;"><center></center></td>
                         <td style="border: 1px solid #ccc;padding:2px;"><center><?=$sales->received_qty ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:2px;"><center>₹<?=number_format($sales->price,2) ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:2px;text-align:center;"><center></center>₹<?= number_format($sales->sale_price,2)  ?></td>
+                        <td style="border: 1px solid #ccc;padding:2px; text-align:right">₹<?=number_format($sales->price,2) ?></td>
+                        <td style="border: 1px solid #ccc;padding:2px;text-align:right;">₹<?= number_format($sales->sale_price,2)  ?></td>
                        
                     </tr>
                     <?php } ?>
@@ -164,15 +164,16 @@
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style="border-left: 1px solid #ccc;padding:4px;border-bottom: 1px solid #ccc;">Sub Total :</td>
-                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;"> &nbsp;   &nbsp;₹<?= number_format($sub_total,2) ?></td>
+                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;text-align:right;"> &nbsp;   &nbsp;₹<?= number_format($sub_total,2) ?></td>
                     </tr>
+                    <?php if ($sold_to_party['stateName']=="Tamil Nadu"){ ?>
                     <tr colspan="2">
                         <td style=""><center><p></p></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center> </td>
                         <td style="border-left: 1px solid #ccc;padding:4px;border-bottom: 1px solid #ccc;">CGST 9% :</td>
-                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;"> &nbsp;  &nbsp;₹<?= number_format($cgst,2) ?></td>
+                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;text-align:right;"> &nbsp;  &nbsp;₹<?= number_format($cgst,2) ?></td>
                     </tr>
                     
                     <tr>
@@ -181,15 +182,25 @@
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style="border-left: 1px solid #ccc;padding:4px;border-bottom: 1px solid #ccc;">SGST 9% : </td>
-                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;"> &nbsp; &nbsp;₹<?= number_format($cgst,2) ?></td>
+                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;text-align:right;"> &nbsp; &nbsp;₹<?= number_format($cgst,2) ?></td>
                     </tr>
+                    <?php }else{ ?>
+                    <tr>
+                       <td style=""><center><p></p></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style=><center></center></td>
+                        <td style="border-left: 1px solid #ccc;padding:4px;border-bottom: 1px solid #ccc;">IGST 18% : </td>
+                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;text-align:right;"> &nbsp; &nbsp;₹<?= number_format($cgst + $cgst,2) ?></td>
+                    </tr>
+                    <?php } ?>
                     <tr>
                         <td style=""><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style=><center></center></td>
                         <td style="border-left: 1px solid #ccc;padding:4px;border-bottom: 1px solid #ccc;"> Round Off : </td>
-                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;"> &nbsp;&nbsp;</td>
+                        <td colspan="2" style="border: 1px solid #ccc;padding:4px;text-align:right;"> &nbsp;&nbsp;</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #ccc;padding:2px;">
                         <td style=""><center></center></td>
@@ -212,35 +223,35 @@
                       <br>
                         <tr><table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                         <tr style="border-top:1px solid #ccc;padding:5px;">
-                            <th style="padding-left:7px;border-bottom:1px solid #ccc;">HSN/SAC</th>
-                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Taxable Value :</th>
-                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;" colspan="2">Central Tax</th>
-                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;"colspan="2">State Tax</th>
-                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Total Tax Payable</th>
+                            <th style="padding-left:7px;border-bottom:1px solid #ccc;padding:4px;">HSN/SAC</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;;padding:4px;">Taxable Value :</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;;padding:4px;" colspan="2">Central Tax</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;;padding:4px;"colspan="2">State Tax</th>
+                            <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;;padding:4px;">Total Tax Payable</th>
                         </tr>
                         <tr>
-                        <td style="border-bottom:1px solid #ccc"rowspan="2"><?= $salesOrder['hsn_name']  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;" rowspan="2">₹<?= number_format($sub_total,2)  ?></td>
-                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Rate 9%</th>
-                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Amount</th>
-                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">Rate 9%</th>
-                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #ccc;">Amount</th>
+                        <td style="border-bottom:1px solid #ccc; padding:4px;"rowspan="2"><?= $salesOrder['hsn_name']  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px;text-align:right;" rowspan="2">₹<?= number_format($sub_total,2)  ?></td>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px;">Rate 9%</th>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px;">Amount</th>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px;">Rate 9%</th>
+                        <th style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px; border-right:1px solid #ccc;">Amount</th>
                         </tr>
                         <tr>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">9.00</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">9.00</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:center;">₹<?= number_format($taxAmount,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:center; padding:4px;">9.00</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-align:right; padding:4px;">₹<?= number_format($cgst,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-align:center; padding:4px;">9.00</td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-align:right; padding:4px;">₹<?= number_format($cgst,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:right; padding:4px;">₹<?= number_format($taxAmount,2)  ?></td>
                         </tr>
                         <tr>
                         <td style="border-bottom:1px solid #ccc">Total :</td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($sub_total,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;"></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;"></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;">₹<?= number_format($cgst,2)  ?></td>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:center;">₹<?= number_format($taxAmount,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align:right; padding:4px;">₹<?= number_format($sub_total,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px;"></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px; text-align:right;">₹<?= number_format($cgst,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px;"></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px; text-align:right;">₹<?= number_format($cgst,2)  ?></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; padding:4px; text-align:right;">₹<?= number_format($taxAmount,2)  ?></td>
                         </tr>
                         <tr >
                         <td style="border-bottom:1px solid #ccc; font-weight: bold;" id="">Qutotation Value in Words: </td>
