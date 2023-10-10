@@ -110,10 +110,10 @@
                        ?>
                             <tr style="border: 1px solid #ccc;" >
                                 <td style="border: 1px solid #ccc;text-align:center;"><?= $i ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;"><?= $q->product_name ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->hsn_name ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->uom ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;"><?= $q->subQty ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;margin-center:10px;text-align:center;"><?= $q->product_name ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:center;"><?= $q->hsn_name ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:center;"><?= $q->uom ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:center;"><?= $q->subQty ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= $q->subPrice ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= $q->subAmount ?></td>
                             </tr>
@@ -122,7 +122,7 @@
                          } ?>
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="4" colspan="2">
+                    <td rowspan="5" colspan="2">
                         <p style="margin-left:10px;font-weight: bold; text-align:center;" class="mt-2">Bank Details:</p>
                         <p style="margin-left:10px;" class="mt-1">Bank Name : <?= $company['bank_name'] ?>
                         </br>Account Number : <?= $company['bank_account_no'] ?>
@@ -131,31 +131,28 @@
                     </td>
                     <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">Sub Total</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px; ">₹ <?= $quotation['sub_total'] ?></td>
+                            <td style="border: 1px solid #ccc;padding-left:50px; text-align:right;">₹ <?= $quotation['sub_total'] ?></td>
                         </tr>
                         <?php if ($sold_to_party['stateName']=="Tamil Nadu"){ ?>
                         <tr style="border: 1px solid #ccc; ">
                             <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="4" align="right">SGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $quotation['sgst'] ?></td>
+                            <td style="border: 1px solid #ccc;padding-left:50px;text-align:right;">₹ <?= $quotation['sgst'] ?></td>
                         </tr>
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">CGST (9%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= $quotation['cgst'] ?></td>
+                            <td style="border: 1px solid #ccc;padding-left:50px;text-align:right;">₹ <?= $quotation['cgst'] ?></td>
                         </tr>
                             <?php }else{ ?>
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
+                            <td style="border: 1px solid #ccc;padding-left:50px;text-align:right;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
                         </tr>
                         <?php } ?>
 
-                        <!-- <tr style="border: 1px solid #ccc;">
-                            <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TCS (0.1%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ </td>
-                        </tr> -->
+                      
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">TOTAL TAX</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
+                            <td style="padding-left:50px;text-align:right;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
                         </tr>
                     </tfoot>
                     </table>
