@@ -89,26 +89,26 @@
                         <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
                             <th style="border: 1px solid #ccc;padding:4px;"><center>Truck Number</center></th>
                             <td style="border: 1px solid #ccc;padding:4px;"><center><?= $truck_no ?></center></td>
-                            <td style="border: 1px solid #ccc;"><center>PO Number</center></td>
+                            <th style="border: 1px solid #ccc;"><center>PO Number</center></th>
                             <td style="border: 1px solid #ccc;"><center><?= $po_no?></center></td>
-                            <td style="border: 1px solid #ccc;"><center>DC No</center></td>
-                            <th style="border: 1px solid #ccc;"><center><?= $dc_no ?></center></th>
+                            <th style="border: 1px solid #ccc;"><center>DC No</center></th>
+                            <td style="border: 1px solid #ccc;"><center><?= $dc_no ?></center></td>
                         </tr>
                         <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
                             <th style="border: 1px solid #ccc;padding:4px;"><center>Driver Name</center></th>
                             <td style="border: 1px solid #ccc;padding:4px;"><center><?= $driver_name?></center></td>
+                            <th style="border: 1px solid #ccc;"><center>Sale no.</center></th>
                             <td style="border: 1px solid #ccc;"><center></center></td>
-                            <td style="border: 1px solid #ccc;"><center></center></td>
-                            <td style="border: 1px solid #ccc;"><center>Batch No</center></td>
-                            <th style="border: 1px solid #ccc;"><center><?= $batch_no?></center></th>
+                            <th style="border: 1px solid #ccc;"><center>Batch No</center></th>
+                            <td style="border: 1px solid #ccc;"><center><?= $batch_no?></center></td>
                         </tr>
                         <tr style="border: 1px solid #ccc; width:100%;padding:4px;">
                             <th style="border: 1px solid #ccc;padding:4px;"><center>Plant Name</center></th>
                             <td style="border: 1px solid #ccc;padding:4px;"><center><?= $plant_name ?></center></td>
-                            <td style="border: 1px solid #ccc;"><center>Mode of Unloading</center></td>
+                            <th style="border: 1px solid #ccc;"><center>Mode of Unloading</center></th>
                             <td style="border: 1px solid #ccc;"><center></center></td>
-                            <td style="border: 1px solid #ccc;"><center>DC Date</center></td>
-                            <th style="border: 1px solid #ccc;text-align:center"><center></center><?= $dc_date ?></th>
+                            <th style="border: 1px solid #ccc;"><center>DC Date</center></th>
+                            <td style="border: 1px solid #ccc;text-align:center"><center></center><?= $dc_date ?></td>
                         </tr>
                     </thead>
                     <tbody style="border: 1px solid #ccc;">

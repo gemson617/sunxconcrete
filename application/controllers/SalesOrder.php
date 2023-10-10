@@ -21,37 +21,52 @@ class SalesOrder extends MY_Controller
                    SUM(si.available_quantity) AS availableQty,
                    s.total_qty,
                    s.grand_total,
+                   s.created_on,
+                   s.sale_no,
+                   s.po_number,
                    si.sales_order_id as sale_id,
                    si.product_id,
                    si.driver_name,
                    si.truck_no,
-                   si.transaction_id
+                   si.transaction_id,
+                   c.company_name,
+                   
                    ');
         $this->db->from('sales_order as s');
         $this->db->join('sales_order_items as si', 'si.sales_order_id = s.id', 'left');
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
         $this->db->group_by('si.sales_order_id, si.id');
         $query = $this->db->get()->result();
+        
         // echo "<pre>";print_r($query);
         // die();
+
         $resultArr = array();
+
         foreach($query as $key=>$row){
             $sale_id = $row->sale_id;
+
             if (!isset($resultArr[$sale_id])) {
                 $resultArr[$sale_id] = array();
             }
+
             $resultArr[$sale_id]['id'] = $row->id;
             $resultArr[$sale_id]['received_quantity'] = $row->received_quantity;
             $resultArr[$sale_id]['received_amount'] = $row->received_amount;
             $resultArr[$sale_id]['availableQty'] = $row->availableQty;
             $resultArr[$sale_id]['total_qty'] = $row->total_qty;
             $resultArr[$sale_id]['grand_total'] = $row->grand_total;
+            $resultArr[$sale_id]['created_on'] = $row->created_on;
+            $resultArr[$sale_id]['sale_no'] = $row->sale_no;
+            $resultArr[$sale_id]['po_number'] = $row->po_number;
+            $resultArr[$sale_id]['company_name'] = $row->company_name;
             
-
             $resultArr[$sale_id]["child"][] = $row;
         }
 
-        //  echo "<pre>";print_r($resultArr);
+        // echo "<pre>";print_r($resultArr);
         // die();
+
         $view_data['sale'] = $resultArr;
         $data = array(
             'title' => 'Sales Orders',
