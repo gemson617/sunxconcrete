@@ -80,7 +80,8 @@
                        <?php $amount=0;
                               
                         $taxAmount=$amount * 18/100; 
-                         $grossAmount=$amount + $taxAmount; ?>
+                         $grossAmount=$amount + $taxAmount;
+                                    ?>
                        <?php foreach ($products as $pro){ 
                              $amount += $pro->sale_price; 
                              $grandTotal += $pro->tottalamt;

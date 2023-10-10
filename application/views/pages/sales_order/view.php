@@ -84,7 +84,7 @@
                                     <th scope="col"> Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
                                     <th scope="col">Invoiced Qty</th>
-                                    <th scope="col"> Invoiced Amt</th>
+                                    <!-- <th scope="col"> Invoiced Amt</th> -->
 
                                     <th scope="col">Total Amt</th>
                                     <!-- <th scope="col">Status</th> -->
@@ -107,8 +107,8 @@
                                         <td><?php echo $sales['company_name']; ?></td>
                                         <td><?php echo $sales['total_qty']; ?></td>
 
-                                        <td><?php echo ($sales['received_quantity'] != null) ? $sales['received_quantity'] : "0.00"; ?></td>
-                                        <td><?php echo number_format($sales['received_amount'],2); ?></td>
+                                        <td><?php echo ($sales['receivedQuantity'] != null) ? $sales['receivedQuantity'] : "0.00"; ?></td>
+                                        <!-- <td><?php echo number_format($sales['received_amount'],2); ?></td> -->
 
                                         <td><?php echo number_format($sales['grand_total'],2); ?></td>
                         
@@ -126,7 +126,7 @@
                                                 if($val->transaction_id != $tid){
                                                // continue
                                                 ?>
-                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $val->transaction_id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 ">Invoice</button></a>
+                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $val->transaction_id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 "><i class="bx bx-file"></i></button></a>
                                                 <?php  $tid = $val->transaction_id; } } ?>
                                         </td>                                     
                                     </tr>

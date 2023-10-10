@@ -98,7 +98,7 @@
                             <th style="border: 1px solid #ccc;padding:4px;"><center>Driver Name</center></th>
                             <td style="border: 1px solid #ccc;padding:4px;"><center><?= $driver_name?></center></td>
                             <th style="border: 1px solid #ccc;"><center>Sale no.</center></th>
-                            <td style="border: 1px solid #ccc;"><center></center></td>
+                            <td style="border: 1px solid #ccc;"><center><?= $sold_to_party['sale_no']?></center></td>
                             <th style="border: 1px solid #ccc;"><center>Batch No</center></th>
                             <td style="border: 1px solid #ccc;"><center><?= $batch_no?></center></td>
                         </tr>
@@ -129,15 +129,17 @@
                     <tr><table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                   <br><br>
                     <tr style="border: 1px solid #ccc; width:100%;padding:2px;">
+                            <th style="border: 1px solid #ccc;padding:0px;"><center>S. No.</center></th>
                             <th style="border: 1px solid #ccc;padding:2px;"><center>Product</center></th>
                             <th style="border: 1px solid #ccc;padding:2px;"><center>HSN / SAC CODE</center></th>
-                            <th style="border: 1px solid #ccc;"><center>Grade</center></th>
+                            <!-- <th style="border: 1px solid #ccc;"><center>Grade</center></th> -->
                             <th style="border: 1px solid #ccc;"><center>Recieved Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>Rate/Unit</center></th>
                             <th style="border: 1px solid #ccc;"><center>Amount</center></th>
                     </tr>
                     <?php
                      $sub_total = 0;
+                     $i=1;
                      foreach($salesOrders as $sales){
 
                         $sub_total += $sales->sale_price;  
@@ -149,15 +151,18 @@
                     <tr>
 
                        <?php $grossAmount=$amount + $taxAmount; ?>
+                        <td style="border: 1px solid #ccc;padding:0px;"><center><?= $i ?></center></td>
                         <td style="border: 1px solid #ccc;padding:2px;"><center><?=$sales->product_name ?></center></td>
                         <td style="border: 1px solid #ccc;padding:2px;"><center><?=$sales->hsn_name ?></center></td>
-                        <td style="border: 1px solid #ccc;padding:2px;"><center></center></td>
+                        <!-- <td style="border: 1px solid #ccc;padding:2px;"><center></center></td> -->
                         <td style="border: 1px solid #ccc;padding:2px;"><center><?=$sales->received_qty ?></center></td>
                         <td style="border: 1px solid #ccc;padding:2px; text-align:right">₹<?=number_format($sales->price,2) ?></td>
                         <td style="border: 1px solid #ccc;padding:2px;text-align:right;">₹<?= number_format($sales->sale_price,2)  ?></td>
                        
                     </tr>
-                    <?php } ?>
+                    <?php 
+                        $i++;
+                    } ?>
                     <tr>
                        <td style=""><center><p></p></center></td>
                         <td style=><center></center></td>
