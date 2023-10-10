@@ -7,10 +7,10 @@
 </head>
 
 <body style="border: 1px solid #ccc;">
-    <div class="row" id="printdiv">
+    <div class="row" id="printdiv" style="border: 1px solid #ccc;">
         <div class="col-12" >
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" style="border: 1px solid #ccc;>
                     <div class="invoice" style="width: 800px; margin: 0 auto; padding: 20px; border: 0px solid #ccc;">
                         <div class="logo">
                             <img src="<?= base_url('assets/images/logo.jpg') ?>" alt="Logo" style="width: 170px;height:130px;">
@@ -25,10 +25,10 @@
                              
                                 <tr>
                                     <td><h4 style="text-align: left;padding-left:7px;">Bill To : </h4>
-                                  <p style="text-align: left;padding-left:11px;"><?= $result->company_name ?><br>
-                                  <?= $result->customer_address_1 ?><br>
-                                  <?= $result->customer_city ?><br>
-                                  <?= $result->name.'-'.$result->customer_pincode?><br> India.</p>
+                                  <p style="text-align: left;padding-left:11px;"><?= $result['company_name'] ?><br>
+                                  <?=$result['customer_address_1'] ?><br>
+                                  <?=$result['customer_city'] ?><br>
+                                  <?= $result['name'].'-'.$result['customer_pincode']?><br> India.</p>
                                 </td>
                                     <td>
                                       <!-- <p style="text-align: left;margin-left:7px;"><?= $company['company_name'].', '.$company['company_address'].', '.$company['city'].', '.$company['state'].'-'.$company['pincode'].', India.' ?></p> -->
@@ -48,7 +48,7 @@
                                 </tr>
                                 <tr>
                                     <!-- <td  style="border-bottom: 1px solid #ccc;padding-left:7px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td> -->
-                                    <td  style=""><h5 style="text-align: right;">Total ₹<?= $result -> credit_amount ?></h5></td>
+                                    <td  style=""><h5 style="text-align: right;">Total ₹<?= $result['credit_amount'] ?></h5></td>
                                 </tr>
                            
                             </table>
@@ -56,7 +56,7 @@
                     </tr>
                     <tr style="border-top: 1px solid #ccc; height: 30px; width:100%;border-left: 1px solid #ccc;">
                         <td style=" width:50%;"><p style="text-align:left;font-weight: bold;padding-left:7px;";>PO #</p>
-                        <p style="text-align:left;padding-left:12px;";><?= $result -> po_number ?></p>
+                        <p style="text-align:left;padding-left:12px;";><?= $result['po_number'] ?></p>
                       </td>
                         <td style="width:50%;border-left: 1px solid #ccc;"><p style="text-align:left;font-weight: bold;";>Shipping Method</p></td>
                     </tr>
@@ -66,7 +66,7 @@
  
                     <thead style="width:100%;">
                         <tr style="border: 1px solid #ccc; width:100%;">
-                            <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
+                            <th style=""><center>Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>Item</center></th>
                             <th style="border: 1px solid #ccc;"><center>Options</center></th>
                             <th style="border: 1px solid #ccc;"><center>Rate</center></th>
@@ -77,19 +77,25 @@
                         </tr>
                     </thead>
                     <tbody style="border: 1px solid #ccc;">
-                       <?php $amount=$salesOrder['price'] * $salesItems['received_qty']; ?>
-                       <?php $taxAmount=$amount * 18/100; ?>
-                       <?php $grossAmount=$amount + $taxAmount; ?>
+                       <?php $amount=0;
+                              
+                        $taxAmount=$amount * 18/100; 
+                         $grossAmount=$amount + $taxAmount; ?>
+                       <?php foreach ($products as $pro){ 
+                             $amount += $pro->sale_price; 
+                             $grandTotal += $pro->tottalamt;
+                        ?>
                             <tr style="border: 1px solid #ccc;" >
-                                <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;"><?= $salesItems['received_qty'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder['product_name'] ?></td>
+                                <td style="padding:5px;margin-left:10px;text-align:left;"><?= number_format($pro->received_qty,2) ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $pro->product_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $salesOrder['price'] ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $amount ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($pro->price,2) ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= number_format($pro->sale_price,2) ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;">18%</td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $taxAmount ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $grossAmount ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($pro->tax,2) ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($pro->tottalamt,2) ?></td>
                             </tr>
+                            <?php } ?>
 
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
@@ -139,31 +145,37 @@
                   <th style="border: 1px solid #ccc;"><center>Tax Basis</center></th>
                   <th style="border: 1px solid #ccc;"><center>Tax Rate</center></th>
                   <th style="border: 1px solid #ccc;"><center>Tax Amount</center></th>
-    
               </tr>
           </thead>
+          
           <tbody style="border: 1px solid #ccc;">
-              <?php $amount=$salesOrder['price'] * $salesItems['received_qty']; ?>
-              <?php $taxAmount=$amount * 18/100; ?>
-              <?php $grossAmount=$amount + $taxAmount; ?>
+          <?php
+          $amount = 0;
+           foreach ($products as $pro){ 
+                
+                $amount += $pro->sale_price;
+                             
+           } 
+            $tax = $amount * 18/100;
+            ?>
                   <tr style="border: 1px solid #ccc;" >
                       <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;">CGST</td>
                       <td style="border: 1px solid #ccc;padding:5px;text-align:left;">CGST</td>
-                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($salesItems['sale_price'],2) ?></td>
+                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($amount,2) ?></td>
                       <td style="border: 1px solid #ccc;padding:5px;text-align:left;">9%</td>
-                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($salesItems['sale_price'],2) * 9/100 ?></td>
+                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($amount * 9/100 ,2)?></td>
                   </tr>
                 
                   <tr style="border: 1px solid #ccc;" >
                       <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;">SGST</td>
                       <td style="border: 1px solid #ccc;padding:5px;text-align:left;">SGST</td>
-                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($salesItems['sale_price'],2) ?></td>
+                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($amount,2) ?></td>
                       <td style="border: 1px solid #ccc;padding:5px;text-align:left;">9%</td>
-                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($salesItems['sale_price'] * 9/100,2) ?></td>
+                      <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= number_format($amount * 9/100,2) ?></td>
                   </tr>
                   <tr >
                   <td colspan="4"></td>
-                  <th>total : ₹<?= number_format($taxAmount,2) ?></th>
+                  <th>Total : ₹<?= number_format($tax,2) ?></th>
                   </tr>
 
           </tbody>
@@ -171,11 +183,11 @@
 
 
           <br><br>
-                    <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;padding:3px;">
-                       <tr>                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align: right; text-style:bold;"><H6>TAX : <span style="font-weight: bold;">₹ <?= number_format($taxAmount,2) ?></span> </H6></td>
+                    <table style=" border-top:1px solid #ccc; border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;padding:3px;">
+                       <tr>                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align: right; text-style:bold;"><H6>TAX : <span style="font-weight: bold;">₹ <?= number_format($tax,2) ?></span> </H6></td>
 </tr>
                     <tr>
-                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align: right; text-style:bold;"><H6>TOTAL : <span style="font-weight: bold;">₹ <?= number_format($grossAmount,2) ?></span> </H6></td>
+                        <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;text-align: right; text-style:bold;"><H6>TOTAL : <span style="font-weight: bold;">₹ <?= number_format($grandTotal,2) ?></span> </H6></td>
                         </tr>
                         <!--  -->
                     </table>

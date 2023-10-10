@@ -15,49 +15,33 @@ class SalesOrder extends MY_Controller
    
     public function view()
     {
-
-        // old function
-        // $this->db->select('*,s.id as id,s.status as salesStatus,  
-        // sum(si.received_qty) as received_quantity,
-        // sum(si.tottalamt) as received_amount,
-        // sum(si.available_quantity) as availableQty, 
-        // s.total_qty,
-        // s.grand_total');
-        // $this->db->from('sales_order as s'); 
-        // $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
-        // $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        // $this->db->order_by('s.id','DESC');       
-        // $this->db->group_by('si.sales_order_id');       
-        // $query = $this->db->get();
-        // $view_data['salesOrder'] = $query->result();  
-        // $this->db->select('*');
-        // $this->db->from('plant_master as u');
-        // $this->db->order_by('u.pm_id','DESC');
-        // $query = $this->db->get();
-        // $view_data['plant'] = $query->result();
-
-
-// new function 
-
-        $this->db->select('*, c.company_name , si.total_quantity as totalQuantity,
-        si.available_quantity as availableQuantity,
-        sum(si.received_qty) as receivedQty,
-        sum(si.tottalamt) as totalAmount,
-        si.transaction_id as transaction_id,
-        si.created_on as created_date
+        $this->db->select('*,s.*,s.id as id,s.status as salesStatus,  
+                            sum(si.received_qty) as received_quantity,
+                            sum(si.tottalamt) as received_amount,
+                            sum(si.available_quantity) as availableQty, 
+                            s.total_qty,
+                            s.grand_total,
         ');
-$this->db->from('sales_order as s'); 
-$this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
-// $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id'); 
-// $this->db->where('si.sales_order_id',); 
-// $this->db->join('product as p','p.product_id = sub.product_id','left'); 
-$this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-$this->db->order_by('si.id','DESC');       
-$this->db->group_by('si.transaction_id');       
-$query = $this->db->get();
-$view_data['salesOrder'] = $query->result();
+        $this->db->from('sales_order as s'); 
+        // $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id','left'); 
+        $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->order_by('s.id','DESC');       
+        $this->db->group_by('si.sales_order_id');       
+        $query = $this->db->get();
+
+        $view_data['salesOrder'] = $query->result();  
+
+        //       echo "<pre>";
+        // print_r($view_data['salesOrder']);
+        // exit();    
 
 
+        $this->db->select('*');
+        $this->db->from('plant_master as u');
+        $this->db->order_by('u.pm_id','DESC');
+        $query = $this->db->get();
+        $view_data['plant'] = $query->result();
 
 $this->db->select('*
         ');
@@ -93,7 +77,7 @@ $tut =[
         print_r($tut);
         exit;
 
-
+  
         $data = array(
             'title' => 'Sales Orders',
             'content' => $this->load->view('pages/sales_order/view', $view_data, true),
