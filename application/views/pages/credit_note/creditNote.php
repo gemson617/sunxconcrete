@@ -145,9 +145,9 @@
                   <th style="border: 1px solid #ccc;"><center>Tax Basis</center></th>
                   <th style="border: 1px solid #ccc;"><center>Tax Rate</center></th>
                   <th style="border: 1px solid #ccc;"><center>Tax Amount</center></th>
-    
               </tr>
           </thead>
+          
           <tbody style="border: 1px solid #ccc;">
           <?php
           $amount = 0;
