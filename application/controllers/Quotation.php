@@ -155,7 +155,7 @@ class Quotation extends MY_Controller
 
             if ($update_new > '0') {
                 $this->session->set_flashdata('alert_success', 'Quotation added successfully!');
-                redirect('Quotation/add');
+                redirect('Quotation/view');
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
             }

@@ -73,13 +73,6 @@ class SalesOrder extends MY_Controller
             'content' => $this->load->view('pages/sales_order/view', $view_data, true),
         );
         $this->load->view('base/base_template', $data);  
-      
-
-
-
-       
-
-
     }
 
     public function invoice_list(){
