@@ -113,21 +113,21 @@
                                 <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;"><?= $q->product_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->hsn_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->uom ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $q->subQty ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;">₹ <?= $q->subPrice ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:left;padding-left:50px;">₹ <?= $q->subAmount ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;"><?= $q->subQty ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= $q->subPrice ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= $q->subAmount ?></td>
                             </tr>
                         <?php 
                             $i++;
                          } ?>
                     </tbody>
                     <tfoot style="border: 1px solid #ccc;">
-                    <td rowspan="6" colspan="2">
-                        <p style="margin-left:10px;font-weight: bold;">Bank Details:</p>
-                        <p style="margin-left:10px;">Bank Name : <?= $company['bank_name'] ?></p>
-                        <p style="margin-left:10px;">Account Number : <?= $company['bank_account_no'] ?></p>
-                        <p style="margin-left:10px;">IFSC Code : <?= $company['bank_ifsc'] ?></p>
-                        <p style="margin-left:10px;">Bank Address : <?= $company['bank_address'] ?></p>
+                    <td rowspan="4" colspan="2">
+                        <p style="margin-left:10px;font-weight: bold; text-align:center;" class="mt-2">Bank Details:</p>
+                        <p style="margin-left:10px;" class="mt-1">Bank Name : <?= $company['bank_name'] ?>
+                        </br>Account Number : <?= $company['bank_account_no'] ?>
+                        </br>IFSC Code : <?= $company['bank_ifsc'] ?>
+                        </br>Bank Address : <?= $company['bank_address'] ?></p>
                     </td>
                     <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">Sub Total</td>

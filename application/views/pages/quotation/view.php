@@ -162,11 +162,12 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="myForm" method="POST" action="<?php echo site_url('Quotation/Accept/'.$q->id); ?>">
-                    <div class="form-group">
+                    <div class="row">
+                <div class="form-group col-md-12">
                         <label for="qty">PO Number</label>
                         <input type="text" class="form-control" min="1"  placeholder="Enter the PO Number" id="poNumber" name="poNumber">
                     </div>
-                    <div class="form-group mt-3">
+                    <div class="form-group mt-3 col-md-12">
                     <label for="credit_bill">Credit Note</label><br>
                     <select class="form-control" name="creditNote"  id="creditNote">
                                             <option value="">--Credit Note --</option>
@@ -174,6 +175,7 @@
                                             <option value="1">Yes</option>
                                             <option value="0">No</option>
                     </select>                     
+                    </div>
                     </div>
                     
                     <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Accept</button>
