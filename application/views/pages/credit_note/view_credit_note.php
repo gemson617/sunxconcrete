@@ -87,6 +87,8 @@
 
                             <tbody style="text-align:center;">
                                 <?php foreach ($credit_note as $key => $cn) { 
+                                    // print_r($cn->created);
+                                    // exit();
                                     $date = $cn->created;
                                     $dateObj = new DateTime($date);
                                     $date2 = $dateObj->format("d-m-y");

@@ -16,7 +16,6 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 	$password 		= 'Pass123!@#';
 	$database 		= 'mvco_client_camahesh';
 	$environment 	= 'production';
-
 }
 
 $db['default'] = array(

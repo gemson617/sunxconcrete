@@ -131,7 +131,7 @@
                                         <td>
                                             <table>
                                                 <tr>
-                                                    <td><a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="file-pdf"></i>PDF</button></a></td>
+                                                    <td><a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-file"></i></button></a></td>
                                                     <td> <?php if ($q->qStatus != 3)
                                                             { ?>
                                                             <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
