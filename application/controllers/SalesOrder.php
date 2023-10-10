@@ -127,6 +127,7 @@ class SalesOrder extends MY_Controller
                                 'received_qty' => $received_qty,
                                 'available_qty' => $available_qty,
                             );
+                            
 
                             $update = $this->mcommon->common_edit('sales_order_sub', $update_array,array('id'=>$subId[$i]));
                            
