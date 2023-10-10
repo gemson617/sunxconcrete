@@ -91,6 +91,8 @@
     <script src="<?php echo base_url('assets/libs/datatables.net-buttons/js/buttons.html5.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/libs/datatables.net-buttons/js/buttons.print.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/ajax.aspnetcdn.com_ajax_jquery.validate_1.11.1_jquery.validate.min.js'); ?>"></script>
+	<!-- <script src="{{ asset('agas') }}"></script> -->
 
     <!-- Responsive examples -->
     <script src="<?php echo base_url('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js'); ?>"></script>

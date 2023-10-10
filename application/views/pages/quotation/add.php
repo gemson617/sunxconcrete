@@ -113,7 +113,7 @@
         }
         ?>
 
-<form action="<?php echo site_url('Quotation/add'); ?>" id="ynamic-form" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+<form action="<?php echo site_url('Quotation/add'); ?>" id="ynamic" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 
 <div class="row">
             <div class="col-xl-12">
@@ -260,19 +260,19 @@
                                 <div class="col-md-2 count1">
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
-                                        <select class="form-control" name="product[]" onchange="get_product(this.value, 0)" id="product0" required>
+                                        <select class="form-control" name="product[]" onchange="get_product(this.value, 0)" id="product0">
                                             <option value="">--Select --</option>
                                             <?php foreach($products as $product)
                                             {?>
                                             <option value="<?php echo $product->product_id; ?>" ><?php echo $product->product_name; ?>
                                             <?php }?>
                                         </select>                                          
-                                        <div class="valid-feedback">
+                                        <!-- <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
                                         Product Name Required.
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -580,7 +580,73 @@
     $('#amount'+no).val(amountValue.toFixed(2));
         calculateAmount();
     }
+
+    jQuery.validator.addMethod("validate", function(value, element) {
+            var ar = $('.serial').map(function() {
+                    if ($(this).val() != '') return $(this).val()
+                }).get();
+                var unique = ar.filter(function(item, pos) {
+                    return ar.indexOf(item) != pos;
+                });
+                //show/hide error msg
+                // (unique.length != 0) ? $('#serial_error'+no).text('*Serial no is already entered') : $('.error').text('');
+                if (unique.length != 0) {
+
+                    return false;
+                } else {
+                    $('.error').text('');
+                    return true;
+                }
+                }, "Serial is Already used");
+
     // Initially calculate and display the amount
     
+        $('form[id="ynamic"]').validate({
+            ignore: [],
+            rules: {            
+            'product[]': {
+            required: true,
+            validate:true,
+            unique: true
+            // remote: {
+            //           url: "{{ route('purchase.purchase_store') }}",
+            //           type: "post",
+
+            //         }
+            },            
+            },
+            messages: {            
+            'product[]': {
+            required: 'This serial is required',
+            remote: 'This serial is already used'
+            },            
+            },
+            errorPlacement: function(label, element) {
+            label.addClass('mt-2 text-danger');
+            if(element.hasClass('form-select') && element.next('.select2-container').length) {
+            label.insertAfter(element.next('.select2-container'));
+            }
+            else{
+            label.insertAfter(element);
+            }
+            },
+            highlight: function(element, errorClass) {
+            $(element).parent().addClass('has-danger')
+            $(element).addClass('form-control-danger')
+            },
+            unhighlight: function(element) {
+            $(element).parent().removeClass('has-danger')
+            $(element).parent().removeClass('form-control-danger')
+            },
+            submitHandler: function(form) {
+            form.submit();
+            }
+        });
+
     </script>
-    
+    		<!-- jQuery Validate Plugin -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script><!--Google API - Captcha -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
