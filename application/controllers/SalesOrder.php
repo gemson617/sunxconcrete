@@ -14,7 +14,6 @@ class SalesOrder extends MY_Controller
     }
    
     public function view()
-        
     {
         $this->db->select('*,s.*,s.id as id,s.status as salesStatus,  
                             sum(si.received_qty) as received_quantity,
@@ -129,6 +128,39 @@ class SalesOrder extends MY_Controller
 
 
 
+$this->db->select('*
+        ');
+$this->db->from('sales_order as s'); 
+$this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
+$this->db->order_by('si.id','DESC');       
+$this->db->group_by('si.transaction_id');       
+$query = $this->db->get();
+$view_data['salesOrder'] = $query->result();
+$arr1[] =[];
+$arr2[] =[];
+foreach($view_data['salesOrder'] as $key=>$val){
+
+    $this->db->from('sales_order_items as si'); 
+    $this->db->order_by('si.id','DESC');       
+    $this->db->group_by('si.transaction_id');       
+    $query = $this->db->get();
+    $ifi = $query->result();
+    $arr1[]=[
+        $giidg= $val->user_id
+    ];
+    foreach($ifi as $k=>$v){
+        $arr2[]=[
+           $ooo= $v->user_id
+        ];
+    }
+}
+$tut =[
+    $ifb = $arr1,
+    $jkfdv = $arr2
+];
+        echo "<pre>";
+        print_r($tut);
+        exit;
 
   
         $data = array(
@@ -137,6 +169,12 @@ class SalesOrder extends MY_Controller
         );
         $this->load->view('base/base_template', $data);  
       
+
+
+
+       
+
+
     }
 
     public function invoice_list(){

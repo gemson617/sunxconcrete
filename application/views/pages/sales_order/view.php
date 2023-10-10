@@ -112,8 +112,8 @@
                                         <td><?php echo $sales['company_name']; ?></td>
                                         <td><?php echo $sales['total_qty']; ?></td>
 
-                                        <td><?php echo $sales['received_quantity']; ?></td>
-                                        <td><?php echo number_format($sales['received_amount'],2); ?></td>
+                                        <td><?php echo ($sales->received_quantity != null) ? $sales->received_quantity: "0.00"; ?></td>
+                                        <td><?php echo number_format($sales->received_amount,2); ?></td>
 
                                         <td><?php echo number_format($sales['grand_total'],2); ?></td>
                         

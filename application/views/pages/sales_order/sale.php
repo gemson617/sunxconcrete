@@ -232,9 +232,10 @@
                     <div class="card-body">
                         <div class="max rtl-bc" >
                             <div id="addProduct" class="">
-                            <div class="row field0">
-<?php foreach($products as $key => $pro){
+                            <?php foreach($products as $key => $pro){
     if($pro->available_qty != 0) {?>
+                            <div class="row field0">
+
                                 <div class="col-md-2 count1">
                                     <div class="mb-2">
                                         <label for="validationCustom01" class="form-label">Product</label>
@@ -256,7 +257,7 @@
                                 </div>
                                 <input type="hidden" name="po_number" id="po_number" value="<?= $pro->po_number ?>">
 
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">HSN</label>
                                         <input type="text" name="hsn[]" value="<?= $pro->hsn_code ?>" class="form-control" id="hsn<?= $key ?>" placeholder=" HSN Code" readonly required>
@@ -268,12 +269,12 @@
                                         HSN Code Required.
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>   -->
                                 <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
-                                        <input type="text" name="uom[]" value="<?= $pro->uom_id ?>" readonly class="form-control" id="uom<?= $key ?>" placeholder="UOM" value="" required>
-                                        <input type="text" name="uom_id[]" value="<?= $pro->uom ?>" hidden class="form-control" id="uom_id<?= $key ?>" placeholder=" UOM" value="" required>
+                                        <input type="text" name="uom[]" value="<?= $pro->uom ?>" readonly class="form-control" id="uom<?= $key ?>" placeholder="UOM" value="" required>
+                                        <input type="text" name="uom_id[]" value="<?= $pro->uom_id ?>" hidden class="form-control" id="uom_id<?= $key ?>" placeholder=" UOM" value="" required>
                                              <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -283,10 +284,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2" style="width: 12%;"> 
+                                <div class="col-md-2" style="width: 14%;"> 
                                     <div class="mb-3">
-                                        <label for="" class="form-label">Qty</label>
-                                        <input type="number" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, <?= $key ?>)" name="qty[]" class="form-control" id="qty<?= $key?>" placeholder="Qty <?= $pro->available_qty ?>" >
+                                        <label for="" class="form-label">Sale Qty</label>
+                                        <input type="number" disabled step="0.1" min="1" value="<?= $pro->available_qty ?>"  max="<?= $pro->available_qty ?>"  name="qty[]" class="form-control" id="saleqty<?= $key?>" placeholder="Qty <?= $pro->available_qty ?>" >
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -294,7 +295,20 @@
                                         Qty is Maximum <?= $pro->available_qty ?> or Null.
                                         </div>
                                     </div>
-                                </div>   
+                                </div>  
+                                
+                                <div class="col-md-2" style="width: 14%;"> 
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Invoice Qty</label>
+                                        <input type="number" step="0.1" min="1"   max="<?= $pro->available_qty ?>" oninput="get_amount(this.value, <?= $key ?>)" name="qty[]" class="form-control" id="qty<?= $key?>" placeholder="Qty" >
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Qty is Maximum <?= $pro->available_qty ?> or Null.
+                                        </div>
+                                    </div>
+                                </div> 
 
                                 <div class="col-md-2">
                                     <div class="mb-3">
@@ -320,12 +334,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            <?php }
-                            } ?>
+                          
                                 <!-- <div class="col-md-1 mt-3" id="adremovebuttons"><br>
                                     <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
                                 </div> -->
                             </div>
+                            <?php }
+                            } ?>
                             </div>
                         </div>
 
