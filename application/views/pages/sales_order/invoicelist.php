@@ -75,27 +75,30 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
-                                    <th scope="col">Product</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Sale No.</th>
+                                    <th scope="col">Po No.</th>
                                     <th scope="col">Customer</th>
-                                    <th scope="col">HSN</th>
-                                    <th scope="col">Total Qty</th>
-                                    <th scope="col">UOM</th>
-                                    <th scope="col">Total Amount</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Total Amt</th>
+                              
                                     <!-- <th scope="col">Action</th> -->
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <?php foreach ($salesOrder as $key => $sales) { 
-                                    if($sales->salesStatus == 3){
+                                      $date =  $sales->created;
+                                      $timestamp = strtotime($date);
+                                      $formattedDate = date("d-m-Y", $timestamp);
                                     ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $sales->product_name; ?></td>
-                                        <td><?php echo $sales->company_name; ?></td>
-                                        <td><?php echo $sales->hsn_name; ?></td>
-                                        <td><?php echo $sales->total_quantity; ?></td>                                        
-                                        <td><?php echo $sales->uom; ?></td>
+                                        <td><?php echo $formattedDate; ?></td>
+                                        <td><?php echo $sales->sale_no; ?></td>
+                                        <td><?php echo $sales->po_number; ?></td>
+                                        <td><?php echo $sales->company_name; ?></td>                                        
+                                        <td><?php echo $sales->total_qty; ?></td>
                                         <td><?php echo $sales->grand_total; ?></td>
                                         
                                         <td>                                            
@@ -147,7 +150,7 @@
 </div>
 
 
-                                <?php }} ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

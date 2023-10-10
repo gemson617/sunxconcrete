@@ -12,6 +12,7 @@ class Quotation extends MY_Controller
             redirect('/logout');
         }
     }
+
     public function index()
     {
         $this->db->select('*,cn.status as qStatus,cn.created_on as created');
@@ -349,6 +350,7 @@ class Quotation extends MY_Controller
                             
                             'sub_total' => $row->sub_total,  
                             'total_qty' => $row->total_qty,  
+                            'available_qty' => $row->total_qty,  
                             'cgst' => $row->cgst,  
                             'sgst' => $row->sgst,  
                             'igst' => $row->igst,  

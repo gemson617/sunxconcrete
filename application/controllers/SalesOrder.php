@@ -76,16 +76,17 @@ class SalesOrder extends MY_Controller
     }
 
     public function invoice_list(){
-        $this->db->select('*,s.status as salesStatus');
+        $this->db->select('*,s.status as salesStatus,s.created_on as created');
         $this->db->from('sales_order as s');
-        $this->db->join('sales_order_sub as sob','sob.sales_order_id=s.id','left');
-        $this->db->join('product as p','p.product_id = sob.product_id','left');
+        $this->db->where('s.status',2);
+        // $this->db->join('sales_order_sub as sob','sob.sales_order_id=s.id','left');
         $this->db->join('customer as c','c.customer_id = s.sold_to_party','left');
-        $this->db->join('hsn_code as h', 'h.hsn_id = sob.hsn_id','left');
-        $this->db->join('uom as u', 'u.uom_id = sob.uom_id','left');
         $this->db->order_by('s.id','DESC');
         $query = $this->db->get();
         $view_data['salesOrder'] = $query->result();
+
+        // echo "<pre>";print_r($view_data['salesOrder'] );
+        // die();
         
         $data = array(
             'title' => 'Sales Invoice List',
@@ -167,20 +168,41 @@ class SalesOrder extends MY_Controller
 
                             $insert = $this->mcommon->common_insert('sales_order_items', $insert_array);
 
-                            // $this->db->select('*');
-                            // $this->db->from('sales_order_sub as sub'); 
-                            // $this->db->where('sub.sales_order_id',$sales_order_id);       
-                            // $query = $this->db->get();
-                            // $total_qty = $query->result();
-                            // $total_quantity = 0;
 
-                            // foreach($total_qty as $total){
-                            //     $total_quantity += $total->total_qty;
-                            // }
+                            $this->db->select('*');
+                            $this->db->from('sales_order_sub as si'); 
+                            $this->db->where('si.sales_order_id',$sales_order_id);       
+                            $query = $this->db->get();
+                            $total_qty = $query->result();
+                            $available_quantity = 0;
+                            $received_quantity = 0;
 
-                            // $update_array_new = $this->mcommon->common_edit('sales_order_sub', $update_array,array('id'=>$subId[$i]));
+                            foreach($total_qty as $total){
+                                $available_quantity += $total->available_qty;
+                                $received_quantity += $total->received_qty;
+                            }
+
+                            $update_array = array(
+                                'available_qty' => $available_quantity,
+                                'received_qty' => $received_quantity,
+                            );   
+
+
+                            $update_array_new = $this->mcommon->common_edit('sales_order', $update_array,array('id'=>$sales_order_id));
                             
+
                           
+                            $totalQuantity = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'total_qty');
+                            $receivedQuantity = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'received_qty');
+
+                            if($receivedQuantity >=$totalQuantity ){
+                                $update_array = array(
+                                    'status' => 2,
+                                );    
+
+                             $update_array_new = $this->mcommon->common_edit('sales_order', $update_array,array('id'=>$sales_order_id));
+                            }
+                            
 
                     }
                 }
@@ -252,7 +274,7 @@ class SalesOrder extends MY_Controller
         }
         else{
 
-            $this->db->select('*,sub.id as subId');
+            $this->db->select('*,sub.id as subId,sub.available_qty as available_qty');
             $this->db->from('sales_order_sub as sub'); 
             $this->db->where('sub.sales_order_id', $id); 
             $this->db->join('sales_order as s','s.id = sub.sales_order_id','left'); 

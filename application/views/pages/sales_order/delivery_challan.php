@@ -5,8 +5,9 @@
             <div class="card">
                 <div class="card-body">
                     <div class="invoice" style="width: 800px; margin: 0 auto; border: 1px solid #ccc;">
-                        <div class="logo" align="right" style="padding-right:5px;">
-                            <p style="padding-bottom: 0px;margin-bottom:0px;">Exclusive channel partner of</p>
+                        <p style="padding-bottom: 0px;margin-bottom:0px;text-align:right;">Exclusive channel partner of</p>
+
+                    <div class="logo" align="right" style="padding-right:5px;">
                             <img src="<?= base_url('assets/images/logo.jpg') ?>" align="right" alt="Logo" style="max-width: 100px;align-content-right;">
                             <span>
                             <h3 style="text-align: center; margin-top: 0;">Delivery Challan</h3>
