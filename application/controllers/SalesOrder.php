@@ -30,19 +30,104 @@ class SalesOrder extends MY_Controller
         $this->db->order_by('s.id','DESC');       
         $this->db->group_by('si.sales_order_id');       
         $query = $this->db->get();
+        
 
-        $view_data['salesOrder'] = $query->result();  
-
-        //       echo "<pre>";
-        // print_r($view_data['salesOrder']);
-        // exit();    
-
-
-        $this->db->select('*');
-        $this->db->from('plant_master as u');
-        $this->db->order_by('u.pm_id','DESC');
+        $this->db->select('*,s.*,s.id as id,s.status as salesStatus,  
+        sum(si.received_qty) as received_quantity,
+        sum(si.tottalamt) as received_amount,
+        sum(si.available_quantity) as availableQty, 
+        s.total_qty,
+        s.grand_total,');
+        $this->db->from('sales_order as s'); 
+        $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->order_by('s.id','DESC');       
+        $this->db->group_by('si.sales_order_id');       
         $query = $this->db->get();
-        $view_data['plant'] = $query->result();
+        $result = $query->result();
+       
+        $itemsArray = array();
+    
+        foreach($result as $res){
+                $this->db->select("*");
+                $this->db->from('sales_order_items '); 
+                $this->db->where("transaction_id", $res->id);
+                $query = $this->db->get();
+                $result2 = $query->row();
+
+                foreach($result2 as $res2){
+                    $itemsArray[] = array(
+                        'transaction_id' => $res2->transaction_id,
+                        'sales_order_id' => $res2->sales_order_id,
+                    );
+            }
+        }
+
+
+        $resultArray = array();
+
+
+    
+
+        foreach($result as $res){
+     
+            // print_r($res->id);
+
+        
+                $resultArray[] = array(
+                    'id' => $res->id,
+                    'company_name' => $res->company_name,
+                    'sale_no' => $res->sale_no,
+                    'quotation_no' => $res->quotation_no,
+                    'quotation_id' => $res->quotation_id,
+                    'user_id' => $res->user_id,
+                    'sub_total' => $res->sub_total,
+                    'total_qty' => $res->total_qty,
+                    'availableQty' => $res->availableQty,
+                    'received_quantity' => $res->received_quantity,
+                    'cgst' => $res->cgst,
+                    'sgst' => $res->sgst,
+                    'total_tax' => $res->total_tax,
+                    'received_amount' => $res->received_amount,
+                    'grand_total' => $res->grand_total,
+                    'status' => $res->status,
+                    'sold_to_party' => $res->sold_to_party,
+                    'ship_to_party' => $res->ship_to_party,
+                    'po_number' => $res->po_number,
+                    'created_on' => $res->created_on,
+                
+                    'itemsTable' => $itemsArray
+
+                    // 'itemsTable' => $itemsArray[] = array(
+                    //     'sales_order_id' => $ret->sales_order_id,
+                    //     'transaction_id' => $ret->transaction_id,
+                    // )
+        );
+  
+     
+        }
+
+        
+
+
+   echo "<pre>";
+        print_r($resultArray);
+
+        exit();  
+
+        // foreach($resultArray as $arr){
+        //     print_r($arr['po_number']);
+        //     echo'<br>';
+             
+        // }
+        // exit(); 
+
+        $view_data['salesOrder'] = $resultArray;  
+
+    
+
+
+
 
 
   
