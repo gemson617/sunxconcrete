@@ -189,3 +189,4 @@
         <!-- end row -->
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="<?php echo base_url('assets/js/ajax.aspnetcdn.com_ajax_jquery.validate_1.11.1_jquery.validate.min.js'); ?>"></script>

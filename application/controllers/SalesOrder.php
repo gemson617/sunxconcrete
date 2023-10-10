@@ -15,69 +15,44 @@ class SalesOrder extends MY_Controller
    
     public function view()
     {
-        $this->db->select('*,s.*,s.id as id,s.status as salesStatus,  
-                            sum(si.received_qty) as received_quantity,
-                            sum(si.tottalamt) as received_amount,
-                            sum(si.available_quantity) as availableQty, 
-                            s.total_qty,
-                            s.grand_total,
-        ');
-        $this->db->from('sales_order as s'); 
-        // $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id','left'); 
-        $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->order_by('s.id','DESC');       
-        $this->db->group_by('si.sales_order_id');       
-        $query = $this->db->get();
+        $this->db->select('s.id AS id, s.status AS salesStatus,
+                   SUM(si.received_qty) AS received_quantity,
+                   SUM(si.tottalamt) AS received_amount,
+                   SUM(si.available_quantity) AS availableQty,
+                   s.total_qty,
+                   s.grand_total,
+                   si.sales_order_id as sale_id,
+                   si.product_id,
+                   si.driver_name,
+                   si.truck_no,
+                   si.transaction_id
+                   ');
+        $this->db->from('sales_order as s');
+        $this->db->join('sales_order_items as si', 'si.sales_order_id = s.id', 'left');
+        $this->db->group_by('si.sales_order_id, si.id');
+        $query = $this->db->get()->result();
+        // echo "<pre>";print_r($query);
+        // die();
+        $resultArr = array();
+        foreach($query as $key=>$row){
+            $sale_id = $row->sale_id;
+            if (!isset($resultArr[$sale_id])) {
+                $resultArr[$sale_id] = array();
+            }
+            $resultArr[$sale_id]['id'] = $row->id;
+            $resultArr[$sale_id]['received_quantity'] = $row->received_quantity;
+            $resultArr[$sale_id]['received_amount'] = $row->received_amount;
+            $resultArr[$sale_id]['availableQty'] = $row->availableQty;
+            $resultArr[$sale_id]['total_qty'] = $row->total_qty;
+            $resultArr[$sale_id]['grand_total'] = $row->grand_total;
+            
 
-        $view_data['salesOrder'] = $query->result();  
+            $resultArr[$sale_id]["child"][] = $row;
+        }
 
-        //       echo "<pre>";
-        // print_r($view_data['salesOrder']);
-        // exit();    
-
-
-        $this->db->select('*');
-        $this->db->from('plant_master as u');
-        $this->db->order_by('u.pm_id','DESC');
-        $query = $this->db->get();
-        $view_data['plant'] = $query->result();
-
-$this->db->select('*
-        ');
-$this->db->from('sales_order as s'); 
-$this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
-$this->db->order_by('si.id','DESC');       
-$this->db->group_by('si.transaction_id');       
-$query = $this->db->get();
-$view_data['salesOrder'] = $query->result();
-$arr1[] =[];
-$arr2[] =[];
-foreach($view_data['salesOrder'] as $key=>$val){
-
-    $this->db->from('sales_order_items as si'); 
-    $this->db->order_by('si.id','DESC');       
-    $this->db->group_by('si.transaction_id');       
-    $query = $this->db->get();
-    $ifi = $query->result();
-    $arr1[]=[
-        $giidg= $val->user_id
-    ];
-    foreach($ifi as $k=>$v){
-        $arr2[]=[
-           $ooo= $v->user_id
-        ];
-    }
-}
-$tut =[
-    $ifb = $arr1,
-    $jkfdv = $arr2
-];
-        echo "<pre>";
-        print_r($tut);
-        exit;
-
-  
+        //  echo "<pre>";print_r($resultArr);
+        // die();
+        $view_data['sale'] = $resultArr;
         $data = array(
             'title' => 'Sales Orders',
             'content' => $this->load->view('pages/sales_order/view', $view_data, true),

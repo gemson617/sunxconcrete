@@ -31,17 +31,6 @@ class Quotation extends MY_Controller
 
     public function creditInvoice($id){
        
-        // echo "<pre>";
-        //     print_r($view_data['quotation_sub']);
-        //     exit(); 
-
-        // $this->db->select('*,cn.status as qStatus,cn.created_on as created');
-        // $this->db->from('credit_note as cn'); 
-        // $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
-        // $this->db->join('states as s', 's.id = c.customer_state','left'); 
-        // $this->db->where('cn.id',$id);       
-        // $query = $this->db->get();
-        // $view_data['result'] = $query->row();
 
 
         $this->db->select('*,state.name as stateName');
