@@ -145,7 +145,7 @@
                             <?php }else{ ?>
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">IGST (18%)</td>
-                            <td style="border: 1px solid #ccc;padding-left:50px;text-align:right;">₹ <?= number_format($quotation['cgst'] + $quotation['sgst'],2) ?></td>
+                            <td style="border: 1px solid #ccc;padding-left:50px;text-align:right;">₹ <?= number_format($quotation['igst'],2) ?></td>
                         </tr>
                         <?php } ?>
 

@@ -16,9 +16,7 @@ class SalesOrder extends MY_Controller
     public function view()
     {
         $this->db->select('s.id AS id, s.status AS salesStatus,
-                   SUM(si.received_qty) AS received_quantity,
-                   SUM(si.tottalamt) AS received_amount,
-                   SUM(si.available_quantity) AS availableQty,
+                    s.received_qty as ReceivedQuantity,
                    s.total_qty,
                    s.grand_total,
                    s.created_on,
@@ -49,7 +47,7 @@ class SalesOrder extends MY_Controller
             }
 
             $resultArr[$sale_id]['id'] = $row->id;
-            $resultArr[$sale_id]['received_quantity'] = $row->received_quantity;
+            $resultArr[$sale_id]['ReceivedQuantity'] = $row->ReceivedQuantity;
             $resultArr[$sale_id]['received_amount'] = $row->received_amount;
             $resultArr[$sale_id]['availableQty'] = $row->availableQty;
             $resultArr[$sale_id]['total_qty'] = $row->total_qty;
@@ -58,6 +56,7 @@ class SalesOrder extends MY_Controller
             $resultArr[$sale_id]['sale_no'] = $row->sale_no;
             $resultArr[$sale_id]['po_number'] = $row->po_number;
             $resultArr[$sale_id]['company_name'] = $row->company_name;
+            $resultArr[$sale_id]['salesStatus'] = $row->salesStatus;
             
             $resultArr[$sale_id]["child"][] = $row;
         }
