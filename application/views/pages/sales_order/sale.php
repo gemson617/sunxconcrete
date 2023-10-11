@@ -429,7 +429,6 @@
            
     }
 
-
         $(document).ready(function () {                       
             // Add more fields
             $('.max').each(function() {                
@@ -444,6 +443,7 @@
                 });
             });
         });
+        
         // Remove fields
         function removediv(no){
             $('.field'+no).remove();

@@ -390,7 +390,7 @@
 
                             <div>
                             <button class="btn btn-primary"  type="submit" value="submit" name="submit">Submit</button>
-                                <a href="#"><button onclick="window.location.reload()" class="btn btn-warning" type="button">Cancel</button></a>
+                                <a href="<?php echo site_url('Quotation/view'); ?>"><button class="btn btn-warning" type="button">Back</button></a>
                             </div>
                         </div>
                            

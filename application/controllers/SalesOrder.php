@@ -16,18 +16,18 @@ class SalesOrder extends MY_Controller
     public function view()
     {
         $this->db->select('s.id AS id, s.status AS salesStatus,
-                    s.received_qty as ReceivedQuantity,
-                   s.total_qty,
-                   s.grand_total,
-                   s.created_on,
-                   s.sale_no,
-                   s.po_number,
-                   si.sales_order_id as sale_id,
-                   si.product_id,
-                   si.driver_name,
-                   si.truck_no,
-                   si.transaction_id,
-                   c.company_name,                   
+                            s.received_qty as ReceivedQuantity,
+                            s.total_qty,
+                            s.grand_total,
+                            s.created_on,
+                            s.sale_no,
+                            s.po_number,
+                            si.sales_order_id as sale_id,
+                            si.product_id,
+                            si.driver_name,
+                            si.truck_no,
+                            si.transaction_id,
+                            c.company_name,                   
                    ');
         $this->db->from('sales_order as s');
         $this->db->join('sales_order_items as si', 'si.sales_order_id = s.id', 'left');
@@ -126,15 +126,13 @@ class SalesOrder extends MY_Controller
                         $receivedQty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'received_qty');
                         
                         $received_qty = $receivedQty + $qty[$i];
-                        $available_qty=$available_qty - $qty[$i];
+                        $available_qty= $available_qty - $qty[$i];
                             
-
                         $update_array = array(
                                 'received_qty' => $received_qty,
                                 'available_qty' => $available_qty,
                             );
                             
-
                             $update = $this->mcommon->common_edit('sales_order_sub', $update_array,array('id'=>$subId[$i]));
                            
                             $available_qty = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'available_qty');
@@ -165,7 +163,6 @@ class SalesOrder extends MY_Controller
 
                             $insert = $this->mcommon->common_insert('sales_order_items', $insert_array);
 
-
                             $this->db->select('*');
                             $this->db->from('sales_order_sub as si'); 
                             $this->db->where('si.sales_order_id',$sales_order_id);       
@@ -184,30 +181,25 @@ class SalesOrder extends MY_Controller
                                 'received_qty' => $received_quantity,
                             );   
 
-
                             $update_array_new = $this->mcommon->common_edit('sales_order', $update_array,array('id'=>$sales_order_id));
-                            
 
-                          
-                            $totalQuantity = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'total_qty');
-                            $receivedQuantity = $this->mcommon->specific_row_value('sales_order_sub', array('id' => $subId[$i]),'received_qty');
-
-                            if($receivedQuantity >=$totalQuantity ){
-                                $update_array = array(
-                                    'status' => 2,
-                                );    
-
-                             $update_array_new = $this->mcommon->common_edit('sales_order', $update_array,array('id'=>$sales_order_id));
                             }
-                            
-
                     }
                 }
 
 
-            }
-        
-           
+         
+                $totalQuantity = $this->mcommon->specific_row_value('sales_order', array('id' => $sales_order_id),'total_qty');
+                $receivedQuantity = $this->mcommon->specific_row_value('sales_order', array('id' => $sales_order_id),'received_qty');
+
+                if($receivedQuantity >=$totalQuantity ){
+                    
+                    $update_array = array(
+                        'status' => 2,
+                    );    
+
+                    $update_array_new = $this->mcommon->common_edit('sales_order', $update_array,array('id'=>$sales_order_id));
+                }
         
             
 

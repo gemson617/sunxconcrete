@@ -38,7 +38,7 @@
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                             <td style="padding-left:7px;"><?= $ship_to_party['stateName'] ?></td>
                         </tr>
-                        <tr style="">
+                        <tr style="padding-left:7px;">
                             <!-- <td style="padding-left:7px;">GSTIN/UID:</td> -->
                             <td style="padding-left:7px;border-left: 1px solid #ccc;border-right: 1px solid #ccc;padding:1px;justify-content:center;">State Code</td>
                             <td style="padding-left:7px;border-left: 1px solid #ccc;padding:1px;padding:1px;">33</td>
@@ -68,7 +68,7 @@
                             <td style="padding-left:7px;border-left: 1px solid #ccc;padding:1px;padding:1px;">33</td>                       
                          </tr>
                         </table>
-                        </td>
+                    </td>
                     </tr>
                     <tr>
                      <?php foreach($salesOrders as $sales){
