@@ -32,8 +32,6 @@ class Quotation extends MY_Controller
 
     public function creditInvoice($id){
        
-
-
         $this->db->select('*,state.name as stateName');
         $this->db->from('credit_note as cn'); 
         $this->db->where('cn.id',$id); 
@@ -46,8 +44,8 @@ class Quotation extends MY_Controller
         $this->db->from('credit_note as cn'); 
         $this->db->where('cn.id',$id); 
         $this->db->join('sales_order as s','s.quotation_id = cn.quotation_id','left'); 
-        $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
-        $this->db->join('product as p','p.product_id = si.product_id','left');
+        $this->db->join('sales_order_sub as sub','sub.sales_order_id = s.id','left'); 
+        $this->db->join('product as p','p.product_id = sub.product_id','left');
         $query = $this->db->get();
         $view_data['products'] = $query->result();
 

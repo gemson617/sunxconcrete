@@ -77,24 +77,25 @@
                         </tr>
                     </thead>
                     <tbody style="">
-                       <?php $amount=0;
+                       <!-- <?php $amount=0;
                               
                         $taxAmount=$amount * 18/100; 
                          $grossAmount=$amount + $taxAmount;
-                                    ?>
+                                    ?> -->
                        <?php foreach ($products as $pro){ 
-                             $amount += $pro->sale_price; 
-                             $grandTotal += $pro->tottalamt;
+                             $amount = $pro->total_qty * $pro->price; 
+                             $tax = $amount * 18/100;
+                             $grand_total = $amount + $tax;
                         ?>
                             <tr style="border: 1px solid #ccc;" >
-                                <td style="padding:5px;margin-left:10px;text-align:center;"><?= number_format($pro->received_qty,2) ?></td>
+                                <td style="padding:5px;margin-left:10px;text-align:center;"><?= number_format($pro->total_qty,2) ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:center;"><?= $pro->product_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:center;"></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= number_format($pro->price,2) ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;"><?= number_format($pro->sale_price,2) ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;"><?= number_format($pro->amount,2) ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:center;">18%</td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= number_format($pro->tax,2) ?></td>
-                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= number_format($pro->tottalamt,2) ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= number_format($tax,2) ?></td>
+                                <td style="border: 1px solid #ccc;padding:5px;text-align:right;">₹ <?= number_format($grand_total,2) ?></td>
                             </tr>
                             <?php } ?>
 
@@ -150,15 +151,13 @@
           </thead>
           
           <tbody style="border: 1px solid #ccc;">
-          <?php
-          $amount = 0;
-           foreach ($products as $pro){ 
-                
-                $amount += $pro->sale_price;
-                             
-           } 
-            $tax = $amount * 18/100;
-            ?>
+          <?php 
+            $amount= 0;
+          foreach ($products as $pro){ 
+                             $amount += $pro->total_qty * $pro->price; 
+                             $tax = $amount * 18/100;
+                             $grand_total = $amount + $tax;
+            }  ?>
                   <tr style="border: 1px solid #ccc;" >
                       <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:center;">CGST</td>
                       <td style="border: 1px solid #ccc;padding:5px;text-align:center;">CGST</td>
@@ -191,7 +190,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;border-right:1px solid  #ccc; text-align: right; text-style:bold;"><H6>TOTAL : <span style="font-weight: bold;">₹ <?= number_format($grandTotal,2) ?></span> </H6></td>
+                            <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;border-right:1px solid  #ccc; text-align: right; text-style:bold;"><H6>TOTAL : <span style="font-weight: bold;">₹ <?= number_format($grand_total,2) ?></span> </H6></td>
                         </tr>
                         <!--  -->
                     </table>
