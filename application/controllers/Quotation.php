@@ -155,11 +155,12 @@ class Quotation extends MY_Controller
 
             if ($update_new > '0') {
                 $this->session->set_flashdata('alert_success', 'Quotation added successfully!');
-                redirect('Quotation/add');
+                redirect('Quotation/view');
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
             }
         }
+        $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1));      
 
         $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
@@ -602,7 +603,7 @@ class Quotation extends MY_Controller
         $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
-      
+        $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1)); 
      
             // $this->db->from('quotation'); 
             // $this->db->where('id', $id);

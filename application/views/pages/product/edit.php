@@ -74,11 +74,19 @@
 <div class="page-content">
     <div class="container">
         <!-- start page title -->
+        
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Edit Product</h4>
-                    <div class="page-title-right">
+                    <h4 class="mb-sm-0 font-size-18">Edit Product</h4>                    
+                </div>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <div class="page-title-box d-flex ">
+                    <div class="page-title-right ml-auto">  
+                        <a href="<?php echo site_url('product'); ?>">
+                        <button class="btn btn-secondary">Back</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -164,7 +172,7 @@
                                         </div>
                                     </div>
                                 </div>                                
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
                                         <?php foreach($uom as $u)
@@ -187,7 +195,7 @@
                                         UOM Required.
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>                                 -->
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>

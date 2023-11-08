@@ -35,7 +35,7 @@ class Product extends MY_Controller
         $this->db->select('*,p.status as product_status');
         $this->db->from('product as p'); 
         $this->db->join('hsn_code as h', 'h.hsn_id = p.hsn_code'); 
-        $this->db->join('uom as u', 'u.uom_id = p.uom'); 
+        // $this->db->join('uom as u', 'u.uom_id = p.uom'); 
         $this->db->order_by('p.product_id','DESC');       
         $query = $this->db->get();
         $result = $query->result();
@@ -53,10 +53,9 @@ class Product extends MY_Controller
             $insert_array = array(
                 'product_name' => $product_name,               
                 'hsn_code' => $hsn_code,               
-                'uom' => $uom,               
+                // 'uom' => $uom,               
                 'price' => $price,    
-                'created_on' => date('Y-m-d'),
-                
+                'created_on' => date('Y-m-d'),                
             );
             // echo "<pre>";
             // print_r($insert_array);
@@ -94,7 +93,7 @@ class Product extends MY_Controller
             $update_array = array(                
                 'product_name' => $product_name,               
                 'hsn_code' => $hsn_code,               
-                'uom' => $uom,               
+                // 'uom' => $uom,               
                 'price' => $price,              
             );
             

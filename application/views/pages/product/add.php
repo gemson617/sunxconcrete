@@ -74,11 +74,19 @@
 <div class="page-content">
     <div class="container">
         <!-- start page title -->
+        
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Add Product</h4>
-                    <div class="page-title-right">
+                    <h4 class="mb-sm-0 font-size-18">Add Product</h4>                    
+                </div>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <div class="page-title-box d-flex ">
+                    <div class="page-title-right ml-auto">  
+                        <a href="<?php echo site_url('product'); ?>">
+                        <button class="btn btn-secondary">Back</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -147,7 +155,8 @@
                                         HSN Code Required.
                                         </div>
                                     </div>
-                                </div>                                <div class="col-md-6">
+                                </div>                                
+                                <!-- <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
                                         <select class="form-control" name="uom" id="uom" required>
@@ -156,14 +165,16 @@
                                             {?>
                                             <option value="<?php echo $u->uom_id; ?>"><?php echo $u->uom; ?>
                                             <?php }?>
-                                        </select>                                              <div class="valid-feedback">
+                                        </select>                                              
+                                        <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
                                         UOM Required.
                                         </div>
                                     </div>
-                                </div>                                <div class="col-md-6">
+                                </div>   -->
+                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
                                         <input type="text" name="price" class="form-control" id="price" placeholder="Enter Price" value="<?php echo $default['hsn_name']; ?>" required>

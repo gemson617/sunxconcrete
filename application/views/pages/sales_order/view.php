@@ -68,8 +68,8 @@
                         <?php
                         }
                         ?>
-                        <!-- <a href="<?php echo site_url('Product/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a> -->
-                        <br>
+                        <a href="<?php echo site_url('SalesOrder/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a>
+                        <br>                        
                         <h4 class="card-title mb-3">Sales Orders</h4>
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
@@ -128,6 +128,7 @@
                                                 ?>
                                             <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $val->transaction_id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 "><i class="bx bx-file"></i></button></a>
                                                 <?php  $tid = $val->transaction_id; } } ?>
+                                             <a href="<?php echo site_url('SalesOrder/edit/' . $sales['id']); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
                                         </td>                                     
                                     </tr>
 

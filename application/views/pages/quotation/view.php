@@ -78,7 +78,7 @@
                                     <th scope="col">Customer</th>
                                     <th scope="col">Total Qty</th>
                                     <th scope="col">Total Amount</th>
-                                    <th scope="col">To Sale</th>
+                                    <!-- <th scope="col">To Sale</th> -->
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -102,14 +102,13 @@
                                         <td><?php echo number_format($q->gtotal,2, '.', ','); ?></td>
                                         <!-- <td><a href="#" class="badge badge-<?= ($q->qStatus == 1) ? 'secondary':'success' ?>"><?= ($q->qStatus == 0) ? 'Not-Accepted':'Accepted' ?></a>
                                 </td> -->
-                                <td>
-                                <?php if ($q->qStatus == 1){ ?>
+                                <!-- <td>
+                                    <?php if ($q->qStatus == 1){ ?>
                                             <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?=$q->id ?>" data-target="#myModal"> -> Sale Order </button>
                                         <?php  }else{ ?>
                                             <i class="fa fa-check" aria-hidden="true"></i>
-                                        <?php  }  ?>
-                                        
-                                        <!-- <a href="#" class="badge <?php if ($q->qStatus == 1)
+                                        <?php  }  ?>                                        
+                                         <?php if ($q->qStatus == 1)
                                             {
                                                 echo "approved-btn ";
                                             } else if ($q->qStatus == 2){
@@ -125,9 +124,8 @@
                                                 echo "Rejected";
                                             }  else if ($q->qStatus == 3){
                                                 echo "Accepted";
-                                            }  ?>
-                                            </a> -->
-                                </td>
+                                            }  ?>                                           
+                                </td> -->
                                         <td>
                                             <table>
                                                 <tr>

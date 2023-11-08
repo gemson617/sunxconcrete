@@ -74,11 +74,19 @@
 <div class="page-content">
     <div class="container">
         <!-- start page title -->
+        
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Edit Quotation</h4>
-                    <div class="page-title-right">
+                    <h4 class="mb-sm-0 font-size-18">Edit Quotation</h4>                    
+                </div>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <div class="page-title-box d-flex ">
+                    <div class="page-title-right ml-auto">  
+                        <a href="<?php echo site_url('Quotation/view'); ?>">
+                        <button class="btn btn-secondary">Back</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -283,7 +291,27 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-2" style="width: 12%;">
+                                    <div class="mb-3">
+                                        <label for="validationCustom01" class="form-label">UOM</label>
+                                        <select class="form-control" name="uom_id[]" id="uom<?= $key?>" required>
+                                            <option value="">--Select UOM --</option>
+                                            <?php foreach($uom as $u)
+                                            {?>
+                                            <option value="<?php echo $u->uom_id; ?>" <?php echo ($q->uom_id == $u->uom_id) ?  'selected' : '';  ?> ><?php echo $u->uom; ?>
+                                            <?php }?>
+                                        </select>                                              
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        UOM Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-2" style="width: 12%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">UOM</label>
                                         <input type="text" name="uom[]" readonly class="form-control" id="uom<?= $key?>" placeholder="UOM" value="<?= $q->uom ?>" required>
@@ -295,7 +323,8 @@
                                         UOM Required.
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+
                                 <div class="col-md-2" style="width: 13%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quantity</label>
@@ -446,7 +475,7 @@
                 $(".add-field", $(this)).click(function(e, no) {  
                     var no = $('.count1').length;
                     $('.addProduct').append(
-                        '<div class="row fieldcount'+no+'"> <div class="col-md-2 count1"> <div class="mb-2"> <label for="validationCustom01" class="form-label">Product</label> <select class="form-control selectDrop" name="product[]" onchange="get_product(this.value, '+no+')" id="product'+no+'" required> <option value="">--Select --</option> <?php foreach($products as $product) {?> <option value="<?php echo $product->product_id; ?>"><?php echo $product->product_name; ?> <?php }?> </select> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Product Name Required. </div> </div> </div><input type="text" name="primary_id[]" hidden class="form-control" id="primary_id0'+no+'"> <div class="col-md-2"> <div class="mb-3"> <label for="validationCustom01" class="form-label">HSN</label> <input type="text" name="hsn[]" class="form-control" id="hsn'+no+'" placeholder=" HSN Code" readonly required> <input type="text" name="hsn_id[]" hidden class="form-control" id="hsn_id'+no+'" placeholder=" HSN Code"  required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> HSN Code Required. </div> </div> </div> <div class="col-md-2" style="width: 12%;"> <div class="mb-3"> <label for="validationCustom01" class="form-label">UOM</label> <input type="text" name="uom[]" readonly class="form-control" id="uom'+no+'" placeholder="UOM" value="" required> <input type="text" name="uom_id[]" hidden class="form-control" id="uom_id'+no+'" placeholder=" UOM" value="" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> UOM Required. </div> </div> </div> <div class="col-md-2" style="width: 13%;"> <div class="mb-3"> <label for="validationCustom01" class="form-label">Qty</label> <input type="number" step="0.01" name="qty[]" class="form-control qty" oninput="get_qty(this.value, '+no+')" id="qty'+no+'" placeholder=" Qty"  required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> price Required. </div> </div> </div> <div class="col-md-2"> <div class="mb-3"> <label for="validationCustom01" class="form-label">Price</label> <input type="text" name="price[]" class="form-control price"  id="price'+no+'" placeholder=" Price" oninput="get_amount(this.value, '+no+')" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> price Required. </div> </div> </div> <div class="col-md-2"> <div class="mb-3"> <label for="validationCustom01" class="form-label">Amount</label> <input type="text" name="amount[]" value="0.00" class="form-control amount" readonly  id="amount'+no+'" placeholder="Amount"  required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> price Required. </div> </div> </div> ' +
+                        '<div class="row fieldcount'+no+'"> <div class="col-md-2 count1"> <div class="mb-2"> <label for="validationCustom01" class="form-label">Product</label> <select class="form-control selectDrop" name="product[]" onchange="get_product(this.value, '+no+')" id="product'+no+'" required> <option value="">--Select --</option> <?php foreach($products as $product) {?> <option value="<?php echo $product->product_id; ?>"><?php echo $product->product_name; ?> <?php }?> </select> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Product Name Required. </div> </div> </div><input type="text" name="primary_id[]" hidden class="form-control" id="primary_id0'+no+'"> <div class="col-md-2"> <div class="mb-3"> <label for="validationCustom01" class="form-label">HSN</label> <input type="text" name="hsn[]" class="form-control" id="hsn'+no+'" placeholder=" HSN Code" readonly required> <input type="text" name="hsn_id[]" hidden class="form-control" id="hsn_id'+no+'" placeholder=" HSN Code"  required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> HSN Code Required. </div> </div> </div> <div class="col-md-2" style="width: 12%;"> <div class="mb-3"> <label for="validationCustom01" class="form-label">UOM</label> <select class="form-control selectDrop" name="uom_id[]" id="uom'+no+'" required> <option value="">--Select --</option> <?php foreach($uom as $u) {?> <option value="<?php echo $u->uom_id; ?>"  ><?php echo $u->uom; ?> <?php }?> </select> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> UOM Required. </div> </div> </div> <div class="col-md-2" style="width: 13%;"> <div class="mb-3"> <label for="validationCustom01" class="form-label">Qty</label> <input type="number" step="0.01" name="qty[]" class="form-control qty" oninput="get_qty(this.value, '+no+')" id="qty'+no+'" placeholder=" Qty"  required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> price Required. </div> </div> </div> <div class="col-md-2"> <div class="mb-3"> <label for="validationCustom01" class="form-label">Price</label> <input type="text" name="price[]" class="form-control price"  id="price'+no+'" placeholder=" Price" oninput="get_amount(this.value, '+no+')" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> price Required. </div> </div> </div> <div class="col-md-2"> <div class="mb-3"> <label for="validationCustom01" class="form-label">Amount</label> <input type="text" name="amount[]" value="0.00" class="form-control amount" readonly  id="amount'+no+'" placeholder="Amount"  required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> price Required. </div> </div> </div> ' +
                         '<div class="col-md-1" style="width:4.333333%"><i class="fa fa-trash mt-5" onclick="removediv('+no+')" id="remove'+no+'" style="font-size:22px;color:red"></i></div></div>');
                     // row.appendTo($wrapper);   
                     $('.selectDrop').select2();

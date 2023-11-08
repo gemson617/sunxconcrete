@@ -41,7 +41,7 @@
                                     <th scope="col">S.no</th>
                                     <th scope="col">Product Name</th>
                                     <th scope="col">HSN code</th>
-                                    <th scope="col">UOM</th>
+                                    <!-- <th scope="col">UOM</th> -->
                                     <th scope="col">Price</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
@@ -54,7 +54,7 @@
                                         <td><?php echo $key + 1; ?></td>
                                         <td><?php echo $d->product_name; ?></td>
                                         <td><?php echo $d->hsn_name; ?></td>
-                                        <td><?php echo $d->uom; ?></td>
+                                        <!-- <td><?php echo $d->uom; ?></td> -->
                                         <td><?php echo $d->price; ?></td>
                                         <td><?php if ($d->product_status == 1) {
                                                 echo "Active";

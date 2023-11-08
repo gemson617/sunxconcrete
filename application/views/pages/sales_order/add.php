@@ -77,7 +77,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Add Quotation</h4>                    
+                    <h4 class="mb-sm-0 font-size-18">Add Slae</h4>                    
                 </div>
             </div>
             <div class="col-6 d-flex justify-content-end">
@@ -131,13 +131,13 @@
 
                                 <div class="col-md-3">                                 
                                     <div class="mb-3">
-                                        <label for="validationCustom01" class="form-label">Quotation number</label>
+                                        <label for="validationCustom01" class="form-label">Sale number</label>
                                         <input type="text" readonly class="form-control" required name="qno" id="qno" value="<?= $qnumber+1 ?>" >                                        
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        Quotation No is Required.
+                                        Sale No is Required.
                                         </div>
                                     </div>
                                 </div>

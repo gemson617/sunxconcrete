@@ -73,6 +73,291 @@ class SalesOrder extends MY_Controller
         $this->load->view('base/base_template', $data);  
     }
 
+
+    //inser function 
+
+    public function add()
+    {
+        if(isset($_POST['submit'])) {
+          
+      
+            $user_id =$this->auth_user_id; 
+            $qno = $this->input->post('qno');
+            $sold_to_party = $this->input->post('sold_to');    
+            $ship_to_party = $this->input->post('ship_to');  
+            $remarks = $this->input->post('remarks');  
+            $cgst = $this->input->post('cgst');    
+            $sgst = $this->input->post('sgst');    
+            $igst = $this->input->post('igst');    
+            $total_tax = $this->input->post('total_tax');    
+            $round_off = $this->input->post('round_off');    
+            $g_total = $this->input->post('g_total');  
+            $sub_total = $this->input->post('sub_total');  
+
+
+
+            $product = $this->input->post('product[]');    
+            $hsn_code = $this->input->post('hsn_id[]');    
+            $uom = $this->input->post('uom_id[]');   
+            $qty = $this->input->post('qty[]');   
+            $price = $this->input->post('price[]');   
+            $amount = $this->input->post('amount[]');  
+
+           
+
+            $insert_array = array(
+                'user_id' => $user_id,  
+                'quotation_no' => $qno,                
+                'sub_total' => $sub_total,               
+                'cgst' => $cgst,
+                'sgst' => $sgst,
+                'igst' => $igst,
+                'total_tax' => $total_tax,
+                'round_off' => $round_off,    
+                'grand_total' => $g_total,    
+                'sold_to_party' => $sold_to_party,    
+                'ship_to_party' => $ship_to_party,               
+                'remarks' => $remarks,               
+               
+                'created_on' => date('Y-m-d h:i:s'),
+            );
+
+
+ 
+            $insert = $this->mcommon->common_insert('quotation', $insert_array);
+            $quotation_id = $this->db->insert_id();
+           
+           
+           
+            $rowcount = count($product);
+           
+            for ($i = 0; $i < $rowcount; $i++) 
+            {
+                $insert_array_new = array(
+                    'quotation_id' => $quotation_id,
+                    'user_id' => $user_id,
+                    'product_id'   => $product[$i],
+                    'hsn_id' => $hsn_code[$i],
+                    'uom_id' => $uom[$i],
+                    'quantity' => $qty[$i],
+                    'price' => $price[$i],
+                    'amount' => $amount[$i],
+                    'created_on' => date('Y-m-d'),
+                );
+                $insert = $this->mcommon->common_insert('quotation_sub', $insert_array_new);
+            }
+          
+
+            $update_com_status = $this->mcommon->common_edit('em_companies',array('quotation_sn_status'=>0),array('id' =>1));
+
+          $qtyData = $this->getTotalQuantity($quotation_id);
+             $quantity = 0;
+
+             foreach ($qtyData as $qty){
+               $quantity += $qty->quantity;
+             }
+
+             $update_array_new = array(
+                'total_qty'=>$quantity
+             );
+              
+             $update_new = $this->mcommon->common_edit('quotation', $update_array_new,array('id' => $quotation_id));
+
+            if ($update_new > '0') {
+                $this->session->set_flashdata('alert_success', 'Quotation added successfully!');
+                redirect('Quotation/view');
+            } else {
+                $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
+            }
+        }
+        $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1));      
+
+        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
+        // $view_data['qno'] = $this->mcommon->records_all('em_companies', array('id' => 1))->row();
+        $this->db->select('*');
+        $this->db->from('em_companies'); 
+        $this->db->where('id',1); 
+        $result = $this->db->get()->row();
+        // print_r($result); exit();
+        
+            if ($result->quotation_sn_status == 1) {
+                $view_data['qnumber'] = $result->quotation_starting_number;
+            } else {
+                $quotationRecord = $this->mcommon->last_inserid('quotation');
+                $view_data['qnumber'] = !empty($quotationRecord) ? $quotationRecord->quotation_no : null;
+            }       
+        $data = array(
+            'title' => 'Add Sale',
+            'content' => $this->load->view('pages/sales_order/add', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);
+    }
+
+//Edit Function
+    public function edit($id){
+
+        if (isset($_POST['submit'])) {
+           
+            $removeid = $this->input->post('removeid');    
+           
+
+
+            $user_id =$this->auth_user_id; 
+            $sold_to_party = $this->input->post('sold_to');    
+            $ship_to_party = $this->input->post('ship_to');  
+            $remarks = $this->input->post('remarks');  
+            $cgst = $this->input->post('cgst');    
+            $sgst = $this->input->post('sgst');    
+            $total_tax = $this->input->post('total_tax');    
+            $round_off = $this->input->post('round_off');    
+            $g_total = $this->input->post('g_total');  
+            $sub_total = $this->input->post('sub_total');  
+
+
+
+            $product = $this->input->post('product');    
+            $hsn_code = $this->input->post('hsn_id');    
+            $uom = $this->input->post('uom_id');   
+            $qty = $this->input->post('qty');   
+            $price = $this->input->post('price');   
+            $amount = $this->input->post('amount');  
+            $subId =  $this->input->post('primary_id'); 
+
+        //  print_r($this->input->post('qty'));
+        //  exit();
+
+
+            $update_array = array(
+
+                'user_id' => $user_id,    
+                
+                'sub_total' => $sub_total,               
+                'cgst' => $cgst,               
+                'sgst' => $sgst,               
+                'total_tax' => $total_tax,    
+                'round_off' => $round_off,    
+                'grand_total' => $g_total,    
+                'sold_to_party' => $sold_to_party,    
+                'ship_to_party' => $ship_to_party,               
+                'remarks' => $remarks,    
+                'created_on' => date('Y-m-d'),
+            );
+
+            $update = $this->mcommon->common_edit('quotation', $update_array, array('id' => $id));
+            
+            $rowcount = count($product);
+
+           
+            
+                for ($i = 0; $i < $rowcount; $i++) 
+                {
+
+                    if($subId[$i] != '')
+                    {
+                    $update_array_new = array(
+                        
+                        'user_id' => $user_id,
+                        'product_id'   => $product[$i],
+                        'hsn_id' => $hsn_code[$i],
+                        'uom_id' => $uom[$i],
+                        'quantity' => $qty[$i],                        
+                        'price' => $price[$i],
+                        'amount' => $amount[$i],
+                        'created_on' => date('Y-m-d'),
+                    );
+                    $update = $this->mcommon->common_edit('quotation_sub', $update_array_new, array('id' => $subId[$i]));
+                }else{
+                    $insert_array_new = array(
+                        
+                        'user_id' => $user_id,
+                        'quotation_id' => $id,
+                        'product_id'   => $product[$i],
+                        'hsn_id' => $hsn_code[$i],
+                        'uom_id' => $uom[$i],
+                        'quantity' => $qty[$i],
+                        'price' => $price[$i],
+                        'amount' => $amount[$i],
+                        'created_on' => date('Y-m-d'),
+                    );
+                    $insert = $this->mcommon->common_insert('quotation_sub', $insert_array_new);
+                }
+            }
+
+ 
+            $qtyData = $this->getTotalQuantity($id);
+             $quantity = 0;
+
+             foreach ($qtyData as $qty){
+               $quantity += $qty->quantity;
+             }
+
+             $update_array_new = array(
+                'total_qty'=>$quantity
+             );
+              
+             $update_new = $this->mcommon->common_edit('quotation', $update_array_new,array('id' => $id));
+
+
+
+             $rowcount2 = count($removeid);
+
+             for ($i = 0; $i < $rowcount2; $i++) 
+             {
+                $delete = $this->mcommon->common_delete('quotation_sub',array('id' => $removeid[$i]));
+   
+             }
+
+
+            if ($update) {
+                $this->session->set_flashdata('alert_success', 'Quotation updated successfully!');
+                redirect('Quotation/view');
+            } else {
+                $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
+            }
+
+      
+        
+    }else{
+        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
+        $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
+        $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1)); 
+     
+            // $this->db->from('quotation'); 
+            // $this->db->where('id', $id);
+            //  $result = $this->db->get();
+            //  return $result->result();
+            
+                    // qSub.id as qSubId,
+                    // qsub.quantity as subQty,
+                    // qsub.price as subPrice,
+                    // qsub.amount as subAmount,
+      
+
+        $this->db->select('*,
+                            qSub.id as qSubId,
+                            qSub.quantity as subQty,
+                            qSub.price as subPrice,
+                            qSub.amount as subAmount,');
+        $this->db->from('quotation_sub as qSub'); 
+        $this->db->where('qSub.quotation_id', $id); 
+        $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
+        $this->db->order_by('qSub.id','DESC');       
+        $query = $this->db->get();
+        $view_data['quotations'] = $query->result();  
+        
+        $data = array(
+            'title' => 'Edit Sale',
+            'content' => $this->load->view('pages/sales_order/edit', $view_data, true),
+        );
+        $this->load->view('base/base_template', $data);
+    }
+    }
+
+
     public function invoice_list(){
         $this->db->select('*,s.status as salesStatus');
         $this->db->from('sales_order as s');
