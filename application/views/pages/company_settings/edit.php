@@ -278,35 +278,60 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <div class="col-md-3">
                                     <div class="mb-3">
-                                        <label for="validationCustom02" class="form-label">Credit Note Percentage</label>
-                                        <input type="text" name="credit_note_percentage" class="form-control" placeholder="Enter Credit Note Percentage" value="<?php echo $default['credit_note_percentage']; ?>">
+                                        <label for="validationCustom02" class="form-label">Quotation Prefix</label>
+                                        <input type="text" required name="quotation_prefix" class="form-control" placeholder="Enter Quotation Prefix" value="<?php echo $default['quotation_prefix']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="mb-3">
-                                        <label for="validationCustom02" class="form-label">Credit Note Starting Number</label>
-                                        <input type="text" name="credit_note_starting" class="form-control" placeholder="Enter Credit Note Starting Number" value="<?php echo $default['credit_note_starting_number']; ?>">
+                                        <label for="validationCustom02" class="form-label">Quotation Starting Number</label>
+                                        <input type="text" required name="quotation_starting_number" class="form-control" placeholder="Enter Quotation Starting Number" value="<?php echo $default['quotation_starting_number']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="validationCustom02" class="form-label">Sales Prefix</label>
+                                        <input type="text" required name="sales_prefix" class="form-control" placeholder="Enter Sales Prefix" value="<?php echo $default['sales_prefix']; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="validationCustom02" class="form-label">Sales Starting Number</label>
                                         <input type="text" name="sales_starting" class="form-control" placeholder="Enter Sales Starting Number" value="<?php echo $default['sales_starting_number']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <div class="col-md-3">
                                     <div class="mb-3">
-                                        <label for="validationCustom02" class="form-label">Quotation Starting Number</label>
-                                        <input type="text" name="quotation_starting_number" class="form-control" placeholder="Enter Quotation Starting Number" value="<?php echo $default['quotation_starting_number']; ?>">
+                                        <label for="validationCustom02" class="form-label">Credit Note Prefix</label>
+                                        <input type="text" required name="credit_note_prefix" class="form-control" placeholder="Enter Credit Note Prefix" value="<?php echo $default['credit_note_prefix']; ?>">
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="mb-3">
+                                        <label for="validationCustom02" class="form-label">Credit Note Starting Number</label>
+                                        <input type="text" required name="credit_note_starting" class="form-control" placeholder="Enter Credit Note Starting Number" value="<?php echo $default['credit_note_starting_number']; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="validationCustom02" class="form-label">Credit Note Percentage</label>
+                                        <input type="text" name="credit_note_percentage" class="form-control" required placeholder="Enter Credit Note Percentage" value="<?php echo $default['credit_note_percentage']; ?>">
+                                    </div>
+                                </div>
+
+                               
+
+                                
 
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="validationCustom02" class="form-label">Bank Name</label>
-                                        <input type="text" name="bank_name" class="form-control" placeholder="Enter Bank Name" value="<?php echo $default['bank_name']; ?>">
+                                        <input type="text" required name="bank_name" class="form-control" placeholder="Enter Bank Name" value="<?php echo $default['bank_name']; ?>">
                                     </div>
                                 </div>
   
@@ -331,7 +356,7 @@
                                         <input type="text" name="bank_ifsc" class="form-control" placeholder="Enter IFSC" value="<?php echo $default['bank_ifsc']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="validationCustom02" class="form-label">Terms</label>
                                         <textarea type="text" name="terms" class="form-control" placeholder="Enter Terms" value="<?php echo $default['terms']; ?>"><?php echo $default['terms']; ?></textarea>

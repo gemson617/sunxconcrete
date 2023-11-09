@@ -94,7 +94,7 @@
                                     
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo 'Q'.$q->quotation_no; ?></td>
+                                        <td><?php echo $q->quotation_no; ?></td>
                                  
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $q->company_name; ?></td>
@@ -129,17 +129,15 @@
                                         <td>
                                             <table>
                                                 <tr>
-                                                    <td><a href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-file"></i></button></a></td>
+                                                    <td><a title="Print Quotation" href="<?php echo site_url('Quotation/quotationInvoice/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-secondary waves-effect waves-light"><i class="fa fa-print submit_event" aria-hidden="true"></i></button></a></td>
                                                     <td> <?php if ($q->qStatus != 3)
                                                             { ?>
-                                                            <a href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-                                                            <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
+                                                            <a title="Edit Quotation" href="<?php echo site_url('Quotation/edit/' . $q->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
+                                                            <a title="Delete Quotation" href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $q->id; ?>);"><i class="bx bx-trash"></i></button></a>
                                                             <?php } ?>
                                                     </td>
                                                 </tr>
-                                            </table>
-                                           
-                                            
+                                            </table>                                           
                                             <!-- <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->product_id; ?>);"><i class="bx bx-check"></i></button>
                                             <button type="button" class="btn btn-sm btn-danger waves-effect waves-light" id="sa-success" onclick="delete_item(<?php echo $d->product_id; ?>);"><i class="bx bx-trash"></i></button> -->
 

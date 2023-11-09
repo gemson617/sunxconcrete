@@ -78,13 +78,13 @@
         <div class="row">
             <div class="col-6">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Edit Sale</h4>                    
+                    <h4 class="mb-sm-0 font-size-18">Edit Slae Order</h4>                    
                 </div>
             </div>
             <div class="col-6 d-flex justify-content-end">
                 <div class="page-title-box d-flex ">
                     <div class="page-title-right ml-auto">  
-                        <a href="<?php echo site_url('Quotation/view'); ?>">
+                        <a href="<?php echo site_url('SalesOrder/view'); ?>">
                         <button class="btn btn-secondary">Back</button>
                         </a>
                     </div>
@@ -121,8 +121,7 @@
         }
         ?>
 
-<form action="<?php echo site_url('Quotation/edit/'.$quotation['id']); ?>" id="dynamic-form" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
-
+<form action="<?php echo site_url('SalesOrder/edit/'.$sales_order['id']); ?>" id="dynamic-form" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 <div class="row">
             <div class="col-xl-12">
                 <div class="card">
@@ -132,7 +131,7 @@
                                 <div class="col-md-3">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Sale number</label>
-                                        <input type="text" readonly class="form-control" required name="qno" id="qno" value="<?= $quotation['quotation_no'] ?>" >                                        
+                                        <input type="text" readonly class="form-control" required name="sno" id="sno" value="<?= $sales_order['sale_no'] ?>" >                                        
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -147,7 +146,7 @@
                                         <select class="form-control" name="sold_to" id="sold_to" >
                                             <option value="">--Select Customer --</option>
                                             <?php foreach($customers as $customer) {?>
-                                         <option value="<?php echo $customer->customer_id; ?>" data-info="<?= $customer->customer_state ?>" <?= ($quotation['sold_to_party'] == $customer->customer_id) ? 'selected' : '' ?>><?php echo $customer->company_name; ?>
+                                         <option value="<?php echo $customer->customer_id; ?>" data-info="<?= $customer->customer_state ?>" <?= ($sales_order['sold_to_party'] == $customer->customer_id) ? 'selected' : '' ?>><?php echo $customer->company_name; ?>
                                          <?php }?>
                                         </select>                                          
                                         <div class="valid-feedback">
@@ -164,7 +163,7 @@
                                      <select class="form-control" name="ship_to" id="sold_to" required>
                                          <option value="">--Select Customer --</option>
                                          <?php foreach($customers as $customer) {?>
-                                         <option value="<?php echo $customer->customer_id; ?>" <?= ($quotation['ship_to_party'] == $customer->customer_id) ? 'selected' : '' ?>><?php echo $customer->company_name; ?>
+                                         <option value="<?php echo $customer->customer_id; ?>" <?= ($sales_order['ship_to_party'] == $customer->customer_id) ? 'selected' : '' ?>><?php echo $customer->company_name; ?>
                                          <?php }?>
                                      </select>                                         
                                       <div class="valid-feedback">
@@ -178,7 +177,7 @@
                                 <div class="col-md-3">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>
-                                        <input type="text" class="form-control" name="remarks" id="remarks" value="<?php echo $quotation['remarks']; ?>"> 
+                                        <input type="text" class="form-control" name="remarks" id="remarks" value="<?php echo $sales_order['remarks']; ?>"> 
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -255,7 +254,7 @@
                     <div class="card-body">
                         <div class="max rtl-bc" >
                             <div id="addProduct" class="addProduct">
-                                <?php foreach($quotations as $key => $q) {?>
+                                <?php foreach($sales as $key => $q) {?>
                             <div class="row" id="fieldcount<?= $key?>">
                             <input type="hidden" name="primary_id[]"  class="form-control" id="primary_id<?=  $key ?>" data="<?= $q->id?>" value="<?= $q->id?>"> 
                                 <div class="col-md-2 count1">
@@ -328,7 +327,7 @@
                                 <div class="col-md-2" style="width: 13%;">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quantity</label>
-                                        <input type="number" name="qty[]" step="0.01" value="<?= $q->subQty ?>" class="form-control qty"  id="qty<?= $key?>" oninput="get_qty(this.value, <?= $key?>)" placeholder=" Qty"  required>
+                                        <input type="number" name="qty[]" step="0.01" value="<?= $q->total_qty ?>" class="form-control qty"  id="qty<?= $key?>" oninput="get_qty(this.value, <?= $key?>)" placeholder=" Qty"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -340,7 +339,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="number" name="price[]" value="<?= $q->subPrice ?>" class="form-control price"  id="price<?= $key?>" placeholder=" Price" oninput="get_amount(this.value, <?= $key?>)" required>
+                                        <input type="number" name="price[]" value="<?= $q->price ?>" class="form-control price"  id="price<?= $key?>" placeholder=" Price" oninput="get_amount(this.value, <?= $key?>)" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -352,7 +351,7 @@
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Amount</label>
-                                        <input type="text" name="amount[]" value="<?= $q->subAmount ?>" class="form-control amount" readonly id="amount<?= $key?>"  placeholder="amount"  required>
+                                        <input type="text" name="amount[]" value="<?= $q->amount ?>" class="form-control amount" readonly id="amount<?= $key?>"  placeholder="amount"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

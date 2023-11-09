@@ -55,10 +55,16 @@ class Company_settings extends MY_Controller
              $company_email = $this->input->post('company_email');
              $company_pan =$this->input->post('company_pan');
 			$credit_note_percentage = $this->input->post('credit_note_percentage');
+			$credit_note_prefix = $this->input->post('credit_note_prefix');
 			$credit_note_starting_number = $this->input->post('credit_note_starting');
-			$sales_starting_number = $this->input->post('sales_starting');
-			$company_tan_number = $this->input->post('company_tan_number');
+			
+            $quotation_prefix = $this->input->post('quotation_prefix');
 			$quotation_starting_number = $this->input->post('quotation_starting_number');
+
+            $sales_prefix = $this->input->post('sales_prefix');
+			$sales_starting_number = $this->input->post('sales_starting');
+
+			$company_tan_number = $this->input->post('company_tan_number');
             // print_r($sales_starting_number);
             // exit();
             $bank_name = $this->input->post('bank_name');
@@ -136,7 +142,12 @@ class Company_settings extends MY_Controller
                 'company_email' => $company_email,
                 'company_pan' =>$company_pan,
                 'bank_name' => $bank_name,
-                'credit_note_percentage' => $credit_note_percentage,
+
+                'quotation_prefix' => $quotation_prefix,
+                'sales_prefix' => $sales_prefix,
+                'credit_note_prefix' => $credit_note_prefix,
+
+                'credit_note_percentage' => $credit_note_percentage,                
                 'bank_account_no' => $bank_account_no,              
                 'bank_address' => $bank_address,              
                 'bank_ifsc' => $bank_ifsc,              
@@ -164,9 +175,14 @@ class Company_settings extends MY_Controller
                     'company_gstin'=>$company_gstin,
                     'invoice_str_num'=>$invoice_str_num, 
                     'company_tan_number'=>$company_tan_number,                
-                     'company_email' => $company_email,
-                     'company_pan' =>$company_pan,
-                     'bank_name' => $bank_name,
+                    'company_email' => $company_email,
+                    'company_pan' =>$company_pan,
+                    'bank_name' => $bank_name,
+                    
+                    'quotation_prefix' => $quotation_prefix,
+                    'sales_prefix' => $sales_prefix,
+                    'credit_note_prefix' => $credit_note_prefix,
+
                      'credit_note_percentage' => $credit_note_percentage,
                     'bank_account_no' => $bank_account_no,              
                     'bank_address' => $bank_address,              

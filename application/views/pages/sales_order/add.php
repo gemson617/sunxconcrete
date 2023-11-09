@@ -77,13 +77,13 @@
         <div class="row">
             <div class="col-6">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Add Slae</h4>                    
+                    <h4 class="mb-sm-0 font-size-18">Add Slae Order</h4>                    
                 </div>
             </div>
             <div class="col-6 d-flex justify-content-end">
                 <div class="page-title-box d-flex ">
                     <div class="page-title-right ml-auto">  
-                        <a href="<?php echo site_url('Quotation/view'); ?>">
+                        <a href="<?php echo site_url('SalesOrder/view'); ?>">
                         <button class="btn btn-secondary">Back</button>
                         </a>
                     </div>
@@ -94,7 +94,7 @@
         <!-- end page title -->
         <?php
         if ($this->session->flashdata('alert_success')) {
-        ?>
+            ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong>Success!</strong> <?php echo $this->session->flashdata('alert_success'); ?>
@@ -103,7 +103,7 @@
         }
 
         if ($this->session->flashdata('alert_danger')) {
-        ?>
+            ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong>Success!</strong> <?php echo $this->session->flashdata('alert_danger'); ?>
@@ -112,16 +112,16 @@
         }
 
         if ($this->session->flashdata('alert_warning')) {
-        ?>
+            ?>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong>Success!</strong> <?php echo $this->session->flashdata('alert_warning'); ?>
             </div>
         <?php
         }
-        ?>
+                        ?>
 
-<form action="<?php echo site_url('Quotation/add'); ?>" id="ynamic" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+<form action="<?php echo site_url('SalesOrder/add'); ?>" id="ynamic" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 
 <div class="row">
             <div class="col-xl-12">
@@ -129,10 +129,10 @@
                     <div class="card-body">
                             <div class="row col-md-12">
 
-                                <div class="col-md-3">                                 
+                                <div class="col-md-2" >                                 
                                     <div class="mb-3">
-                                        <label for="validationCustom01" class="form-label">Sale number</label>
-                                        <input type="text" readonly class="form-control" required name="qno" id="qno" value="<?= $qnumber+1 ?>" >                                        
+                                        <label for="validationCustom01" class="form-label">Sale NO</label>
+                                        <input type="text" readonly class="form-control" required name="sno" id="sno" value="<?= $snumber ?>" >                                        
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -146,8 +146,7 @@
                                         <label for="validationCustom01" class="form-label">Sold to party</label>
                                         <select class="form-control" name="sold_to" id="sold_to"   required>
                                             <option value="">--Select--</option>
-                                            <?php foreach($customers as $customer)
-                                         {?>
+                                            <?php foreach($customers as $customer) {?>
                                          <option value="<?php echo $customer->customer_id; ?>" data-info="<?= $customer->customer_state ?>"><?php echo $customer->company_name; ?>
                                          <?php }?>
                                         </select>                                          
@@ -162,13 +161,12 @@
 
                                
 
-                                <div class="col-md-3">                                 
+                            <div class="col-md-3">                                 
                                  <div class="mb-3">
                                      <label for="validationCustom01" class="form-label">Ship to party</label>
                                      <select class="form-control" name="ship_to" id="ship_to" required>
                                          <option value="">--Select--</option>
-                                         <?php foreach($customers as $customer)
-                                         {?>
+                                         <?php foreach($customers as $customer) {?>
                                          <option value="<?php echo $customer->customer_id; ?>"><?php echo $customer->company_name; ?>
                                          <?php }?>
                                      </select>                                         
@@ -181,21 +179,75 @@
                                  </div>
                              </div>
 
-                                <div class="col-md-3">                                 
+                             <div class="col-md-3">                                 
+                                <div class="mb-3">
+                                    <label for="validationCustom01" class="form-label">Date</label>
+                                    <input type="date" class="form-control" required name="date" id="date">                                                                                 
+                                    
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Remarks is Required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">                                 
+                                <div class="mb-3">
+                                    <label for="validationCustom01" class="form-label">PO Number</label>
+                                    <input type="text" class="form-control" required name="po_number" id="po_number" placeholder="Enter PO Number" >
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Remarks is Required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" >                                 
+                                 <div class="mb-3">
+                                     <label for="validationCustom01" class="form-label">Credit Note</label>
+                                     <select class="form-control" name="credit_noteYN" id="credit_noteYN" onchange="creditNote(this.value)" required>
+                                         <option value="">--Select--</option>
+                                         <option value="1">Yes</option>
+                                         <option value="0">No</option>                                         
+                                     </select>                                         
+                                     <div class="valid-feedback">
+                                         Looks good!
+                                     </div>
+                                     <div class="invalid-feedback">
+                                     Ship to party is Required.
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="col-md-2 d-none" id="credirPercentageDiv" >                                 
                                     <div class="mb-3">
-                                        <label for="validationCustom01" class="form-label">Remarks</label>
-                                        <input type="text" class="form-control" required name="remarks" id="remarks" placeholder="Enter remarks" >                                                                                 
-                                       
+                                        <label for="validationCustom01" class="form-label">Credit Note (%)</label>
+                                        <input type="text"  class="form-control" placeholder="Credit (%)" required name="credit_note" id="credit_note" value="" >                                        
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        Remarks is Required.
+                                        Sale No is Required.
                                         </div>
                                     </div>
                                 </div>
 
-
+                            <div class="col-md-3">                                 
+                                <div class="mb-3">
+                                    <label for="validationCustom01" class="form-label">Remarks</label>
+                                    <input type="text" class="form-control" required name="remarks" id="remarks" placeholder="Enter remarks" >
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Remarks is Required.
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                 </div>
@@ -270,8 +322,7 @@
                                         <label for="validationCustom01" class="form-label">Product</label>
                                         <select class="form-control" name="product[]" onchange="get_product(this.value, 0)" id="product0">
                                             <option value="">--Select --</option>
-                                            <?php foreach($products as $product)
-                                            {?>
+                                            <?php foreach($products as $product) {?>
                                             <option value="<?php echo $product->product_id; ?>" ><?php echo $product->product_name; ?>
                                             <?php }?>
                                         </select>                                          
@@ -301,8 +352,7 @@
                                         <label for="validationCustom01" class="form-label">UOM</label>
                                         <select class="form-control" name="uom_id[]" id="uom0" required>
                                             <option value="">--Select UOM --</option>
-                                            <?php foreach($uom as $u)
-                                            {?>
+                                            <?php foreach($uom as $u) {?>
                                             <option value="<?php echo $u->uom_id; ?>"><?php echo $u->uom; ?>
                                             <?php }?>
                                         </select>                                              
@@ -441,6 +491,17 @@
 // // var info = selectedOption.data('info');
 // // console.log(selectedOption);
 //     };
+
+    function creditNote(val){        
+        if(val == 1){
+            $('#credirPercentageDiv').removeClass('d-none');
+            $('#credirPercentageDiv').addClass('d-block');
+        }else{
+            $('#credirPercentageDiv').removeClass('d-block');
+            $('#credirPercentageDiv').addClass('d-none');
+            $('#credit_note').val('');
+        }
+    }
 
     function get_product(product_id,no) {
         $.ajax({

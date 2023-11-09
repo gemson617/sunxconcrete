@@ -73,6 +73,7 @@ class Quotation extends MY_Controller
       
             $user_id =$this->auth_user_id; 
             $qno = $this->input->post('qno');
+            $date = $this->input->post('date');
             $sold_to_party = $this->input->post('sold_to');    
             $ship_to_party = $this->input->post('ship_to');  
             $remarks = $this->input->post('remarks');  
@@ -98,6 +99,7 @@ class Quotation extends MY_Controller
             $insert_array = array(
                 'user_id' => $user_id,  
                 'quotation_no' => $qno,                
+                'date' => $date,                
                 'sub_total' => $sub_total,               
                 'cgst' => $cgst,
                 'sgst' => $sgst,
@@ -169,14 +171,35 @@ class Quotation extends MY_Controller
         $this->db->from('em_companies'); 
         $this->db->where('id',1); 
         $result = $this->db->get()->row();
-        // print_r($result); exit();
         
             if ($result->quotation_sn_status == 1) {
-                $view_data['qnumber'] = $result->quotation_starting_number;
+                $view_data['qnumber'] = $result->quotation_prefix.$result->quotation_starting_number;
             } else {
                 $quotationRecord = $this->mcommon->last_inserid('quotation');
-                $view_data['qnumber'] = !empty($quotationRecord) ? $quotationRecord->quotation_no : null;
+                preg_match('/^([a-zA-Z]+)(\d+)$/', $quotationRecord->quotation_no, $matches);
+                if (count($matches) === 3) {
+                    $prefix = $matches[1];
+                    $numericPart = intval($matches[2]);
+                
+                    // Increment numeric part
+                    $newNumericPart = $numericPart + 1;
+                
+                    // Create the new sale number
+                    $newSaleNo = $prefix . $newNumericPart;
+                
+                    // Use $newSaleNo as needed
+                    $view_data['qnumber'] =  $newSaleNo;
+                } else {
+                    // Invalid sale number format
+                    $this->session->set_flashdata('alert_danger', 'Please Set Correct Slae Prefix on Company Settings!');
+                redirect('quotation/view');
+                    echo 'Invalid sale number format';
+                }
+
+                // $qnum = $quotationRecord->quotation_no + 1;
+                // $view_data['qnumber'] = !empty($quotationRecord) ? $result->quotation_prefix.$qnum : null;
             }
+        // print_r($view_data['qnumber']); exit();
        
         $data = array(
             'title' => 'Add Quotation',
@@ -202,12 +225,12 @@ class Quotation extends MY_Controller
     }
 
     public function product_details($product_id){
-        $this->db->select('p.price as product_rate,h.hsn_name,u.uom,
-                            hsn_id,uom_id');
+        $this->db->select('p.price as product_rate,h.hsn_name,
+                            hsn_id');
         $this->db->from('product as p'); 
         $this->db->where('p.product_id',$product_id); 
         $this->db->join('hsn_code as h', 'h.hsn_id = p.hsn_code'); 
-        $this->db->join('uom as u', 'u.uom_id = p.uom'); 
+        // $this->db->join('uom as u', 'u.uom_id = p.uom'); 
         $this->db->limit('1');       
         $result = $this->db->get()->row_array();
         // $result = $query->result();
@@ -626,7 +649,7 @@ class Quotation extends MY_Controller
         $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
         $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
         $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
-        $this->db->order_by('qSub.id','DESC');       
+             
         $query = $this->db->get();
         $view_data['quotations'] = $query->result();  
         

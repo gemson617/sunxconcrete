@@ -129,10 +129,10 @@
                     <div class="card-body">
                             <div class="row col-md-12">
 
-                                <div class="col-md-3">                                 
+                                <div class="col-md-2">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Quotation number</label>
-                                        <input type="text" readonly class="form-control" required name="qno" id="qno" value="<?= $qnumber+1 ?>" >                                        
+                                        <input type="text" readonly class="form-control" required name="qno" id="qno" value="<?= $qnumber ?>" >                                        
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -181,7 +181,20 @@
                                  </div>
                              </div>
 
-                                <div class="col-md-3">                                 
+                             <div class="col-md-2">                                 
+                                    <div class="mb-3">
+                                        <label for="validationCustom01" class="form-label">Date</label>
+                                        <input type="date" class="form-control" required name="date" id="date" >                                                                                 
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Remarks is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>
                                         <input type="text" class="form-control" required name="remarks" id="remarks" placeholder="Enter remarks" >                                                                                 
@@ -338,11 +351,11 @@
                                         price Required.
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="col-md-2">
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Price</label>
-                                        <input type="text" name="price[]" class="form-control price"  id="price0" oninput="get_amount(this.value, 0)" placeholder=" Price"  required>
+                                        <input type="text" name="price[]"  pattern="[0-9]*\.?[0-9]*" class="form-control price"  id="price0" oninput="get_amount(this.value, 0)" placeholder=" Price"  required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>

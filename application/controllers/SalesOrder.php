@@ -15,57 +15,18 @@ class SalesOrder extends MY_Controller
    
     public function view()
     {
-        $this->db->select('s.id AS id, s.status AS salesStatus,
-                   SUM(si.received_qty) AS received_quantity,
-                   SUM(si.tottalamt) AS received_amount,
-                   SUM(si.available_quantity) AS availableQty,
-                   s.total_qty,
-                   s.grand_total,
-                   s.created_on,
-                   s.sale_no,
-                   s.po_number,
-                   si.sales_order_id as sale_id,
-                   si.product_id,
-                   si.driver_name,
-                   si.truck_no,
-                   si.transaction_id,
-                   c.company_name,                   
-                   ');
-        $this->db->from('sales_order as s');
-        $this->db->join('sales_order_items as si', 'si.sales_order_id = s.id', 'left');
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->group_by('si.sales_order_id, si.id');
+              
+        $this->db->select('s.*, s.id AS id,c.company_name,
+                          SUM(sSub.total_qty) as totalQuantity,');
+        $this->db->from('sales_order as s');   
+        $this->db->join('sales_order_sub as sSub','s.id = sSub.sales_order_id ','left');      
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party', 'left');
+        $this->db->order_by('s.id','DESC');  
+        $this->db->group_by('sSub.sales_order_id','DESC');
         $query = $this->db->get()->result();
         
 
-
-        $resultArr = array();
-
-        foreach($query as $key=>$row){
-            $sale_id = $row->sale_id;
-
-            if (!isset($resultArr[$sale_id])) {
-                $resultArr[$sale_id] = array();
-            }
-
-            $resultArr[$sale_id]['id'] = $row->id;
-            $resultArr[$sale_id]['received_quantity'] = $row->received_quantity;
-            $resultArr[$sale_id]['received_amount'] = $row->received_amount;
-            $resultArr[$sale_id]['availableQty'] = $row->availableQty;
-            $resultArr[$sale_id]['total_qty'] = $row->total_qty;
-            $resultArr[$sale_id]['grand_total'] = $row->grand_total;
-            $resultArr[$sale_id]['created_on'] = $row->created_on;
-            $resultArr[$sale_id]['sale_no'] = $row->sale_no;
-            $resultArr[$sale_id]['po_number'] = $row->po_number;
-            $resultArr[$sale_id]['company_name'] = $row->company_name;
-            
-            $resultArr[$sale_id]["child"][] = $row;
-        }
-
-        // echo "<pre>";print_r($resultArr);
-        // die();
-
-        $view_data['sale'] = $resultArr;
+        $view_data['sale'] = $query;
         $data = array(
             'title' => 'Sales Orders',
             'content' => $this->load->view('pages/sales_order/view', $view_data, true),
@@ -82,9 +43,14 @@ class SalesOrder extends MY_Controller
           
       
             $user_id =$this->auth_user_id; 
-            $qno = $this->input->post('qno');
+            $sno = $this->input->post('sno');
+            $date = $this->input->post('date');
             $sold_to_party = $this->input->post('sold_to');    
-            $ship_to_party = $this->input->post('ship_to');  
+            $ship_to_party = $this->input->post('ship_to');
+            
+            $po_number = $this->input->post('po_number');  
+            $credit_note = $this->input->post('credit_note');  
+
             $remarks = $this->input->post('remarks');  
             $cgst = $this->input->post('cgst');    
             $sgst = $this->input->post('sgst');    
@@ -93,6 +59,7 @@ class SalesOrder extends MY_Controller
             $round_off = $this->input->post('round_off');    
             $g_total = $this->input->post('g_total');  
             $sub_total = $this->input->post('sub_total');  
+      
 
 
 
@@ -107,7 +74,10 @@ class SalesOrder extends MY_Controller
 
             $insert_array = array(
                 'user_id' => $user_id,  
-                'quotation_no' => $qno,                
+                'sale_no' => $sno,    
+                'date' => $date,            
+                'po_number' => $po_number,            
+                'credit_note' => $credit_note,            
                 'sub_total' => $sub_total,               
                 'cgst' => $cgst,
                 'sgst' => $sgst,
@@ -124,8 +94,8 @@ class SalesOrder extends MY_Controller
 
 
  
-            $insert = $this->mcommon->common_insert('quotation', $insert_array);
-            $quotation_id = $this->db->insert_id();
+            $insert = $this->mcommon->common_insert('sales_order', $insert_array);
+            $sales_order_id = $this->db->insert_id();
            
            
            
@@ -134,23 +104,23 @@ class SalesOrder extends MY_Controller
             for ($i = 0; $i < $rowcount; $i++) 
             {
                 $insert_array_new = array(
-                    'quotation_id' => $quotation_id,
+                    'sales_order_id' => $sales_order_id,
                     'user_id' => $user_id,
                     'product_id'   => $product[$i],
                     'hsn_id' => $hsn_code[$i],
                     'uom_id' => $uom[$i],
-                    'quantity' => $qty[$i],
+                    'total_qty' => $qty[$i],
                     'price' => $price[$i],
                     'amount' => $amount[$i],
                     'created_on' => date('Y-m-d'),
                 );
-                $insert = $this->mcommon->common_insert('quotation_sub', $insert_array_new);
+                $insert = $this->mcommon->common_insert('sales_order_sub', $insert_array_new);
             }
           
 
-            $update_com_status = $this->mcommon->common_edit('em_companies',array('quotation_sn_status'=>0),array('id' =>1));
+            $update_com_status = $this->mcommon->common_edit('em_companies',array('sales_sn_status'=>0),array('id' =>1));
 
-          $qtyData = $this->getTotalQuantity($quotation_id);
+          $qtyData = $this->getTotalQuantity($sales_order_id);
              $quantity = 0;
 
              foreach ($qtyData as $qty){
@@ -164,8 +134,8 @@ class SalesOrder extends MY_Controller
              $update_new = $this->mcommon->common_edit('quotation', $update_array_new,array('id' => $quotation_id));
 
             if ($update_new > '0') {
-                $this->session->set_flashdata('alert_success', 'Quotation added successfully!');
-                redirect('Quotation/view');
+                $this->session->set_flashdata('alert_success', 'SaleOrder added successfully!');
+                redirect('SalesOrder/view');
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
             }
@@ -175,20 +145,44 @@ class SalesOrder extends MY_Controller
         $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         // $view_data['qno'] = $this->mcommon->records_all('em_companies', array('id' => 1))->row();
+             
+
         $this->db->select('*');
         $this->db->from('em_companies'); 
         $this->db->where('id',1); 
         $result = $this->db->get()->row();
-        // print_r($result); exit();
-        
-            if ($result->quotation_sn_status == 1) {
-                $view_data['qnumber'] = $result->quotation_starting_number;
+            
+            if ($result->sales_sn_status == 1) {
+                $view_data['snumber'] = $result->sales_prefix.$result->sales_starting_number;
             } else {
-                $quotationRecord = $this->mcommon->last_inserid('quotation');
-                $view_data['qnumber'] = !empty($quotationRecord) ? $quotationRecord->quotation_no : null;
-            }       
+                $saleOrderRecord = $this->mcommon->last_inserid('sales_order');
+                
+                preg_match('/^([a-zA-Z]+)(\d+)$/', $saleOrderRecord->sale_no, $matches);
+                if (count($matches) === 3) {
+                    $prefix = $matches[1];
+                    $numericPart = intval($matches[2]);
+                
+                    // Increment numeric part
+                    $newNumericPart = $numericPart + 1;
+                
+                    // Create the new sale number
+                    $newSaleNo = $prefix . $newNumericPart;
+                
+                    // Use $newSaleNo as needed
+                    $view_data['snumber'] =  $newSaleNo;
+                } else {
+                    // Invalid sale number format
+                    $this->session->set_flashdata('alert_danger', 'Please Set Correct Slae Prefix on Company Settings!');
+                redirect('SalesOrder/view');
+                    echo 'Invalid sale number format';
+                }
+                // $snum = $saleOrderRecord->sale_no + 1;
+                // $view_data['snumber'] = !empty($saleOrderRecord) ? $result->sales_prefix.$snum : null;
+            }
+           
+           
         $data = array(
-            'title' => 'Add Sale',
+            'title' => 'Add Sale order',
             'content' => $this->load->view('pages/sales_order/add', $view_data, true),
         );
         $this->load->view('base/base_template', $data);
@@ -244,7 +238,7 @@ class SalesOrder extends MY_Controller
                 'created_on' => date('Y-m-d'),
             );
 
-            $update = $this->mcommon->common_edit('quotation', $update_array, array('id' => $id));
+            $update = $this->mcommon->common_edit('sales_order', $update_array, array('id' => $id));
             
             $rowcount = count($product);
 
@@ -261,26 +255,26 @@ class SalesOrder extends MY_Controller
                         'product_id'   => $product[$i],
                         'hsn_id' => $hsn_code[$i],
                         'uom_id' => $uom[$i],
-                        'quantity' => $qty[$i],                        
+                        'total_qty' => $qty[$i],                        
                         'price' => $price[$i],
                         'amount' => $amount[$i],
                         'created_on' => date('Y-m-d'),
                     );
-                    $update = $this->mcommon->common_edit('quotation_sub', $update_array_new, array('id' => $subId[$i]));
+                    $update = $this->mcommon->common_edit('sales_order_sub', $update_array_new, array('id' => $subId[$i]));
                 }else{
                     $insert_array_new = array(
                         
                         'user_id' => $user_id,
-                        'quotation_id' => $id,
+                        'sales_order_id' => $id,
                         'product_id'   => $product[$i],
                         'hsn_id' => $hsn_code[$i],
                         'uom_id' => $uom[$i],
-                        'quantity' => $qty[$i],
+                        'total_qty' => $qty[$i],
                         'price' => $price[$i],
                         'amount' => $amount[$i],
                         'created_on' => date('Y-m-d'),
                     );
-                    $insert = $this->mcommon->common_insert('quotation_sub', $insert_array_new);
+                    $insert = $this->mcommon->common_insert('sales_order_sub', $insert_array_new);
                 }
             }
 
@@ -296,7 +290,7 @@ class SalesOrder extends MY_Controller
                 'total_qty'=>$quantity
              );
               
-             $update_new = $this->mcommon->common_edit('quotation', $update_array_new,array('id' => $id));
+             $update_new = $this->mcommon->common_edit('sales_order', $update_array_new,array('id' => $id));
 
 
 
@@ -304,14 +298,14 @@ class SalesOrder extends MY_Controller
 
              for ($i = 0; $i < $rowcount2; $i++) 
              {
-                $delete = $this->mcommon->common_delete('quotation_sub',array('id' => $removeid[$i]));
+                $delete = $this->mcommon->common_delete('sales_order_sub',array('id' => $removeid[$i]));
    
              }
 
 
             if ($update) {
-                $this->session->set_flashdata('alert_success', 'Quotation updated successfully!');
-                redirect('Quotation/view');
+                $this->session->set_flashdata('alert_success', 'SaleOrder updated successfully!');
+                redirect('salesOrder/view');
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
             }
@@ -321,7 +315,7 @@ class SalesOrder extends MY_Controller
     }else{
         $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
-        $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
+        $view_data['sales_order'] = $this->mcommon->specific_row('sales_order', array('id' => $id));    
         $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1)); 
      
             // $this->db->from('quotation'); 
@@ -335,22 +329,18 @@ class SalesOrder extends MY_Controller
                     // qsub.amount as subAmount,
       
 
-        $this->db->select('*,
-                            qSub.id as qSubId,
-                            qSub.quantity as subQty,
-                            qSub.price as subPrice,
-                            qSub.amount as subAmount,');
-        $this->db->from('quotation_sub as qSub'); 
-        $this->db->where('qSub.quotation_id', $id); 
-        $this->db->join('product as p','p.product_id = qSub.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = qSub.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = qSub.uom_id','left'); 
-        $this->db->order_by('qSub.id','DESC');       
+        $this->db->select('sSub.*, h.hsn_name');
+        $this->db->from('sales_order_sub as sSub'); 
+        $this->db->where('sSub.sales_order_id', $id); 
+        $this->db->join('product as p','p.product_id = sSub.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = sSub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = sSub.uom_id','left');         
         $query = $this->db->get();
-        $view_data['quotations'] = $query->result();  
-        
+        $view_data['sales'] = $query->result();  
+        // echo '<pre>'; print_r($view_data['sales']);
+        //  die();
         $data = array(
-            'title' => 'Edit Sale',
+            'title' => 'Edit Sale order',
             'content' => $this->load->view('pages/sales_order/edit', $view_data, true),
         );
         $this->load->view('base/base_template', $data);
@@ -812,6 +802,21 @@ class SalesOrder extends MY_Controller
             'content' => $this->load->view('pages/sales_order/delivery_challan', $view_data, true),
         );
         $this->load->view('base/base_template', $data);  
+    }
+
+    public function delete($id)
+    {
+        $delete = $this->mcommon->common_delete('sales_order', array('id' => $id));
+        $delete = $this->mcommon->common_delete('sales_order_sub', array('sales_order_id' => $id));
+        return $delete;
+    }
+
+    public function getTotalQuantity($sales_order_id){
+        // $this->db->select('sum(quantity)'); 
+        $this->db->from('sales_order_sub'); 
+        $this->db->where('sales_order_id', $sales_order_id);
+         $result = $this->db->get();
+         return $result->result();
     }
 
 }

@@ -70,20 +70,21 @@
                         ?>
                         <a href="<?php echo site_url('SalesOrder/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a>
                         <br>                        
-                        <h4 class="card-title mb-3">Sales Orders</h4>
+                        <h4 class="card-title mb-3">Slae Orders</h4>
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
-                                    <th scope="col">Date</th>
                                     <th scope="col">Sale.No</th>
-                                    <th scope="col">PO.No</th>
+
+                                    <th scope="col">Date</th>
+                                    <!-- <th scope="col">PO.No</th> -->
                                     <!-- <th scope="col">Product</th> -->
                                     <th scope="col">Customer</th>
                                     <!-- <th scope="col">HSN </th> -->
                                     <th scope="col"> Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
-                                    <th scope="col">Invoiced Qty</th>
+                                    <!-- <th scope="col">Invoiced Qty</th> -->
                                     <!-- <th scope="col"> Invoiced Amt</th> -->
 
                                     <th scope="col">Total Amt</th>
@@ -94,41 +95,37 @@
 
                             <tbody>
                                 <?php foreach ($sale as $key => $sales) { 
-                                    $date =  $sales['created_on'];
+                                    $date =  $sales->created_on;
                                     $timestamp = strtotime($date);
                                     $formattedDate = date("d-m-Y", $timestamp);
                                   
                                     // $date = date($date, 'd-m-y');  ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $sales->sale_no; ?></td>
+
                                         <td><?php echo $formattedDate; ?></td>
-                                        <td><?php echo 'S'.$sales['sale_no']; ?></td>
-                                        <td><?php echo $sales['po_number']; ?></td>
-                                        <td><?php echo $sales['company_name']; ?></td>
-                                        <td><?php echo $sales['total_qty']; ?></td>
+                                        <!-- <td><?php echo $sales->po_number; ?></td> -->
+                                        <td><?php echo $sales->company_name; ?></td>
+                                        <td><?php echo $sales->totalQuantity; ?></td>
 
-                                        <td><?php echo ($sales['receivedQuantity'] != null) ? $sales['receivedQuantity'] : "0.00"; ?></td>
-                                        <!-- <td><?php echo number_format($sales['received_amount'],2); ?></td> -->
+                                        <!-- <td><?php echo ($sales->receivedQuantity != null) ? $sales->receivedQuantity : "0.00"; ?></td> -->
+                                        <!-- <td><?php echo number_format($sales->received_amount,2); ?></td> -->
 
-                                        <td><?php echo number_format($sales['grand_total'],2); ?></td>
-                        
+                                        <td><?php echo number_format($sales->grand_total,2); ?></td>
+                    
                                         <td>
                                             <!-- <a href="#" class="delete-category"><button  type="button" data-id="<?= $sales->id ?>" data-target-modal="#exampleModal<?= $sales->id ?>" id="show-modal-btn" class="btn btn-sm btn-primary delete-category waves-effect waves-light ">Accept</button></a> -->
                                             <?php if ($sales->received_quantity == $sales->total_qty)
                                             { ?>
-                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales['id']); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
+                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
                                             <!-- <button type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category" data-toggle="modal"  value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </button><br> -->
                                             <?php } ?>
                                             <!-- <a href="<?php echo site_url('SalesOrder/invoice/' . $sales->sales_order_id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
-                                            <?php 
-                                            $tid='';
-                                            foreach ($sales['child'] as $k => $val) { 
-                                                if($val->transaction_id != $tid){
-                                               // continue
-                                                ?>
-                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $val->transaction_id); ?>" ><button  type="button"    class="btn btn-sm btn-warning waves-effect waves-light mt-1 "><i class="bx bx-file"></i></button></a>
-                                                <?php  $tid = $val->transaction_id; } } ?>
-                                             <a href="<?php echo site_url('SalesOrder/edit/' . $sales['id']); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
+                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
+
+                                             <a href="<?php echo site_url('SalesOrder/edit/' . $sales->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
+                                             <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $sales->id; ?>);"><i class="bx bx-trash"></i></button></a>
                                         </td>                                     
                                     </tr>
 
@@ -143,7 +140,7 @@
                 <h4 class="modal-title">Sales Order Quantity</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-​
+
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="myForm" method="POST" action="<?php echo site_url('SalesOrder/getQuantity/'.$sales->id); ?>">
@@ -220,55 +217,40 @@
 
 <script type="text/javascript">
 
+        function delete_item(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(isConfirmed => {
+                if (isConfirmed.value) {
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>SalesOrder/delete/" + id + "/",
+                        success: function(result) {
+                            if (result) {
+                                window.location.reload('SalesOrder/view');
+                            }
+                        }
+                    });
 
+                    if (isConfirmed.value) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Quotation has been deleted.',
+                            'success'
+                        );
+                        window.location.reload();
+                    }
+                }
+            });
+        }
 
-//     $(document).ready(function () {
-  
-//     $(".delete-category").click(function () {
-     
-//         var id = $(this).data('id');
-//         var qty = $(this).val();
-//         var valid = parseFloat(qty);
-//         $("#qty").attr("max", valid);
-
-//         $.ajax({
-//             url: "<?php echo site_url() ?>SalesOrder/getProducts/",
-//             method: "POST",
-//             type: "ajax",
-//             data: {
-//                 sales_order_id: id
-//             },
-            
-//             success: function(result) {
-//                 var data = JSON.parse(result);
-//                 console.log(data);
-//                 $('#product')
-//                     .find('option')
-//                     .remove();
-//                 $.each(data, function(key, value) {
-//                     var option = '<option value="' + value.product_id + '">' + value.product_name +
-//                         '</option>';
-//                     $('#product').append(option);
-//                 });
-//             },
-//             error: function(error) {
-//                 console.log(error);
-//             }
-//         });
-
-
-
-//         var form = document.getElementById("myForm");
-
-//         var prefix = "<?php echo site_url('SalesOrder/getQuantity/'); ?>"; 
-//         var sufix = id;
-//         var newAction = prefix + sufix;
-//         // alert(newAction);
-//         form.setAttribute("action", newAction);
-//     //   var quantity = $("#qty").val();
-//     //    alert(quantity);
-    
-//   });
-//     });
+    $(document).ready(function () {
+        //
+    });
 
 </script>

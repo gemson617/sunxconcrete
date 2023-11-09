@@ -50,28 +50,36 @@
                         <a  href="<?php echo site_url('Quotation/'); ?>" key="t-crypto">
                         <i class="bx bx-check">
                             <span key="t-settings">View Credit note</span></a></i></li> -->
-                            <li>
-                                
-                        <a  href="<?php echo site_url('Quotation/'); ?>"  class="waves-effect">
-                            <i class="bx bx-check"></i>
-                            <span key="t-settings">View Credit note</span>
-                        </a></li>
+                           
 
                     <li>
                         <a href="<?php echo site_url('SalesOrder/view'); ?>" class="waves-effect">
-                            <i class="bx bx-check"></i>
+                            <i class="bx bx-edit-alt"></i>
                             <span key="t-settings">Sales Order</span>
                         </a>
                         
                     </li>
-                    <li>
-                                
-                                <a  href="<?php echo site_url('SalesOrder/invoice_list'); ?>"  class="waves-effect">
-                                    <i class="bx bx-check"></i>
-                                    <span key="t-settings">Invoice List</span>
-                                </a></li>
 
-                   
+                    <li>
+                        <a href="<?php echo site_url('SalesOrder/view'); ?>" class="waves-effect">
+                            <i class="bx bx-edit-alt"></i>
+                            <span key="t-settings">DC</span>
+                        </a>
+                        
+                    </li>
+
+                    <li>
+                        <a  href="<?php echo site_url('SalesOrder/invoice_list'); ?>"  class="waves-effect">
+                            <i class="bx bx-file"></i>
+                            <span key="t-settings">Invoice</span>
+                        </a></li>
+                    <li>
+                            
+                            <a  href="<?php echo site_url('Quotation/'); ?>"  class="waves-effect">
+                                <i class="bx bx-transfer"></i>
+                                <span key="t-settings">Credit note</span>
+                            </a>
+                    </li>
                 </ul>
             <?php  ?>
           
