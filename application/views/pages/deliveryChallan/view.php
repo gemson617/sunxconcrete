@@ -120,7 +120,9 @@
                                                 
                                                 <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a>
 
-                                            <?php   } ?>
+                                            <?php   }else{
+                                                echo '<i class="fa fa-check align-center"></i>';
+                                            } ?>
                                         </td> 
 
                                         <td>
