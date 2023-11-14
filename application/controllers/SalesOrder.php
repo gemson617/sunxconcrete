@@ -466,13 +466,14 @@ class SalesOrder extends MY_Controller
 
             if ($insert > '0') {
                 $this->session->set_flashdata('alert_success', 'Sales Order Updated Successfully!');
-                redirect('SalesOrder/view');
+                redirect('dcController/view');
             } else {
                 $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
-                redirect('SalesOrder/view');
+                redirect('dcController/view');
             }
         }
-        else{
+            else
+        {
 
             $this->db->select('*,sub.id as subId, sub.price as sprice, sub.available_qty as available_qty');
             $this->db->from('sales_order_sub as sub'); 

@@ -115,7 +115,9 @@
                                         <td><?php echo number_format($sales->grand_total,2); ?></td>
                     
                                         <td>
-                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
+                                            
+                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a>
+                                            <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" type="button" class="btn btn-sm btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> View </a><br>
 
                                             
                                         </td>                                     
