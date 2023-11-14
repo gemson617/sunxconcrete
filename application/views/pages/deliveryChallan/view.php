@@ -115,14 +115,9 @@
                                         <td><?php echo number_format($sales->grand_total,2); ?></td>
                     
                                         <td>
-                                            <!-- <?php if ($sales->received_quantity == $sales->total_qty)
-                                            { ?>
-                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
-                                            <?php } ?>
-                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light  delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br> -->
+                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a><br>
 
-                                             <a href="<?php echo site_url('SalesOrder/edit/' . $sales->id); ?>"><button type="button" class="btn btn-sm btn-info waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-                                             <a href="#"><button type="button" class="btn btn-sm btn-danger waves-effect waves-light" onclick="delete_item(<?php echo $sales->id; ?>);"><i class="bx bx-trash"></i></button></a>
+                                            
                                         </td>                                     
                                     </tr>
 

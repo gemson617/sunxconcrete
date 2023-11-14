@@ -20,6 +20,10 @@ class Quotation extends MY_Controller
         $this->db->order_by('cn.id','DESC');       
         $query = $this->db->get();
         $view_data['credit_note'] = $query->result();  
+
+        //         echo '<pre>';
+        // print_r($view_data['credit_note']);
+        //      exit(); 
         
         $data = array(
             'title' => 'View Credit Note',
@@ -51,7 +55,7 @@ class Quotation extends MY_Controller
         $view_data['products'] = $query->result();
 
         // echo '<pre>';
-        // print_r($view_data['products']);
+        // print_r($view_data['result']);
         //      exit(); 
 
         $view_data['credit_note']= $this->mcommon->specific_row('credit_note',array('id',$id));

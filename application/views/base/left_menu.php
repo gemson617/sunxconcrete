@@ -61,7 +61,7 @@
                     </li>
 
                     <li>
-                        <a href="<?php echo site_url('SalesOrder/view'); ?>" class="waves-effect">
+                        <a href="<?php echo site_url('dcController/view'); ?>" class="waves-effect">
                             <i class="bx bx-edit-alt"></i>
                             <span key="t-settings">DC</span>
                         </a>

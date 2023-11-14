@@ -110,6 +110,7 @@ class SalesOrder extends MY_Controller
                     'hsn_id' => $hsn_code[$i],
                     'uom_id' => $uom[$i],
                     'total_qty' => $qty[$i],
+                    'available_qty' => $qty[$i],
                     'price' => $price[$i],
                     'amount' => $amount[$i],
                     'created_on' => date('Y-m-d'),
@@ -462,58 +463,6 @@ class SalesOrder extends MY_Controller
             }
         
            
-        
-            
-
-            // $available_quantity = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'available_quantity');
-            // $received_quantity = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'received_qty');
-
-            // $total_quantity = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'total_quantity');
-            // $price = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'price');
-       
-            // $quotation_id = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'quotation_id');
-            
-            
-            // $remaining_quantity = $available_quantity - $quantity;
-            // $received_quantity = $received_quantity + $quantity;
-            // $sale_price = $quantity * $price;
-            // $tax = $sale_price * 18 /100;
-            // $tottalamt = $tax + $sale_price;
-            
-    
-            // $update_array = array(
-            //     'available_quantity' => $remaining_quantity,               
-            //     'received_qty' => $received_quantity,               
-            //     'status' => 2,               
-            // );
-
-            // $update = $this->mcommon->common_edit('sales_order', $update_array,array('id'=>$id));
-
-
-            // $insert_array = array(
-            //     'sales_order_id'=>$id,
-            //     'plant_id'=>$plant_id,
-            //     'quotation_id'=>$quotation_id,
-            //     'total_quantity'=>$total_quantity,
-            //     'available_quantity' => $remaining_quantity,               
-            //     'sale_price' => $sale_price,               
-            //     'tax' => $tax,               
-            //     'tottalamt' => $tottalamt,               
-            //     'credit_bill_status' => $credit_bill_status,               
-            //     'received_qty' => $quantity,              
-            //     'created_on' => date('d-m-y'),               
-            // );
-            // $insert = $this->mcommon->common_insert('sales_order_items', $insert_array);
-           
-            // $received_quantity_new = $this->mcommon->specific_row_value('sales_order', array('id' => $id),'received_qty');
-
-            // if($received_quantity_new >= $total_quantity){
-            //     $update_array2 = array(
-            //         'status' => 3,               
-            //     );
-    
-            //     $update = $this->mcommon->common_edit('sales_order', $update_array2,array('id'=>$id));
-            // }
 
             if ($insert > '0') {
                 $this->session->set_flashdata('alert_success', 'Sales Order Updated Successfully!');
@@ -525,7 +474,7 @@ class SalesOrder extends MY_Controller
         }
         else{
 
-            $this->db->select('*,sub.id as subId, sub.price as sprice');
+            $this->db->select('*,sub.id as subId, sub.price as sprice, sub.available_qty as available_qty');
             $this->db->from('sales_order_sub as sub'); 
             $this->db->where('sub.sales_order_id', $id); 
             $this->db->join('sales_order as s','s.id = sub.sales_order_id','left'); 
