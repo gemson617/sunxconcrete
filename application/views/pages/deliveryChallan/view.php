@@ -117,8 +117,20 @@
                                         <td>
                                             
                                             <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a>
-                                            <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" type="button" class="btn btn-sm btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> View </a><br>
+                                            <!-- <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" type="button" class="btn btn-sm btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> View </a> -->
 
+                                            <?php
+                                            $count = 0;
+                                                if (isset($sales->transaction_id) && is_array($sales->transaction_id)) {
+                                                foreach ($sales->transaction_id as $transaction_id) {
+                                                    $count ++;
+                                            ?>
+
+                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
+                                           
+                                            <?php   if ($count % 2 === 0) {
+                                                    echo '<br>';
+                                                }   }}    ?>
                                             
                                         </td>                                     
                                     </tr>
