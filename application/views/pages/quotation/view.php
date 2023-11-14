@@ -85,7 +85,7 @@
 
                             <tbody >
                                 <?php foreach ($quotations as $key => $q) { 
-                                    $date = $q->created;
+                                    $date = $q->date;
                                     $dateObj = new DateTime($date);
                                     $date2 = $dateObj->format("d-m-y");
                                     // $date2 =  date_format($q->created,"d-m-y");

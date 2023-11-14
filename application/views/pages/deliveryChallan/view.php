@@ -68,7 +68,7 @@
                         <?php
                         }
                         ?>
-                        <a href="<?php echo site_url('SalesOrder/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a>
+                        <!-- <a href="<?php echo site_url('SalesOrder/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a> -->
                         <br>                        
                         <h4 class="card-title mb-3">Slae Orders</h4>
                         <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -88,8 +88,9 @@
                                     <!-- <th scope="col"> Invoiced Amt</th> -->
 
                                     <th scope="col">Total Amt</th>
-                                    <!-- <th scope="col">Status</th> -->
                                     <th scope="col">Action</th>
+                                    <th scope="col">Invoice</th>
+
                                 </tr>
                             </thead>
 
@@ -115,10 +116,14 @@
                                         <td><?php echo number_format($sales->grand_total,2); ?></td>
                     
                                         <td>
-                                            
-                                            <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a>
-                                            <!-- <a href="<?php echo site_url('SalesOrder/viewSalesItems/' . $sales->id); ?>" type="button" class="btn btn-sm btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> View </a> -->
+                                            <?php if($sales->totalQuantity != $sales->receivedQuantity)  {    ?>                                            
+                                                
+                                                <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a>
 
+                                            <?php   } ?>
+                                        </td> 
+
+                                        <td>
                                             <?php
                                             $count = 0;
                                                 if (isset($sales->transaction_id) && is_array($sales->transaction_id)) {

@@ -50,6 +50,7 @@ class SalesOrder extends MY_Controller
             
             $po_number = $this->input->post('po_number');  
             $credit_note = $this->input->post('credit_note');  
+            $credit_noteYN = $this->input->post('credit_noteYN');  
 
             $remarks = $this->input->post('remarks');  
             $cgst = $this->input->post('cgst');    
@@ -59,10 +60,6 @@ class SalesOrder extends MY_Controller
             $round_off = $this->input->post('round_off');    
             $g_total = $this->input->post('g_total');  
             $sub_total = $this->input->post('sub_total');  
-      
-
-
-
             $product = $this->input->post('product[]');    
             $hsn_code = $this->input->post('hsn_id[]');    
             $uom = $this->input->post('uom_id[]');   
@@ -72,12 +69,15 @@ class SalesOrder extends MY_Controller
 
            
 
+           
+
             $insert_array = array(
                 'user_id' => $user_id,  
                 'sale_no' => $sno,    
                 'date' => $date,            
                 'po_number' => $po_number,            
                 'credit_note' => $credit_note,            
+                'credit_noteYN' => $credit_noteYN,            
                 'sub_total' => $sub_total,               
                 'cgst' => $cgst,
                 'sgst' => $sgst,
@@ -97,7 +97,49 @@ class SalesOrder extends MY_Controller
             $insert = $this->mcommon->common_insert('sales_order', $insert_array);
             $sales_order_id = $this->db->insert_id();
            
-           
+            if( $credit_noteYN==1)
+            {
+
+                $this->db->select('*,q.status as qStatus,q.created_on as created');
+                $this->db->from('sales_order as q'); 
+                $this->db->join('customer as c', 'c.customer_id = q.sold_to_party','left'); 
+                $this->db->where('q.id',$sales_order_id);   
+                $query = $this->db->get();
+                $result= $query->row(); 
+                $company= $this->mcommon->specific_row('em_companies', array('id' => 1));
+//   echo '<pre>';
+//   print_r($result); exit();
+                $this->db->select('*');
+                $this->db->from('em_companies'); 
+                $this->db->where('id',1); 
+                $comresult = $this->db->get()->row();
+                // print_r($comresult->creditnote_sn_status); exit();
+                
+                    if ($comresult->creditnote_sn_status == 1) {
+                        $cnumber = $comresult->credit_note_starting_number;
+                    } else {
+                        $creditNoteRecord = $this->mcommon->last_inserid('credit_note');
+                        $cnumber = !empty($creditNoteRecord) ? $creditNoteRecord->credit_no : null;
+                        $cnumber = $cnumber +1;                   
+                    }
+
+               $insert_array = array(
+                'user_id' => $this->auth_user_id,   
+                'credit_no' => $cnumber,   
+                'credit_note_starting_number'=>'C'.$cnumber,                                               
+                'customer_id' => $result->customer_id,
+                'sales_order_id ' => $result->id,
+                'company_id'   => $company['id'],
+                'po_number'   =>  $poNumber,
+                'grand_total' => $result->grand_total,
+                'credit_percentage'  => $company['credit_note_percentage'],
+                'credit_amount'  => $result->grand_total*($company['credit_note_percentage']/100 ),
+                    
+                );
+                $this->mcommon->common_insert('credit_note',$insert_array,true);
+                $update_com_status = $this->mcommon->common_edit('em_companies',array('creditnote_sn_status'=>0),array('id' =>1));
+               
+            }
            
             $rowcount = count($product);
            
@@ -200,7 +242,13 @@ class SalesOrder extends MY_Controller
 
             $user_id =$this->auth_user_id; 
             $sold_to_party = $this->input->post('sold_to');    
-            $ship_to_party = $this->input->post('ship_to');  
+            $ship_to_party = $this->input->post('ship_to'); 
+
+            $credit_note = $this->input->post('credit_note');  
+            $credit_noteYN = $this->input->post('credit_noteYN');  
+            $date = $this->input->post('date');  
+            $po_number = $this->input->post('po_number');  
+
             $remarks = $this->input->post('remarks');  
             $cgst = $this->input->post('cgst');    
             $sgst = $this->input->post('sgst');    
@@ -230,7 +278,13 @@ class SalesOrder extends MY_Controller
                 'sub_total' => $sub_total,               
                 'cgst' => $cgst,               
                 'sgst' => $sgst,               
-                'total_tax' => $total_tax,    
+                'total_tax' => $total_tax,   
+
+                'credit_note' => $credit_note,               
+                'credit_noteYN' => $credit_noteYN,               
+                'date' => $date,               
+                'po_number' => $po_number,    
+
                 'round_off' => $round_off,    
                 'grand_total' => $g_total,    
                 'sold_to_party' => $sold_to_party,    
@@ -241,6 +295,12 @@ class SalesOrder extends MY_Controller
 
             $update = $this->mcommon->common_edit('sales_order', $update_array, array('id' => $id));
             
+
+            if($credit_noteYN == 0){
+                $cnDelete = $this->mcommon->common_delete('credit_note', array('sales_order_id' => $id));
+            }
+
+
             $rowcount = count($product);
 
            
@@ -340,7 +400,7 @@ class SalesOrder extends MY_Controller
         $this->db->join('uom as u', 'u.uom_id = sSub.uom_id','left');         
         $query = $this->db->get();
         $view_data['sales'] = $query->result();  
-        // echo '<pre>'; print_r($view_data['sales']);
+        // echo '<pre>'; print_r($view_data['sales_order']);
         //  die();
         $data = array(
             'title' => 'Edit Sale order',
@@ -352,17 +412,23 @@ class SalesOrder extends MY_Controller
 
 
     public function invoice_list(){
-        $this->db->select('*,s.status as salesStatus');
+        $this->db->select('*,s.status as salesStatus,sum(sob.total_qty) as totalQuantity,
+                            sum(sob.received_qty) as receivedQuantity,s.grand_total as grand_total');
         $this->db->from('sales_order as s');
         $this->db->join('sales_order_sub as sob','sob.sales_order_id=s.id','left');
-        $this->db->join('product as p','p.product_id = sob.product_id','left');
+        // $this->db->join('product as p','p.product_id = sob.product_id','left');
         $this->db->join('customer as c','c.customer_id = s.sold_to_party','left');
-        $this->db->join('hsn_code as h', 'h.hsn_id = sob.hsn_id','left');
-        $this->db->join('uom as u', 'u.uom_id = sob.uom_id','left');
+        // $this->db->join('hsn_code as h', 'h.hsn_id = sob.hsn_id','left');
+        // $this->db->join('uom as u', 'u.uom_id = sob.uom_id','left');
         $this->db->order_by('s.id','DESC');
+        $this->db->group_by('sob.sales_order_id');
+
         $query = $this->db->get();
         $view_data['salesOrder'] = $query->result();
-        
+              
+        // echo '<pre>'; print_r($view_data['salesOrder']);
+        //  die();
+
         $data = array(
             'title' => 'Sales Invoice List',
             'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),
@@ -373,6 +439,8 @@ class SalesOrder extends MY_Controller
     public function getQuantity($id)
     {
         if (isset($_POST['submit'])) {
+        //             echo '<pre>'; print_r($_POST);
+        //  die();
            
             $plant_id = $this->input->post('plant_id'); 
             $credit_bill_status = $this->input->post('credit_bill'); 
@@ -426,6 +494,7 @@ class SalesOrder extends MY_Controller
                                 'transaction_id' => $uniqueId,
                                 'credit_bill_status' => $credit_bill_status,
                                 'sales_order_id' => $id,
+                                'sales_sub_id' => $subId[$i],
                                 'product_id' => $product[$i],
                                 'total_quantity'=>$total_qty,
                                 'available_quantity'=>$available_qty,
@@ -643,26 +712,36 @@ class SalesOrder extends MY_Controller
         $this->db->select('*,si.total_quantity as totalQuantity,
                             si.available_quantity as availableQuantity,
                             si.received_qty as receivedQuantity');
-        $this->db->from('sales_order as s'); 
-        $this->db->join('sales_order_items as si','si.sales_order_id = s.id'); 
+
+
+        $this->db->from('sales_order_items as si');
         $this->db->where('si.sales_order_id',$id); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        // $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        $this->db->join('sales_order_sub as sub','sub.id = si.sales_sub_id','left'); 
+        $this->db->join('product as p','p.product_id = sub.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = sub.hsn_id','left'); 
+        $this->db->join('uom as u', 'u.uom_id = sub.uom_id','left'); 
+        // $this->db->group_by('si.sales_order_id'); 
         $query = $this->db->get();
-        // $view_data['salesOrders'] = $query->row_array(); 
         $view_data['salesOrders'] = $query->result(); 
+
+        // echo "<pre>";
+        // print_r($view_data['salesOrders']);
+        // exit();  
 
         $this->db->select('*,
         s.status as sStatus,
         s.id as sId');
         $this->db->from('sales_order as s'); 
         $this->db->where('s.id',$id); 
-        $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
+        // $this->db->join('product as p','p.product_id = s.product_id','left'); 
+        // $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
+        // $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
         $view_data['salesOrder'] = $this->db->get()->row_array();
+
+        //                echo "<pre>";
+        // print_r($view_data['salesOrder']['sgst']);
+        // exit();  
+
         
         $this->db->select('*,state.name as stateName');
         $this->db->from('sales_order as s'); 

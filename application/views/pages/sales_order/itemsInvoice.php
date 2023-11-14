@@ -137,15 +137,15 @@
                     
                         <tr style="border: 1px solid #ccc; ">
                             <td  style="border: 1px solid #ccc;padding-right:30px; " colspan="2" align="right">SGST (9%)</td>
-                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->sgst ?></td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder['sgst'] ?></td>
                         </tr>
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">CGST (9%)</td>
-                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->cgst ?></td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder['cgst'] ?></td>
                         </tr>
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">IGST (18%)</td>
-                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->total_tax ?></td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder['total_tax'] ?></td>
                         </tr>
                         <!-- <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">TCS (0.1%)</td>
@@ -153,7 +153,7 @@
                         </tr> -->
                         <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="2" align="right">TOTAL TAX</td>
-                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder->grand_total ?></td>
+                            <td style="border: 1px solid #ccc;text-align:left; padding:5px;">₹ <?= $salesOrder['grand_total'] ?></td>
                         </tr>
                         <!-- <tr style="border: 1px solid #ccc;">
                             <td style="border: 1px solid #ccc; padding-right:30px;" colspan="4" align="right">ROUND OFF</td>
@@ -169,9 +169,9 @@
                     <tr >
                     <table style="border-left: 1px solid #ccc;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc; margin-top:-22px; width:100%;">
                         <tr>
-                        <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:7px;" id="">Qutotation Value in Words: </td>
+                        <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:7px;" id="">Sale Value in Words: </td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;padding-left:7px;" id="inWords"></td>
-                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;padding-left:7px;">TOTAL QUOTATION VALUE : <span style="font-weight: bold;">₹ <?= number_format($salesOrder->grand_total,2) ?></span> </td></H6>
+                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;padding-left:7px;">TOTAL SALE VALUE : <span style="font-weight: bold;">₹ <?= number_format($salesOrder['grand_total'],2) ?></span> </td></H6>
                         </tr>
                         <tr>
                         <td style="border-bottom:1px solid #ccc;padding-left:7px;">Mode of Transport:</td>

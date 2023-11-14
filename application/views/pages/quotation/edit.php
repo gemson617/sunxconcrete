@@ -175,6 +175,19 @@
                                      </div>
                                  </div>                                 
                                 </div>
+                                <div class="col-md-2">                                 
+                                    <div class="mb-3">
+                                        <label for="validationCustom01" class="form-label">Date</label>
+                                        <input type="date" class="form-control" required name="date" value="<?php echo $quotation['date']; ?>" id="date" >                                                                                 
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Remarks is Required.
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-3">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>

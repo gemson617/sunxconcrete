@@ -95,7 +95,7 @@
 
                             <tbody>
                                 <?php foreach ($sale as $key => $sales) { 
-                                    $date =  $sales->created_on;
+                                    $date =  $sales->date;
                                     $timestamp = strtotime($date);
                                     $formattedDate = date("d-m-Y", $timestamp);
                                   

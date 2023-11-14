@@ -174,6 +174,85 @@
                                      </div>
                                  </div>                                 
                                 </div>
+
+                                <div class="col-md-3">                                 
+                                <div class="mb-3">
+                                    <label for="validationCustom01" class="form-label">Date</label>
+                                    <input type="date" value="<?php echo $sales_order['date']; ?>" class="form-control" required name="date" id="date">                                                                                 
+                                    
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Remarks is Required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">                                 
+                                <div class="mb-3">
+                                    <label for="validationCustom01" class="form-label">PO Number</label>
+                                    <input type="text" class="form-control" value="<?php echo $sales_order['po_number']; ?>" required name="po_number" id="po_number" placeholder="Enter PO Number" >
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    Remarks is Required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" >                                 
+                                 <div class="mb-3">
+                                     <label for="validationCustom01" class="form-label">Credit Note</label>
+                                     <select class="form-control" name="credit_noteYN" id="credit_noteYN" onchange="creditNote(this.value)" required>
+                                         <option value="">--Select--</option>
+
+                                         <option value="1" <?php echo ($sales_order['credit_noteYN'] == 1) ? 'selected' : ''; ?>>Yes</option>
+                                         <option value="0" <?php echo ($sales_order['credit_noteYN'] == 0) ? 'selected' : ''; ?>>No</option>
+                                     
+                                        </select>                                         
+                                     <div class="valid-feedback">
+                                         Looks good!
+                                     </div>
+                                     <div class="invalid-feedback">
+                                     Ship to party is Required.
+                                     </div>
+                                 </div>
+                             </div>
+                             <?php  if( $sales_order['credit_noteYN']==1) {?>
+                             <div class="col-md-2" id="credirPercentageDiv" >      
+                             <div class="mb-3">
+                                        <label for="validationCustom01" class="form-label">Credit Note (%)</label>
+                                        <input type="text" value="<?php echo $sales_order['credit_note']; ?>" class="form-control" placeholder="Credit (%)" name="credit_note" id="credit_note">                                        
+                                       
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Sale No is Required.
+                                        </div>
+                                    </div>
+                                    </div>
+
+                             <?php }else{ ?>              
+                                <div class="col-md-2 d-none" id="credirPercentageDiv" >      
+                                <div class="mb-3">
+                                        <label for="validationCustom01" class="form-label">Credit Note (%)</label>
+                                        <input type="text" value="<?php echo $sales_order['credit_note']; ?>" class="form-control" placeholder="Credit (%)" name="credit_note" id="credit_note">                                        
+                                       
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        Sale No is Required.
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                <?php } ?>    
+                                 
+
                                 <div class="col-md-3">                                 
                                     <div class="mb-3">
                                         <label for="validationCustom01" class="form-label">Remarks</label>
@@ -434,6 +513,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
 
+    function creditNote(val){        
+            if(val == 1){
+                $('#credirPercentageDiv').removeClass('d-none');
+                $('#credirPercentageDiv').addClass('d-block');
+            }else{
+                $('#credirPercentageDiv').removeClass('d-block');
+                $('#credirPercentageDiv').addClass('d-none');
+                $('#credit_note').val('');
+            }
+        }
    
         function get_state(val) {
         alert(val);

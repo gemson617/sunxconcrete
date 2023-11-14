@@ -75,11 +75,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
-                                    <th scope="col">Product</th>
                                     <th scope="col">Customer</th>
-                                    <th scope="col">HSN</th>
                                     <th scope="col">Total Qty</th>
-                                    <th scope="col">UOM</th>
                                     <th scope="col">Total Amount</th>
                                     <!-- <th scope="col">Action</th> -->
                                 </tr>
@@ -87,19 +84,16 @@
 
                             <tbody>
                                 <?php foreach ($salesOrder as $key => $sales) { 
-                                    if($sales->salesStatus == 3){
+                                    if($sales->totalQuantity != $sales->receivedQuantity){
                                     ?>
                                     <tr>
                                         <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $sales->product_name; ?></td>
                                         <td><?php echo $sales->company_name; ?></td>
-                                        <td><?php echo $sales->hsn_name; ?></td>
-                                        <td><?php echo $sales->total_quantity; ?></td>                                        
-                                        <td><?php echo $sales->uom; ?></td>
+                                        <td><?php echo $sales->totalQuantity; ?></td>                                        
                                         <td><?php echo $sales->grand_total; ?></td>
                                         
                                         <td>                                            
-                                            <!-- <a href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 ">Convert to Invoice</button></a> -->
+                                            <a target="_blank" href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->sales_order_id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 "><i class="fa fa-print"></i></button></a>
                                         </td>
                                      
                                     </tr>
@@ -147,7 +141,9 @@
 </div>
 
 
-                                <?php }} ?>
+                                <?php    
+                            }
+                            } ?>
                             </tbody>
                         </table>
                     </div>
