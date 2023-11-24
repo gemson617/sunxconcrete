@@ -124,7 +124,7 @@
                         <form action="<?php echo site_url('Customer/edit/'.$default['customer_id']); ?>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                             <div class="row">
                             <h4>Customer Particulars</h4>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="mb-4">
                                         <label for="validationCustom01" class="form-label">Name of The Company</label>
                                         <input type="text" name="company_name" class="form-control" value="<?= $default['company_name'] ?>" id="company_name" placeholder="Enter Company Name" required>
@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                                
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="mb-4">
                                         <label for="validationCustom09" class="form-label">Business</label>
                                         <input type="text" name="customer_business" value="<?= $default['customer_business'] ?>" class="form-control" id="customer_business" placeholder="Enter Business" required>
@@ -150,10 +150,15 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                        
+                            <!-- start loo[] -->
+                            <div class="max">
+                            <?php foreach($cutomerAddress as $ky => $address){  ?><hr>
+                                <div id="addProduct" class="appendfields field<?= $ky ?>  row">
+                                <div  class="col-md-6">
                                     <div class="mb-4">
-                                        <label for="validationCustom02" class="form-label">Address Line 1</label>
-                                        <input type="text" name="customer_address_1" value="<?= $default['customer_address_1'] ?>" class="form-control" id="customer_address_1"  placeholder="Enter Address Line 1" maxlength="10" required>
+                                        <label for="validationCustom02" class="form-label">Address Line 1<span class="error-asterisk">*</span></label>
+                                        <input type="text" value="<?=  $address->customer_address_1 ?>" name="customer_address_1[]" class="form-control" id="customer_address_1"  placeholder="Enter Address Line 1" maxlength="10" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -162,10 +167,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+
+                                <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">Address Line 2</label>
-                                        <input type="text" name="customer_address_2" value="<?= $default['customer_address_2'] ?>" class="form-control" id="customer_address_2" placeholder="Enter Address Line 2" required>
+                                        <label for="validationCustom09" class="form-label">Address Line 2<span class="error-asterisk">*</span></label>
+                                        <input type="text" value="<?=  $address->customer_address_2 ?>" name="customer_address_2[]" class="form-control" id="customer_address_2" placeholder="Enter Address Line 2" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -174,30 +180,16 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
+                                
+                                <div class="col-md-3">
                                     <div class="mb-4">
-                                        <label for="validationCustom08" class="form-label">City</label>
-                                        <input type="text" name="customer_city" value="<?= $default['customer_city'] ?>" class="form-control" id="customer_city" placeholder="Enter City" value="" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            City Required.
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="mb-4">
-                                        <label for="validationCustom07" class="form-label">State Name</label>
-                                        <select name="customer_state" class="form-control Select2" id="customer_state" required>
+                                        <label for="validationCustom07" class="form-label">State Name<span class="error-asterisk">* </span></label>
+                                        <select name="customer_state[]" class="form-control Select2 selectDrop" id="customer_state0" required>
                                             <option value="">Select State</option>
                                             <?php foreach ($state as $d) { ?>
-                                                <option <?php if ($d->id == $default['customer_state']) {
-                                                            echo "selected";
-                                                        } ?> value="<?php echo $d->id; ?>"><?php echo $d->name; ?></option>
+                                                <option <?php if ($d->id == $address->customer_state) {
+                                                    echo "selected";
+                                                } ?> value="<?php echo $d->id; ?>"><?php echo $d->name; ?></option>
                                             <?php } ?>
                                         </select>
                                         <div class="valid-feedback">
@@ -208,10 +200,24 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="mb-4">
+                                        <label for="validationCustom08" class="form-label">City<span class="error-asterisk">*</span></label>
+                                        <input type="text" value="<?=  $address->customer_city ?>" name="customer_city[]" class="form-control" id="customer_city" placeholder="Enter City" value="" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            City Required.
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom11" class="form-label">Pincode</label>
-                                        <input type="text" name="customer_pincode" value="<?= $default['customer_pincode'] ?>" class="form-control" id="customer_pincode" onkeypress="return isNumberKey(event);" placeholder="Enter Pincode" maxlength="6" required>
+                                        <label for="validationCustom11" class="form-label">Pincode<span class="error-asterisk">*</span></label>
+                                        <input type="text" value="<?=  $address->customer_pincode ?>" name="customer_pincode[]" class="form-control" id="customer_pincode" onkeypress="return isNumberKey(event);" placeholder="Enter Pincode" maxlength="6" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -220,6 +226,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php if($ky == 0){ ?>
+                                    <div class="col-md-1 mt-3" id="adremovebuttons"><br>
+                                        <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
+                                    </div>
+                                <?php }else{ ?>
+                                    <div class="col-md-1" style="width:4.333333%"><i class="fa fa-trash mt-5" onclick="removediv('<?= $ky ?>')" id="remove'+no+'" style="font-size:22px;color:red"></i></div>
+                                <?php } ?>                                
+                            </div>
+                            <div class="12345"></div>
+                            <?php } ?>
+                            <div class="col-md-1 mt-3" id="adremovebuttons"><br>
+                                    <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
+                        </div>
+                            </div>
+                        <!-- end loo[] -->
+                       
+                       
+
+                                
                             </div>
                             <br>
                             <HR>
@@ -504,8 +529,28 @@
     <script type="text/javascript">
         // when page is ready
         $(document).ready(function() {
+            // Add more fields
+            $('.max').each(function() {                
+                var no = $('.appendfields').length;
+                var ifk = no-1;
+                var $wrapper = $('#addProduct', this);
 
+                $(".add-field", $(this)).click(function(e, no) {  
+                   
+                    var row = $(
+                        '<div class="appendfields field'+no+' row"> <hr><div class="col-md-6"> <div class="mb-4"> <label for="validationCustom02" class="form-label">Address Line 1<span class="error-asterisk">*</span></label> <input type="text" name="customer_address_1[]" class="form-control" id="customer_address_1"  placeholder="Enter Address Line 1" maxlength="10" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Address Line 1 Required. </div> </div> </div> <div class="col-md-6"> <div class="mb-4"> <label for="validationCustom09" class="form-label">Address Line 2<span class="error-asterisk">*</span></label> <input type="text" name="customer_address_2[]" class="form-control" id="customer_address_2" placeholder="Enter Address Line 2" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Address Line 2 Required. </div> </div> </div> <div class="col-md-3"> <div class="mb-4"> <label for="validationCustom07" class="form-label">State Name<span class="error-asterisk">*</span></label> <select name="customer_state[]" class="form-control Select2 selectDrop" id="customer_state'+no+'" required> <option value="">Select State</option> <?php foreach ($state as $d) { ?> <option <?php if ($d->id == 4035) { echo "selected"; } ?> value="<?php echo $d->id; ?>"><?php echo $d->name; ?></option> <?php } ?> </select> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> State Name Required. </div> </div> </div> <div class="col-md-3"> <div class="mb-4"> <label for="validationCustom08" class="form-label">City<span class="error-asterisk">*</span></label> <input type="text" name="customer_city[]" class="form-control" id="customer_city" placeholder="Enter City" value="" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> City Required. </div> </div> </div> <div class="col-md-4"> <div class="mb-4"> <label for="validationCustom11" class="form-label">Pincode<span class="error-asterisk">*</span></label> <input type="text" name="customer_pincode[]" class="form-control" id="customer_pincode" onkeypress="return isNumberKey(event);" placeholder="Enter Pincode" maxlength="6" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Pincode Required. </div> </div> </div><div class="col-md-1" style="width:4.333333%"><i class="fa fa-trash mt-5" onclick="removediv('+no+')" id="remove'+no+'" style="font-size:22px;color:red"></i></div> </div>');
+                        $wrapper.after(row); 
+                        // $wrapper.find('.appendfields:first').after(row);   
+                    $('.selectDrop').select2();
+                });
+            });
         })
+
+        function removediv(no){
+            alert('You Want to Remove the Fields!');
+            $('.field'+no).remove();
+            calculateAmount();
+        }
 
         function validateEmail(emailField) {
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;

@@ -27,15 +27,15 @@
                         </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                             <!-- <td style="padding-left:7px;">Address:</td> -->
-                            <td style="padding-left:7px;"><?= $ship_to_party['customer_address_1']?></td>
+                            <td style="padding-left:7px;"><?= $sold_to_party['customer_address_1'].','.$sold_to_party['customer_address_2'].','.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
-                            <td style="padding-right:3px;padding-left:7px;"><?= $ship_to_party['customer_city'] ?></td>
+                            <td style="padding-right:3px;padding-left:7px;"><?= $sold_to_party['customer_city'] ?></td>
                             <td style="padding-left:7px;border-left: 1px solid #ccc;padding:1px;border-right: 1px solid #ccc;padding:1px;justify-content:center;">pincode</td>
-                             <td style="padding-left:7px;border-left: 1px solid #ccc;padding:1px;padding:1px;"><?= $ship_to_party['customer_pincode'] ?></td>
+                             <td style="padding-left:7px;border-left: 1px solid #ccc;padding:1px;padding:1px;"><?= $sold_to_party['customer_pincode'] ?></td>
                         </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
-                            <td style="padding-left:7px;"><?= $ship_to_party['stateName'] ?></td>
+                            <td style="padding-left:7px;"><?= $sold_to_party['stateName'] ?></td>
                         </tr>
                         <tr style="">
                             <!-- <td style="padding-left:7px;">GSTIN/UID:</td> -->
@@ -52,7 +52,7 @@
                         </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                             <!-- <td style="padding-left:7px;">Address:</td> -->
-                            <td style="padding-left:7px;"><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="padding-left:7px;"><?= $ship_to_party['customer_address_1'].','.$ship_to_party['customer_address_2'].','.$ship_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr style="border-bottom: 1px solid #ccc;padding:1px;">
                             <td style="padding-left:7px;"><?= $sold_to_party['customer_city'] ?></td>

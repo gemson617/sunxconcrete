@@ -31,9 +31,12 @@
             .update {
                     background-color: #004080;
             }
+            .sub-rows {
+            display: none;
+            background: burlywood;
+        }
+            
     </style>
-
-
 <div class="page-content">
     <div class="container">
         <div class="row">
@@ -70,8 +73,8 @@
                         ?>
                         <!-- <a href="<?php echo site_url('SalesOrder/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a> -->
                         <br>                        
-                        <h4 class="card-title mb-3">Slae Orders</h4>
-                        <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <h4 class="card-title mb-3">DC</h4>
+                        <table id="deliveryChallanDatatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
@@ -83,7 +86,7 @@
                                     <th scope="col">Customer</th>
                                     <!-- <th scope="col">HSN </th> -->
                                     <th scope="col"> Qty</th>
-                                    <!-- <th scope="col">Invoiced Qty</th> -->
+                                    <th scope="col">Available Qty</th>
                                     <!-- <th scope="col">Invoiced Qty</th> -->
                                     <!-- <th scope="col"> Invoiced Amt</th> -->
 
@@ -102,58 +105,67 @@
                                   
                                     // $date = date($date, 'd-m-y');  ?>
                                     <tr>
-                                        <td><?php echo $key + 1; ?></td>
+                                        <td>
+                                            <button type="button" class="btn " onclick="showSubRows('sub-rows-<?php echo $key; ?>')"><i class="bx bx-plus label-icon"></i></button><?php echo $key + 1; ?>
+                                        </td>
                                         <td><?php echo $sales->sale_no; ?></td>
-
-                                        <td><?php echo $formattedDate; ?></td>
-                                        <!-- <td><?php echo $sales->po_number; ?></td> -->
+                                        <td><?php echo $formattedDate; ?></td>                                        
                                         <td><?php echo $sales->company_name; ?></td>
                                         <td><?php echo $sales->totalQuantity; ?></td>
-
+                                        <td><?php echo $sales->availableQuantity; ?></td>
                                         <!-- <td><?php echo ($sales->receivedQuantity != null) ? $sales->receivedQuantity : "0.00"; ?></td> -->
                                         <!-- <td><?php echo number_format($sales->received_amount,2); ?></td> -->
 
                                         <td><?php echo number_format($sales->grand_total,2); ?></td>
                     
                                         <td>
-                                            <?php if($sales->totalQuantity != $sales->receivedQuantity)  {    ?>                                            
-                                                
+                                            <?php if($sales->totalQuantity != $sales->receivedQuantity)  {    ?> 
                                                 <a href="<?php echo site_url('SalesOrder/getQuantity/' . $sales->id); ?>" type="button" class="btn btn-sm btn-success waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal">-> Invoice </a>
-
                                             <?php   }else{
                                                 echo '<i class="fa fa-check align-center"></i>';
                                             } ?>
                                         </td> 
 
                                         <td>
-                                            <?php
-                                            $count = 0;
-                                                if (isset($sales->transaction_id) && is_array($sales->transaction_id)) {
-                                                foreach ($sales->transaction_id as $transaction_id) {
-                                                    $count ++;
-                                            ?>
-
-                                            <a href="<?php echo site_url('SalesOrder/deliveryChallan/' . $transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
-                                           
-                                            <?php   if ($count % 2 === 0) {
-                                                    echo '<br>';
-                                                }   }}    ?>
-                                            
+                                            -                                     
                                         </td>                                     
                                     </tr>
+                                    <!-- Sub Rows -->
 
+                                    <?php                                    
+                                            $co = 0;
+                                                if (isset($sales->transaction_id) && is_array($sales->transaction_id)) {
+                                                foreach ($sales->saleOrderItems as $subRow => $saleOrderItems) {
+                                                    $co ++;
+                                    ?>
+
+                                    <tr class="sub-rows sub-rows-<?php echo $key; ?>">
+                                        <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $saleOrderItems->dc_no; ?></td>
+                                        <td><?php echo $saleOrderItems->dc_date; ?></td>
+                                      
+                                        <td><?php echo $sales->company_name; ?></td>
+                                        <td><?php echo $saleOrderItems->totalInvoiceQuantity; ?></td>                                       
+                                        <td><?php echo '-'; ?></td>
+                                        <td> <?php echo $saleOrderItems->tottalInvoiceAmt; ?> </td>
+                                        <td> <?php echo '-'; ?> </td>
+                                        <td> 
+                                            <a target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
+                                        </td>
+                                    </tr>
+                                            <?php   if ($co % 2 === 0) {
+                                                    echo '<br>';
+                                                }   }}    ?>    
 
 
 <div class="modal" id="myModal">
     <div class="modal-dialog">
-        <div class="modal-content">
-​
+        <div class="modal-content">​
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Sales Order Quantity</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="myForm" method="POST" action="<?php echo site_url('SalesOrder/getQuantity/'.$sales->id); ?>">
@@ -262,8 +274,13 @@
             });
         }
 
+        function showSubRows(className) {
+        $('.sub-rows.' + className).toggle();
+    }
+
     $(document).ready(function () {
-        //
+        $('#deliveryChallanDatatable').DataTable();
+
     });
 
 </script>

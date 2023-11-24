@@ -168,7 +168,14 @@ class Quotation extends MY_Controller
         }
         $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1));      
 
-        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        // $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        $this->db->select('customer.*, customer_address.*, customer.customer_id as CusID, customer_address.id as CusAdId');
+        $this->db->from('customer');
+        $this->db->join('customer_address', 'customer.customer_id = customer_address.customer_id', 'left');        
+        $this->db->where('customer.status', 1);
+        $query = $this->db->get();
+        $view_data['customers'] = $query->result();
+
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         // $view_data['qno'] = $this->mcommon->records_all('em_companies', array('id' => 1))->row();
         $this->db->select('*');
@@ -631,7 +638,15 @@ class Quotation extends MY_Controller
       
         
     }else{
-        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        // $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        
+        $this->db->select('customer.*, customer_address.*, customer.customer_id as CusID, customer_address.id as CusAdId');
+        $this->db->from('customer');
+        $this->db->join('customer_address', 'customer.customer_id = customer_address.customer_id', 'left');        
+        $this->db->where('customer.status', 1);
+        $query = $this->db->get();
+        $view_data['customers'] = $query->result();
+
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         $view_data['quotation'] = $this->mcommon->specific_row('quotation', array('id' => $id));    
         $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1)); 

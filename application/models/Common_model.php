@@ -151,6 +151,8 @@ class Common_model extends CI_Model
         return $result;
     }
 
+    
+
     public function common_table_last_updated($table, $pm_key, $date_column)
     {
         $this->db->select($date_column);
@@ -941,4 +943,10 @@ class Common_model extends CI_Model
     }
     
 
+    public function is_dc_no_exists($dc_no) {
+        $this->db->where('dc_no', $dc_no);
+        $query = $this->db->get('sales_order_items'); // Replace 'your_table_name' with your actual table name
+
+        return $query->num_rows() > 0;
+    }
 }

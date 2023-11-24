@@ -6,6 +6,13 @@
     cursor: not-allowed;
 }
 
+.error-asterisk {
+    font-size: 18px;
+    color: red;
+    margin-left: 8px;
+    /* Add any additional styling as needed */
+}
+
 .fc-unselectable {
     -webkit-user-select: none;
     -moz-user-select: none;

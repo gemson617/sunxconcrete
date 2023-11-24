@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Customer extends MY_Controller
@@ -9,9 +10,9 @@ class Customer extends MY_Controller
         $this->is_logged_in();
 
         $this->load->model('authentication_model');
-            if ($this->auth_level != 9) {
-                redirect('/logout');
-            }
+        if ($this->auth_level != 9) {
+            redirect('/logout');
+        }
     }
     public function index()
     {
@@ -23,7 +24,7 @@ class Customer extends MY_Controller
             $data = array(
                 'page_title' => 'Customer Management',
                 'title' => 'Customer Management',
-                'content' => $this->load->view('pages/customer/customer', $view_data, TRUE),
+                'content' => $this->load->view('pages/customer/customer', $view_data, true),
             );
             $this->load->view('base/base_template', $data);
         } else {
@@ -35,7 +36,7 @@ class Customer extends MY_Controller
     {
         $this->db->select('*,c.status as customer_staus');
         $this->db->from('customer as c');
-        $this->db->order_by('c.customer_id','DESC');
+        $this->db->order_by('c.customer_id', 'DESC');
         $query = $this->db->get();
         $result = $query->result();
         //$this->datatables->add_column('action', '<a class="btn btn-primary btn-sm" href="' . base_url() . 'officers/assign_ro/edit/$1">EDIT</a> &nbsp; <a class="btn btn-danger btn-sm" href="javascript:void(0);" onclick="delete_item($1)">DELETE</a>', 'id');
@@ -68,45 +69,45 @@ class Customer extends MY_Controller
             $last_annual_turnover_cr = $this->input->post("last_annual_turnover_cr");
             $customer_tan_no = $this->input->post("customer_tan_no");
             $customer_msme_ssi = $this->input->post("customer_msme_ssi");
-            $customer_aadhaar = $this->input->post("customer_aadhaar");           
+            $customer_aadhaar = $this->input->post("customer_aadhaar");
             $payment_terms_days = $this->input->post("payment_terms_days");
             $product_supply = $this->input->post("product_supply");
             $customer_credit_limit = $this->input->post("customer_credit_limit");
 
             // $dob = $this->input->post("dob");
             // $pan_number = $this->input->post("pan_number");
-          
-            $core_activity = $this->input->post("core_activity");
-           
 
-            //prepare insert array              
+            $core_activity = $this->input->post("core_activity");
+
+
+            //prepare insert array
             $insert_array = array(
                 'customer_business' => $customer_business,
                 'company_name' => $company_name,
-                'customer_address_1' => $customer_address_1,
-                'customer_address_2' => $customer_address_2,                                          
-                'customer_city' => $customer_city,                
-                'customer_state' => $customer_state,                           
-                'customer_pincode' => $customer_pincode,
+                // 'customer_address_1' => $customer_address_1,
+                // 'customer_address_2' => $customer_address_2,
+                // 'customer_city' => $customer_city,
+                // 'customer_state' => $customer_state,
+                // 'customer_pincode' => $customer_pincode,
                 'cp_name' => $cp_name,
-                'cp_contact_no' => $cp_contact_no,             
-                'cp_email' => $cp_email,               
-                'apoc_name' => $apoc_name,               
-                'apoc_contact_no' => $apoc_contact_no,               
-                'apoc_email' => $apoc_email,               
-                'ppoc_name' => $ppoc_name,               
-                'ppoc_contact_no' => $ppoc_contact_no,               
-                'ppoc_email' => $ppoc_email,               
-                'customer_pan' => $customer_pan,               
-                'customer_gst_no' => $customer_gst_no,               
-                'customer_cin_no' => $customer_cin_no,               
-                'last_annual_turnover_cr' => $last_annual_turnover_cr,               
-                'customer_tan_no' => $customer_tan_no,               
-                'customer_msme_ssi' => $customer_msme_ssi,               
-                'customer_aadhaar' => $customer_aadhaar,               
-                'payment_terms_days' => $payment_terms_days,               
-                'product_supply' => $product_supply,               
-                'customer_credit_limit' => $customer_credit_limit,     
+                'cp_contact_no' => $cp_contact_no,
+                'cp_email' => $cp_email,
+                'apoc_name' => $apoc_name,
+                'apoc_contact_no' => $apoc_contact_no,
+                'apoc_email' => $apoc_email,
+                'ppoc_name' => $ppoc_name,
+                'ppoc_contact_no' => $ppoc_contact_no,
+                'ppoc_email' => $ppoc_email,
+                'customer_pan' => $customer_pan,
+                'customer_gst_no' => $customer_gst_no,
+                'customer_cin_no' => $customer_cin_no,
+                'last_annual_turnover_cr' => $last_annual_turnover_cr,
+                'customer_tan_no' => $customer_tan_no,
+                'customer_msme_ssi' => $customer_msme_ssi,
+                'customer_aadhaar' => $customer_aadhaar,
+                'payment_terms_days' => $payment_terms_days,
+                'product_supply' => $product_supply,
+                'customer_credit_limit' => $customer_credit_limit,
                 // 'status' => 0,
                 'created_on' => date('d-m-Y'),
                 'created_by' => $this->auth_user_id,
@@ -114,8 +115,24 @@ class Customer extends MY_Controller
 
             //insert values in database
             $insert = $this->mcommon->common_insert('customer', $insert_array);
-           
-            if ($insert) {
+            // echo $insert; exit;
+            $addCount = count($customer_address_1);
+            
+            for ($i = 0; $i < $addCount; $i++){
+                $insert_address = array(
+                        'customer_id' => $insert,
+                        'customer_address_1' => $customer_address_1[$i],
+                        'customer_address_2' => $customer_address_2[$i],
+                        'customer_city' => $customer_city[$i],
+                        'customer_state' => $customer_state[$i],
+                        'customer_pincode' => $customer_pincode[$i],
+                        // 'created_on' => date('d-m-Y')[$i],
+                        'created_by' => $this->auth_user_id,
+                    );
+                $insertAdress = $this->mcommon->common_insert('customer_address', $insert_address);
+            }
+            
+            if ($insertAdress) {
                 $this->session->set_flashdata('alert_success', 'Customer added successfully!');
                 redirect('Customer');
             } else {
@@ -124,7 +141,7 @@ class Customer extends MY_Controller
         }
         $view_data['country'] = $this->get_country();
         $view_data['state'] = $this->get_state_edit();
-        $view_data['city'] = $this->get_city();       
+        $view_data['city'] = $this->get_city();
 
         $data = array(
             'title' => 'Add Customer Management',
@@ -159,49 +176,66 @@ class Customer extends MY_Controller
             $last_annual_turnover_cr = $this->input->post("last_annual_turnover_cr");
             $customer_tan_no = $this->input->post("customer_tan_no");
             $customer_msme_ssi = $this->input->post("customer_msme_ssi");
-            $customer_aadhaar = $this->input->post("customer_aadhaar");           
+            $customer_aadhaar = $this->input->post("customer_aadhaar");
             $payment_terms_days = $this->input->post("payment_terms_days");
             $product_supply = $this->input->post("product_supply");
             $customer_credit_limit = $this->input->post("customer_credit_limit");
             // print_r($ppoc_contact_no);
             // exit();
-           //check is the validation returns no error
-            //prepare insert array              
+            //check is the validation returns no error
+            //prepare insert array
             $client_array = array(
                 'customer_business' => $customer_business,
                 'company_name' => $company_name,
-                'customer_address_1' => $customer_address_1,
-                'customer_address_2' => $customer_address_2,                                          
-                'customer_city' => $customer_city,                
-                'customer_state' => $customer_state,                           
-                'customer_pincode' => $customer_pincode,
+                // 'customer_address_1' => $customer_address_1,
+                // 'customer_address_2' => $customer_address_2,
+                // 'customer_city' => $customer_city,
+                // 'customer_state' => $customer_state,
+                // 'customer_pincode' => $customer_pincode,
                 'cp_name' => $cp_name,
-                'cp_contact_no' => $cp_contact_no,             
-                'cp_email' => $cp_email,               
-                'apoc_name' => $apoc_name,               
-                'apoc_contact_no' => $apoc_contact_no,               
-                'apoc_email' => $apoc_email,               
-                'ppoc_name' => $ppoc_name,               
-                'ppoc_contact_no' => $ppoc_contact_no,               
-                'ppoc_email' => $ppoc_email,               
-                'customer_pan' => $customer_pan,               
-                'customer_gst_no' => $customer_gst_no,               
-                'customer_cin_no' => $customer_cin_no,               
-                'last_annual_turnover_cr' => $last_annual_turnover_cr,               
-                'customer_tan_no' => $customer_tan_no,               
-                'customer_msme_ssi' => $customer_msme_ssi,               
-                'customer_aadhaar' => $customer_aadhaar,               
-                'payment_terms_days' => $payment_terms_days,               
-                'product_supply' => $product_supply,               
-                'customer_credit_limit' => $customer_credit_limit,     
+                'cp_contact_no' => $cp_contact_no,
+                'cp_email' => $cp_email,
+                'apoc_name' => $apoc_name,
+                'apoc_contact_no' => $apoc_contact_no,
+                'apoc_email' => $apoc_email,
+                'ppoc_name' => $ppoc_name,
+                'ppoc_contact_no' => $ppoc_contact_no,
+                'ppoc_email' => $ppoc_email,
+                'customer_pan' => $customer_pan,
+                'customer_gst_no' => $customer_gst_no,
+                'customer_cin_no' => $customer_cin_no,
+                'last_annual_turnover_cr' => $last_annual_turnover_cr,
+                'customer_tan_no' => $customer_tan_no,
+                'customer_msme_ssi' => $customer_msme_ssi,
+                'customer_aadhaar' => $customer_aadhaar,
+                'payment_terms_days' => $payment_terms_days,
+                'product_supply' => $product_supply,
+                'customer_credit_limit' => $customer_credit_limit,
                 // 'status' => 1,
                 'created_by' => $this->auth_user_id,
             );
-            //insert values in database  
+            //insert values in database
             $update = $this->mcommon->common_edit('customer', $client_array, array('customer_id' => $id));
             // echo '<pre>';
             // print_r($client_array);
             // exit();
+            $delete = $this->mcommon->common_delete('customer_address', array('customer_id' => $id));
+            $addCount = count($customer_address_1);
+            
+            for ($i = 0; $i < $addCount; $i++){
+                $insert_address = array(
+                        'customer_id' => $id,
+                        'customer_address_1' => $customer_address_1[$i],
+                        'customer_address_2' => $customer_address_2[$i],
+                        'customer_city' => $customer_city[$i],
+                        'customer_state' => $customer_state[$i],
+                        'customer_pincode' => $customer_pincode[$i],
+                        // 'created_on' => date('d-m-Y')[$i],
+                        'created_by' => $this->auth_user_id,
+                    );
+                $insertAdress = $this->mcommon->common_insert('customer_address', $insert_address);
+            }
+
             if ($update) {
                 $this->session->set_flashdata('alert_success', 'Customer updated successfully!');
                 redirect('customer');
@@ -211,19 +245,22 @@ class Customer extends MY_Controller
         }
 
         $view_data["default"] = $this->mcommon->specific_row('customer', array('customer_id' => $id));
+        $view_data["cutomerAddress"] = $this->mcommon->records_all('customer_address', array('customer_id' => $id));
         $view_data['manager'] = $this->mcommon->records_all('customer', array('status' => 1), 'company_name', "asc");
         $view_data['country'] = $this->get_country();
         $view_data['state'] = $this->get_state_edit();
         $view_data['city'] = $this->get_city();
-       
+        // echo '<pre>';
+        //     print_r($view_data['cutomerAddress']);
+        //     exit();
         $data = array(
             'title' => 'Edit Customer Management',
             'content' => $this->load->view('pages/customer/edit', $view_data, true),
         );
         $this->load->view('base/base_template', $data);
     }
-  
-    function db_table($name)
+
+    public function db_table($name)
     {
         $CI = &get_instance();
         $auth_model = $CI->authentication->auth_model;
@@ -274,13 +311,13 @@ class Customer extends MY_Controller
 
     public function get_city()
     {
-        $state = $this->input->post("state_id");      
+        $state = $this->input->post("state_id");
         $this->db->select("*");
         $this->db->from("cities");
         $this->db->where("state_id", $state);
         $this->db->where("flag", 1);
         $query = $this->db->get();
-        $result = $query->result();       
+        $result = $query->result();
         echo json_encode($result);
     }
 
@@ -293,12 +330,12 @@ class Customer extends MY_Controller
     public function change_status($id)
     {
         $current_status = $this->mcommon->specific_row_value('customer', array('customer_id' => $id), 'status');
-        $change_status = ($current_status == 1) ? 0 : 1;        
-        $update_array = array(  
+        $change_status = ($current_status == 1) ? 0 : 1;
+        $update_array = array(
                                 'status' => $change_status,
                             );
         $update = $this->mcommon->common_edit('customer', $update_array, array('customer_id' => $id));
-         echo json_encode($update);
+        echo json_encode($update);
     }
 
 }

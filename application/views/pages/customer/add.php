@@ -78,7 +78,7 @@
         <!-- end page title -->
         <?php
         if ($this->session->flashdata('alert_success')) {
-        ?>
+            ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong>Success!</strong> <?php echo $this->session->flashdata('alert_success'); ?>
@@ -87,7 +87,7 @@
         }
 
         if ($this->session->flashdata('alert_danger')) {
-        ?>
+            ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong>Success!</strong> <?php echo $this->session->flashdata('alert_danger'); ?>
@@ -95,14 +95,14 @@
         <?php
         }
         if ($this->session->flashdata('alert_warning')) {
-        ?>
+            ?>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <strong>Success!</strong> <?php echo $this->session->flashdata('alert_warning'); ?>
             </div>
         <?php
         }
-        ?>
+?>
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -124,9 +124,9 @@
                         <form action="<?php echo site_url('Customer/add'); ?>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                             <div class="row">
                             <h4>Customer Particulars</h4>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label for="validationCustom01" class="form-label">Name of The Company</label>
+                                        <label for="validationCustom01" class="form-label">Name of The Company<span class="error-asterisk">*</span></label>
                                         <input type="text" name="company_name" class="form-control" id="company_name" placeholder="Enter Company Name" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -136,10 +136,10 @@
                                         </div>
                                     </div>
                                 </div>
-                               
-                                <div class="col-md-4">
+                                
+                                <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">Business</label>
+                                        <label for="validationCustom09" class="form-label">Business<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_business" class="form-control" id="customer_business" placeholder="Enter Business" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -149,11 +149,13 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
+                            <!-- start loo[] -->
+                            <div class="max">
+                                <div id="addProduct" class="appendfields field0 row">
+                                <div  class="col-md-6">
                                     <div class="mb-4">
-                                        <label for="validationCustom02" class="form-label">Address Line 1</label>
-                                        <input type="text" name="customer_address_1" class="form-control" id="customer_address_1"  placeholder="Enter Address Line 1" maxlength="10" required>
+                                        <label for="validationCustom02" class="form-label">Address Line 1<span class="error-asterisk">*</span></label>
+                                        <input type="text" name="customer_address_1[]" class="form-control" id="customer_address_1"  placeholder="Enter Address Line 1" maxlength="10" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -162,10 +164,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+
+                                <div class="col-md-6">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">Address Line 2</label>
-                                        <input type="text" name="customer_address_2" class="form-control" id="customer_address_2" placeholder="Enter Address Line 2" required>
+                                        <label for="validationCustom09" class="form-label">Address Line 2<span class="error-asterisk">*</span></label>
+                                        <input type="text" name="customer_address_2[]" class="form-control" id="customer_address_2" placeholder="Enter Address Line 2" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -174,11 +177,31 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
+                                
+                                <div class="col-md-3">
                                     <div class="mb-4">
-                                        <label for="validationCustom08" class="form-label">City</label>
-                                        <input type="text" name="customer_city" class="form-control" id="customer_city" placeholder="Enter City" value="" required>
+                                        <label for="validationCustom07" class="form-label">State Name<span class="error-asterisk">* </span></label>
+                                        <select name="customer_state[]" class="form-control Select2 selectDrop" id="customer_state0" required>
+                                            <option value="">Select State</option>
+                                            <?php foreach ($state as $d) { ?>
+                                                <option <?php if ($d->id == 4035) {
+                                                    echo "selected";
+                                                } ?> value="<?php echo $d->id; ?>"><?php echo $d->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            State Name Required.
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="mb-4">
+                                        <label for="validationCustom08" class="form-label">City<span class="error-asterisk">*</span></label>
+                                        <input type="text" name="customer_city[]" class="form-control" id="customer_city" placeholder="Enter City" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -191,27 +214,8 @@
 
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom07" class="form-label">State Name</label>
-                                        <select name="customer_state" class="form-control Select2" id="customer_state" required>
-                                            <option value="">Select State</option>
-                                            <?php foreach ($state as $d) { ?>
-                                                <option <?php if ($d->id == 4035) {
-                                                            echo "selected";
-                                                        } ?> value="<?php echo $d->id; ?>"><?php echo $d->name; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            State Name Required.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="mb-4">
-                                        <label for="validationCustom11" class="form-label">Pincode</label>
-                                        <input type="text" name="customer_pincode" class="form-control" id="customer_pincode" onkeypress="return isNumberKey(event);" placeholder="Enter Pincode" maxlength="6" required>
+                                        <label for="validationCustom11" class="form-label">Pincode<span class="error-asterisk">*</span></label>
+                                        <input type="text" name="customer_pincode[]" class="form-control" id="customer_pincode" onkeypress="return isNumberKey(event);" placeholder="Enter Pincode" maxlength="6" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -220,6 +224,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-1 mt-3" id="adremovebuttons"><br>
+                                    <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
+                                </div>
+                            </div>
+                            <div class="12345"></div>
+                            </div>
+                                <!-- end loo[] -->
                             </div>
                             <br>
                             <HR>
@@ -227,7 +238,7 @@
                             <h4>Company Promoter / CFO / CEO Particulars</h4>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom04" class="form-label">Name Of Contact Person</label>
+                                        <label for="validationCustom04" class="form-label">Name Of Contact Person<span class="error-asterisk">*</span></label>
                                         <input type="text" name="cp_name" class="form-control" id="cp_name" placeholder="Name Of Contact Person" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -239,7 +250,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom04" class="form-label">Contact Number </label>
+                                        <label for="validationCustom04" class="form-label">Contact Number <span class="error-asterisk">*</span></label>
                                         <input type="text" name="cp_contact_no" class="form-control" id="cp_contact_no" placeholder="Enter Contact Number" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -269,7 +280,7 @@
                             <h4>Accounts point of contact (POC) Particulars</h4>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom04" class="form-label">APOC - Name Of Contact Person</label>
+                                        <label for="validationCustom04" class="form-label">APOC - Name Of Contact Person<span class="error-asterisk">*</span></label>
                                         <input type="text" name="apoc_name" class="form-control" id="apoc_name" placeholder="Enter APOC - Name" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -281,7 +292,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom06" class="form-label">APOC - Contact Number</label>
+                                        <label for="validationCustom06" class="form-label">APOC - Contact Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="apoc_contact_no" class="form-control apoc_contact_no" onkeypress="return isNumberKey(event);" id="apoc_contact_no" placeholder="Enter APOC - Contact Number" maxlength="10" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -312,7 +323,7 @@
                             <h4>Purchase point of contact (POC) Particulars</h4>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom04" class="form-label">PPOC - Name Of Contact Person</label>
+                                        <label for="validationCustom04" class="form-label">PPOC - Name Of Contact Person<span class="error-asterisk">*</span></label>
                                         <input type="text" name="ppoc_name" class="form-control" id="ppoc_name" placeholder="Enter PPOC - Name" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -324,7 +335,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom06" class="form-label">PPOC - Contact Number</label>
+                                        <label for="validationCustom06" class="form-label">PPOC - Contact Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="ppoc_contact_no" class="form-control ppoc_contact_no" onkeypress="return isNumberKey(event);" id="ppoc_contact_no" placeholder="Enter PPOC - Contact Number" maxlength="10" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -354,7 +365,7 @@
                             <h4>Satutory Details</h4>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">PAN Number</label>
+                                        <label for="validationCustom09" class="form-label">PAN Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_pan" class="form-control" id="customer_pan" placeholder="Enter PAN" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -366,7 +377,7 @@
                                 </div> 
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">GST Registration Number</label>
+                                        <label for="validationCustom09" class="form-label">GST Registration Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_gst_no" class="form-control" id="customer_gst_no" placeholder="Enter GST No" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -378,7 +389,7 @@
                                 </div>  
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">CIN Number</label>
+                                        <label for="validationCustom09" class="form-label">CIN Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_cin_no" class="form-control" id="customer_cin_no" placeholder="Enter CIN No" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -390,7 +401,7 @@
                                 </div>  
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">Last F.Y Annual Turnover in Crore</label>
+                                        <label for="validationCustom09" class="form-label">Last F.Y Annual Turnover in Crore<span class="error-asterisk">*</span></label>
                                         <input type="text" name="last_annual_turnover_cr" class="form-control" id="last_annual_turnover_cr" placeholder="Enter Annual Turnover" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -402,7 +413,7 @@
                                 </div> 
                                  <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom09" class="form-label">TAN Number</label>
+                                        <label for="validationCustom09" class="form-label">TAN Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_tan_no" class="form-control" id="customer_tan_no" placeholder="Enter TAN No" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -414,7 +425,7 @@
                                 </div> 
                               <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom10" class="form-label">MSME / SSI</label>
+                                        <label for="validationCustom10" class="form-label">MSME / SSI<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_msme_ssi" class="form-control" id="customer_msme_ssi" placeholder="Enter MSME/SSI" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -427,7 +438,7 @@
                                
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom10" class="form-label">Aadhaar No</label>
+                                        <label for="validationCustom10" class="form-label">Aadhaar No<span class="error-asterisk">*</span></label>
                                         <input type="text" name="customer_aadhaar" class="form-control" id="customer_aadhaar" placeholder="Enter Aadhaar No" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -445,7 +456,7 @@
                             <h4>Payment Terms</h4>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom04" class="form-label">Payment Terms in Days</label>
+                                        <label for="validationCustom04" class="form-label">Payment Terms in Days<span class="error-asterisk">*</span></label>
                                         <input type="text" name="payment_terms_days" class="form-control" id="payment_terms_days" placeholder="Payment Terms in Days" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -457,7 +468,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-4">
-                                        <label for="validationCustom06" class="form-label">Product Supply</label>
+                                        <label for="validationCustom06" class="form-label">Product Supply<span class="error-asterisk">*</span></label>
                                         <input type="text" name="product_supply" class="form-control product_supply" id="ppoc_contact_no" placeholder="Enter Product Supply" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -504,8 +515,25 @@
     <script type="text/javascript">
         // when page is ready
         $(document).ready(function() {
-
+            // Add more fields
+            $('.max').each(function() {                
+                var $wrapper = $('#addProduct', this);
+                $(".add-field", $(this)).click(function(e, no) {  
+                    var no = $('.appendfields').length;
+                    var row = $(
+                        '<div class="appendfields field'+no+' row"> <hr><div class="col-md-6"> <div class="mb-4"> <label for="validationCustom02" class="form-label">Address Line 1<span class="error-asterisk">*</span></label> <input type="text" name="customer_address_1[]" class="form-control" id="customer_address_1"  placeholder="Enter Address Line 1" maxlength="10" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Address Line 1 Required. </div> </div> </div> <div class="col-md-6"> <div class="mb-4"> <label for="validationCustom09" class="form-label">Address Line 2<span class="error-asterisk">*</span></label> <input type="text" name="customer_address_2[]" class="form-control" id="customer_address_2" placeholder="Enter Address Line 2" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Address Line 2 Required. </div> </div> </div> <div class="col-md-3"> <div class="mb-4"> <label for="validationCustom07" class="form-label">State Name<span class="error-asterisk">*</span></label> <select name="customer_state[]" class="form-control Select2 selectDrop" id="customer_state'+no+'" required> <option value="">Select State</option> <?php foreach ($state as $d) { ?> <option <?php if ($d->id == 4035) { echo "selected"; } ?> value="<?php echo $d->id; ?>"><?php echo $d->name; ?></option> <?php } ?> </select> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> State Name Required. </div> </div> </div> <div class="col-md-3"> <div class="mb-4"> <label for="validationCustom08" class="form-label">City<span class="error-asterisk">*</span></label> <input type="text" name="customer_city[]" class="form-control" id="customer_city" placeholder="Enter City" value="" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> City Required. </div> </div> </div> <div class="col-md-4"> <div class="mb-4"> <label for="validationCustom11" class="form-label">Pincode<span class="error-asterisk">*</span></label> <input type="text" name="customer_pincode[]" class="form-control" id="customer_pincode" onkeypress="return isNumberKey(event);" placeholder="Enter Pincode" maxlength="6" required> <div class="valid-feedback"> Looks good! </div> <div class="invalid-feedback"> Pincode Required. </div> </div> </div><div class="col-md-1" style="width:4.333333%"><i class="fa fa-trash mt-5" onclick="removediv('+no+')" id="remove'+no+'" style="font-size:22px;color:red"></i></div> </div>');
+                        $wrapper.after(row); 
+                        // $wrapper.find('.appendfields:first').after(row);   
+                    $('.selectDrop').select2();
+                });
+            });
         })
+
+        function removediv(no){
+            alert('You Want to Remove the Fields!');
+            $('.field'+no).remove();
+            calculateAmount();
+        }
 
         function validateEmail(emailField) {
             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -580,3 +608,9 @@
     </script>
 
     <script src="<?php echo base_url('assets/libs/select2/js/select2.min.js'); ?>"></script>
+
+
+
+
+
+    

@@ -130,7 +130,7 @@ class SalesOrder extends MY_Controller
                 'customer_id' => $result->customer_id,
                 'sales_order_id ' => $result->id,
                 'company_id'   => $company['id'],
-                'po_number'   =>  $poNumber,
+                // 'po_number'   =>  $poNumber,
                 'grand_total' => $result->grand_total,
                 'credit_percentage'  => $company['credit_note_percentage'],
                 'credit_amount'  => $result->grand_total*($company['credit_note_percentage']/100 ),
@@ -185,7 +185,14 @@ class SalesOrder extends MY_Controller
         }
         $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1));      
 
-        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        // $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        $this->db->select('customer.*, customer_address.*, customer.customer_id as CusID, customer_address.id as CusAdId');
+        $this->db->from('customer');
+        $this->db->join('customer_address', 'customer.customer_id = customer_address.customer_id', 'left');        
+        $this->db->where('customer.status', 1);
+        $query = $this->db->get();
+        $view_data['customers'] = $query->result();
+        
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         // $view_data['qno'] = $this->mcommon->records_all('em_companies', array('id' => 1))->row();
              
@@ -376,7 +383,13 @@ class SalesOrder extends MY_Controller
       
         
     }else{
-        $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        // $view_data['customers'] = $this->mcommon->records_all('customer', array('status' => 1));
+        $this->db->select('customer.*, customer_address.*, customer.customer_id as CusID, customer_address.id as CusAdId');
+        $this->db->from('customer');
+        $this->db->join('customer_address', 'customer.customer_id = customer_address.customer_id', 'left');        
+        $this->db->where('customer.status', 1);
+        $query = $this->db->get();
+        $view_data['customers'] = $query->result();
         $view_data['products'] = $this->mcommon->records_all('product', array('status' => 1));    
         $view_data['sales_order'] = $this->mcommon->specific_row('sales_order', array('id' => $id));    
         $view_data['uom'] = $this->mcommon->records_all('uom', array('status' => 1)); 
@@ -412,22 +425,36 @@ class SalesOrder extends MY_Controller
 
 
     public function invoice_list(){
-        $this->db->select('*,s.status as salesStatus,sum(sob.total_qty) as totalQuantity,
-                            sum(sob.received_qty) as receivedQuantity,s.grand_total as grand_total');
-        $this->db->from('sales_order as s');
-        $this->db->join('sales_order_sub as sob','sob.sales_order_id=s.id','left');
-        // $this->db->join('product as p','p.product_id = sob.product_id','left');
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left');
-        // $this->db->join('hsn_code as h', 'h.hsn_id = sob.hsn_id','left');
-        // $this->db->join('uom as u', 'u.uom_id = sob.uom_id','left');
-        $this->db->order_by('s.id','DESC');
-        $this->db->group_by('sob.sales_order_id');
 
-        $query = $this->db->get();
-        $view_data['salesOrder'] = $query->result();
-              
-        // echo '<pre>'; print_r($view_data['salesOrder']);
-        //  die();
+
+        $this->db->select('s.*, s.id AS id,c.company_name,
+                SUM(sSub.total_qty) as totalQuantity,SUM(sSub.received_qty) as receivedQuantity, SUM(sSub.available_qty) as availableQuantity');
+        $this->db->from('sales_order as s');   
+        $this->db->join('sales_order_sub as sSub','s.id = sSub.sales_order_id ','left');      
+        $this->db->join('customer as c','c.customer_id = s.sold_to_party', 'left');
+        $this->db->order_by('s.id','DESC');  
+        $this->db->group_by('sSub.sales_order_id','DESC');
+        $query = $this->db->get()->result();
+        $view_data['sale'] = $query;
+        $view_data['sale'] ['transaction_id'] = [];
+
+        foreach($view_data['sale']  as $key=> $row){
+        $this->db->select('*, SUM(s.received_qty) as totalInvoiceQuantity, SUM(s.tottalamt) as tottalInvoiceAmt');
+        $this->db->from('sales_order_items as s'); 
+        $this->db->where('s.sales_order_id',$row->id);
+        $this->db->group_by('s.transaction_id');
+        $query_items = $this->db->get()->result();
+        $view_data['sale'][$key]->saleOrderItems = $query_items;
+
+        // Array to store transaction IDs for each sale
+        $transaction_ids = [];
+
+        foreach ($view_data['sale'][$key]->saleOrderItems as $item_key => $item) {
+        $transaction_ids[] = $item->transaction_id;
+        }
+        // Assign the array of transaction IDs to the sale data
+        $view_data['sale'][$key]->transaction_id = $transaction_ids;
+        }
 
         $data = array(
             'title' => 'Sales Invoice List',
@@ -803,20 +830,31 @@ class SalesOrder extends MY_Controller
         // $this->db->join('sales_order_sub as sub','si.sales_order_id=sub.sales_order_id '); 
         // // $this->db->join('sales_order as s','si.sales_order_id = s.id'); 
      
+        $sold = $this->mcommon->specific_row('sales_order', array('id' => $sales_order_id));
+        
+        $cusandcusAdsold = explode('|' ,$sold['sold_to_party']);
+        
         $this->db->select('*,state.name as stateName');
         $this->db->from('sales_order as s'); 
         $this->db->where('s.id',$sales_order_id); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->join('customer as c','c.customer_id = '.$cusandcusAdsold[0],'left'); 
+        $this->db->join('customer_address as cad','cad.id = '.$cusandcusAdsold[1],'left'); 
         $this->db->join('states as state', 'state.id = c.customer_state','left');       
         $view_data['sold_to_party'] = $this->db->get()->row_array();
+        
+        $cusandcusAdship = explode('|' ,$sold['ship_to_party']);
 
         $this->db->select('*,state.name as stateName');
         $this->db->from('sales_order as s'); 
         $this->db->where('s.id',$sales_order_id); 
-        $this->db->join('customer as c','c.customer_id = s.ship_to_party','left');
+        $this->db->join('customer as c','c.customer_id = '. $cusandcusAdship[0],'left');
+        $this->db->join('customer_address as cad','cad.id = '. $cusandcusAdship[1],'left'); 
         $this->db->join('states as state', 'state.id = c.customer_state','left');              
         $view_data['ship_to_party'] = $this->db->get()->row_array();
        
+        
+
+
         $view_data['company'] = $this->mcommon->specific_row('em_companies', array('id' => 1));
         $view_data['salesItems'] = $this->mcommon->specific_row('sales_order_items', array('id' => $id));
            
@@ -826,7 +864,7 @@ class SalesOrder extends MY_Controller
         // print_r($view_data['salesOrder']['sales_order_id']);
         // print_r($view_data['sold_to_party']);
         // print_r($view_data['ship_to_party']);
-        // exit();   
+        // exit();
 
         $data = array(
             'title' => 'Sales Invoice',
@@ -848,6 +886,19 @@ class SalesOrder extends MY_Controller
         $this->db->where('sales_order_id', $sales_order_id);
          $result = $this->db->get();
          return $result->result();
+    }
+
+    public function DCNoCheck(){      
+        $dc_no = $this->input->post('dc_no'); 
+         $result = $this->mcommon->is_dc_no_exists($dc_no);       
+
+        if ($result) {
+            $response = array('status' => 'error', 'message' => 'The DC Number already exists.');
+        } else {
+            $response = array('status' => 'success', 'message' => 'DC Number is available.');
+        }    
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
 
 }

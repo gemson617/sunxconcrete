@@ -31,9 +31,12 @@
             .update {
                     background-color: #004080;
             }
+            .sub-rows {
+            display: none;
+            background: burlywood;
+        }
+            
     </style>
-
-
 <div class="page-content">
     <div class="container">
         <div class="row">
@@ -68,82 +71,91 @@
                         <?php
                         }
                         ?>
-                        <!-- <a href="<?php echo site_url('Product/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a> -->
-                        <br>
-                        <h4 class="card-title mb-3">Sales Invoice List</h4>
-                        <table id="datatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <!-- <a href="<?php echo site_url('SalesOrder/add'); ?>"><button style="float:right;" type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light"><i class="bx bx-plus label-icon"></i> Add</button></a> -->
+                        <br>                        
+                        <h4 class="card-title mb-3">INVOICE</h4>
+                        <table id="deliveryChallanDatatable" class="table table-hover datatable dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col">S.no</th>
+                                    <th scope="col">Sale.No</th>
+
+                                    <th scope="col">Date</th>
+                                    <!-- <th scope="col">PO.No</th> -->
+                                    <!-- <th scope="col">Product</th> -->
                                     <th scope="col">Customer</th>
-                                    <th scope="col">Total Qty</th>
-                                    <th scope="col">Total Amount</th>
-                                    <!-- <th scope="col">Action</th> -->
+                                    <!-- <th scope="col">HSN </th> -->
+                                    <th scope="col"> Qty</th>
+                                    <th scope="col">Available Qty</th>
+                                    <!-- <th scope="col">Invoiced Qty</th> -->
+                                    <!-- <th scope="col"> Invoiced Amt</th> -->
+
+                                    <th scope="col">Total Amt</th>
+                                    <th scope="col">Invoice</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <?php foreach ($salesOrder as $key => $sales) { 
-                                    if($sales->totalQuantity != $sales->receivedQuantity){
-                                    ?>
+                                <?php foreach ($sale as $key => $sales) { 
+                                    $date =  $sales->created_on;
+                                    $timestamp = strtotime($date);
+                                    $formattedDate = date("d-m-Y", $timestamp);
+                                  
+                                    // $date = date($date, 'd-m-y');  ?>
                                     <tr>
-                                        <td><?php echo $key + 1; ?></td>
-                                        <td><?php echo $sales->company_name; ?></td>
-                                        <td><?php echo $sales->totalQuantity; ?></td>                                        
-                                        <td><?php echo $sales->grand_total; ?></td>
-                                        
-                                        <td>                                            
-                                            <a target="_blank" href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->sales_order_id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 "><i class="fa fa-print"></i></button></a>
+                                        <td>
+                                            <button type="button" class="btn " onclick="showSubRows('sub-rows-<?php echo $key; ?>')"><i class="bx bx-plus label-icon"></i></button><?php echo $key + 1; ?>
                                         </td>
-                                     
+                                        <td><?php echo $sales->sale_no; ?></td>
+                                        <td><?php echo $formattedDate; ?></td>                                        
+                                        <td><?php echo $sales->company_name; ?></td>
+                                        <td><?php echo $sales->totalQuantity; ?></td>
+                                        <td><?php echo $sales->availableQuantity; ?></td>
+                                        <!-- <td><?php echo ($sales->receivedQuantity != null) ? $sales->receivedQuantity : "0.00"; ?></td> -->
+                                        <!-- <td><?php echo number_format($sales->received_amount,2); ?></td> -->
+
+                                        <td><?php echo number_format($sales->grand_total,2); ?></td>
+                    
+                                        <td>
+                                        <a target="_blank" href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 "><i class="fa fa-print"></i></button></a>
+                                        </td> 
+
+                                        <td>
+                                            -                                     
+                                        </td>                                     
+                                    </tr>
+                                    <!-- Sub Rows -->
+
+                                    <?php                                    
+                                            $co = 0;
+                                                if (isset($sales->transaction_id) && is_array($sales->transaction_id)) {
+                                                foreach ($sales->saleOrderItems as $subRow => $saleOrderItems) {
+                                                    $co ++;
+                                    ?>
+
+                                    <tr class="sub-rows sub-rows-<?php echo $key; ?>">
+                                        <td><?php echo $key + 1; ?></td>
+                                        <td><?php echo $saleOrderItems->dc_no; ?></td>
+                                        <td><?php echo $saleOrderItems->dc_date; ?></td>
+                                      
+                                        <td><?php echo $sales->company_name; ?></td>
+                                        <td><?php echo $saleOrderItems->totalInvoiceQuantity; ?></td>                                       
+                                        <td><?php echo '-'; ?></td>
+                                        <td> <?php echo $saleOrderItems->tottalInvoiceAmt; ?> </td>
+                                       
+                                        <td> 
+                                            <a target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
+                                        </td>
+                                        <td> <a href="#" data-target="#myModal" onclick="openModel('<?= $saleOrderItems->transaction_id?>', '<?=  $saleOrderItems->tottalInvoiceAmt  ?>')" type="button" class="btn btn-sm mt-1 btn-dark waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" > <i class="bx bx-transfer"></i>  </a></td>
                                     </tr>
 
 
-
-                                    <div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-​
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Sales Order Quantity</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-​
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="myForm" method="POST" action="<?php echo site_url('SalesOrder/getQuantity/'.$sales->id); ?>">
-                    <div class="form-group">
-                        <label for="qty">Quantity</label>
-                        <input type="number" min="1"  class="form-control" placeholder="Enter the Sales Order Quantity" id="qty" name="qty">
-                    </div>
-                    <div class="form-group mt-3">
-                    <label for="credit_bill">Credit Bill</label>
-                    <select class="form-control" name="credit_bill"  id="credit_bill" required>
-                                            <option value="">--Credit Bill --</option>
-                                            
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                    </select>                     
-                    </div>
-                    
-                    <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Submit</button>
-                    <button type="button" class="btn btn-danger mt-3" data-dismiss="modal">Close</button>
-                
-                </form>
-            </div>
-​
-            <!-- Modal footer -->
-           
-​
-        </div>
-    </div>
-</div>
-
-
-                                <?php    
-                            }
-                            } ?>
+                                                
+                                            <?php   if ($co % 2 === 0) {
+                                                    echo '<br>';
+                                                }   }}    ?>    
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -155,6 +167,33 @@
 
 
 
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">​
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Credit Note (%)</h4>
+                            <button type="button" class="close btn btn-danger" onclick="closeModel()" data-dismiss="modal">&times;</button>
+                        </div>​
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form id="myForm" method="POST" action="<?php echo site_url('DcController/creditNote/'); ?>">
+                                <div class="row">
+                                    <input type="hidden" name="tottalamount" id="tottalamount" value="<?php echo $saleOrderItems->tottalInvoiceAmt; ?> ">
+                                    <input type="hidden" name="transactionid" id="transactionid" value="<?php echo $saleOrderItems->transaction_id; ?> ">
+                            <div class="form-group col-md-12">
+                                    <label for="qty">Credit Note (%)</label>
+                                    <input type="number" class="form-control" min="1"  placeholder="Enter the Credit Note %" id="creditNote" name="creditNote">
+                                </div>                   
+                                </div>                    
+                                <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Accept</button>
+                                <button type="button" class="btn btn-danger mt-3" onclick="closeModel()" data-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>​
+                        <!-- Modal footer -->
+                    </div>
+                </div>
+            </div>
 ​
 <!-- //new modal -->
 
@@ -168,27 +207,53 @@
 
 <script type="text/javascript">
 
+        function openModel(transactionId, totalInvoiceAmt){           
+            $('#transactionid').val(transactionId);
+            $('#tottalamount').val(totalInvoiceAmt);
+            $('#myModal').modal('show');            
+        }
+        function closeModel(){
+            $('#myModal').modal('hide');
+        }
+        function delete_item(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(isConfirmed => {
+                if (isConfirmed.value) {
+                    $.ajax({
+                        url: "<?php echo base_url(); ?>SalesOrder/delete/" + id + "/",
+                        success: function(result) {
+                            if (result) {
+                                window.location.reload('SalesOrder/view');
+                            }
+                        }
+                    });
 
+                    if (isConfirmed.value) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Quotation has been deleted.',
+                            'success'
+                        );
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+
+        function showSubRows(className) {
+        $('.sub-rows.' + className).toggle();
+    }
 
     $(document).ready(function () {
-  
-    $(".delete-category").click(function () {
-        var id = $(this).data('id');
-        var qty = $(this).val();
-        var valid = parseFloat(qty);
+        $('#deliveryChallanDatatable').DataTable();
 
-        $("#qty").attr("max", valid);
-        var form = document.getElementById("myForm");
-
-        var prefix = "<?php echo site_url('SalesOrder/getQuantity/'); ?>"; 
-        var sufix = id;
-        var newAction = prefix + sufix;
-        // alert(newAction);
-        form.setAttribute("action", newAction);
-    //   var quantity = $("#qty").val();
-    //    alert(quantity);
-    
-  });
     });
 
 </script>

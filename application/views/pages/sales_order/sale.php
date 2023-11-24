@@ -113,7 +113,7 @@
         }
         ?>
 
-                        <form action="<?php echo site_url('SalesOrder/getQuantity/'.$id); ?>" id="ynamic-form" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+                        <form action="<?php echo site_url('SalesOrder/getQuantity/'.$id); ?>" id="MyForm" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
 
 <div class="row">
             <div class="col-xl-12">
@@ -122,7 +122,7 @@
                             <div class="row col-md-12">
                                 <div class="col-md-4">                                 
                                     <div class="">
-                                        <label for="plant_id">Plant Name</label>
+                                        <label for="plant_id">Plant Name<span class="error-asterisk">*</span></label>
                                         <select class="form-control" name="plant_id"  id="plant_id" required>
                                                 <option value="">--Select Plant --</option>   
                                                 <?php foreach ($plant as $key => $plant) { ?>                                              
@@ -140,7 +140,7 @@
 
                                 <div class="col-md-4">                                 
                                     <div class="">
-                                        <label for="plant_id">Truck Number</label>
+                                        <label for="plant_id">Truck Number<span class="error-asterisk">*</span></label>
                                         <input type="text" name="truck_no" value="" class="form-control" id="truck_no" placeholder="Truck Number" required>
                                         <div class="valid-feedback">
                                             Looks good!
@@ -153,7 +153,7 @@
 
                                 <div class="col-md-4">                                 
                                     <div class="">
-                                        <label for="plant_id">Diver Name</label>
+                                        <label for="plant_id">Diver Name<span class="error-asterisk">*</span></label>
                                         <input type="text" name="driver_name" value="" class="form-control" id="driver_name" placeholder="Diver Name" required>                                        
                                         <div class="valid-feedback">
                                             Looks good!
@@ -166,20 +166,20 @@
 
                                 <div class="col-md-4 mt-4">                                 
                                     <div class="">
-                                        <label for="plant_id">DC No</label>
-                                        <input type="text" name="dc_no" value="" class="form-control" id="dc_no" placeholder="DC Number" required>                                        
+                                        <label for="plant_id">DC No<span class="error-asterisk">*</span></label>
+                                        <input type="text" name="dc_no" value="" class="form-control" id="dc_no" oninput="DCCheck(this.value)" placeholder="DC Number" required>                                        
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
                                         <div class="invalid-feedback">
-                                        DC Number is Required.
+                                        DC Number is Required (or) DC Number is Already Exist.
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4 mt-4">                                 
                                     <div class="">
-                                        <label for="plant_id">Batch No</label>
+                                        <label for="plant_id">Batch No<span class="error-asterisk">*</span></label>
                                         <input type="text" name="batch_no" value="" class="form-control" id="batch_no" placeholder="Batch Number" required>                                        
                                         <div class="valid-feedback">
                                             Looks good!
@@ -192,7 +192,7 @@
 
                                 <div class="col-md-4 mt-4">                                 
                                     <div class="">
-                                        <label for="plant_id">DC Date</label>
+                                        <label for="plant_id">DC Date<span class="error-asterisk">*</span></label>
                                         <input type="date" name="dc_date" value="" class="form-control" id="dc_date" placeholder="dc_date" required>                                        
                                         <div class="valid-feedback">
                                             Looks good!
@@ -411,8 +411,36 @@
            
     }
 
+    
+    function DCCheck(){
+        var val = $('#dc_no').val();
+        $.ajax({
+            url: "<?php echo site_url() ?>SalesOrder/DCNoCheck/",
+            method: "POST",
+            type: "json",
+            data: {
+                dc_no: val
+            },
+            success: function(result) {
+                console.log(result.status);
+                if (result.status === 'success') {                    
+                    $('#dc_no').removeClass('is-invalid').addClass('is-valid');
+                } else {
+                    $('#dc_no').removeClass('is-valid').addClass('is-invalid');
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });  
+    }
 
-        $(document).ready(function () {                       
+        $(document).ready(function () {             
+            $('#MyForm').submit(function(e) {
+        e.preventDefault(); // prevent default form submission
+        DCCheck(); // validate DC_no before submitting the form
+    });
+
             // Add more fields
             $('.max').each(function() {                
                 var $wrapper = $('#addProduct', this);

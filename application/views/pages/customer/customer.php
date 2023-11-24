@@ -1,5 +1,94 @@
 <style>
+.switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 25px; /* Adjusted height */
+        }
 
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 6px;           
+            bottom: 2px; /* Adjusted bottom position */
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Adjusted styles for the labels */
+        .slider .on,
+        .slider .off {
+            display: none;
+            color: white;
+            position: absolute;
+            transform: translate(-60%, -60%);
+            top: 60%;
+            left: 60%;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+        }
+
+        input:checked + .slider .on {
+            display: block;
+        }
+
+        input:checked + .slider .off {
+            display: none;
+        }
+
+        input:not(:checked) + .slider .on {
+            display: none;
+        }
+
+        input:not(:checked) + .slider .off {
+            display: block;
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 20px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* button On  */
 .badge{
         background-color: #cc0000;
         color:white;
@@ -78,19 +167,16 @@
                                         <td><?php echo $d->cp_email; ?></td>
                                         <td><?php echo $d->cp_contact_no; ?></td>                                                                       
                                         <td><?php echo $d->customer_gst_no; ?></td>                                                                       
-                                        <td><?php if ($d->customer_staus == "1") {
-                                                echo "Active";
-                                            } else {
-                                                echo "InActive";
-                                            } ?></td>
                                         <td>
-                                            
-                                                
-                                                <a href="<?php echo site_url('customer/edit/' . $d->customer_id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>
-                                          
-                                            <button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="update_status(<?php echo $d->customer_id; ?>);"><i class="bx bx-check"></i> </button>
-                                           
-                                                                                            
+                                        <label class="switch">
+                                            <input type="checkbox" <?php echo ($d->customer_staus == "1") ? 'checked' : ''; ?> onclick="update_status(<?php echo $d->customer_id; ?>)" id="togBtn<?php echo $d->customer_id; ?>">
+                                            <div class="slider round">
+                                                <span class="off">Inactive</span>
+                                                <span class="on">Active</span>
+                                            </div>
+                                        </label>                                        
+                                          <td>
+                                                <a href="<?php echo site_url('customer/edit/' . $d->customer_id); ?>"><button type="button" class="btn btn-sm btn-primary waves-effect waves-light"><i class="bx bx-pencil"></i></button></a>                                                                                            
                                                 <button type="button" class="btn btn-sm btn-danger waves-effect waves-light" id="sa-success" onclick="delete_item(<?php echo $d->customer_id; ?>);"><i class="bx bx-trash"></i></button>
                                             
                                             <!-- <button type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target="#emailModal<?php echo $d->customer_id; ?>"><i class="bx bx-mail-send label-icon"></i> Mail</button> -->
@@ -141,6 +227,13 @@
     }
 
     function update_status(id) {
+    //     if (!confirm('Are you sure you want to change the status?')) {
+    //     // If the user cancels the confirmation, prevent the checkbox from being unchecked
+    //     document.getElementById('togBtn'+id).checked = true;
+    //     return;
+    // }
+    var checkbox = document.getElementById('togBtn' + id);
+var isChecked = checkbox.checked;
         Swal.fire({
             title: 'Are you sure?',
             text: "You can always change the status to active or in-active!",
@@ -149,7 +242,7 @@
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Change it!'
-        }).then(isConfirmed => {
+        }).then((isConfirmed) => {
             if (isConfirmed.value) {
                 $.ajax({
                     url: "<?php echo base_url(); ?>customer/change_status/" + id + "/",
@@ -160,20 +253,12 @@
                                 'Changed!',
                                 'customer status has been changed successfully!',
                                 'success'
-                            );
-                            window.location.reload();
+                            );                            
                         }
                     }
                 });
-
-                // if (isConfirmed.value) {
-                //     Swal.fire(
-                //         'Changed!',
-                //         'customer status has been changed successfully!',
-                //         'success'
-                //     );
-                //      window.location.reload();
-                // }
+            }else{
+                checkbox.checked = !isChecked;
             }
         });
     }

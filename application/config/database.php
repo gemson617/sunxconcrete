@@ -7,8 +7,8 @@ $query_builder = TRUE;
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
 	$hostname = 'localhost';
 	$username = 'root';
-	$password = '';
-	$database = 'client_sunxconcrete';
+	$password = 'root';
+	$database = 'sunxconcre';
 	$environment = 'development';
 } else {
 	$hostname 		= 'localhost:3306';
