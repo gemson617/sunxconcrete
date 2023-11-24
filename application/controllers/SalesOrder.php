@@ -134,6 +134,7 @@ class SalesOrder extends MY_Controller
                 'grand_total' => $result->grand_total,
                 'credit_percentage'  => $company['credit_note_percentage'],
                 'credit_amount'  => $result->grand_total*($company['credit_note_percentage']/100 ),
+                'created_on' => date('Y-m-d'),  
                     
                 );
                 $this->mcommon->common_insert('credit_note',$insert_array,true);

@@ -94,7 +94,7 @@
                                     $date2 = $dateObj->format("d-m-y");
                                     // $date2 =  date_format($q->created,"d-m-y");
                                     // echo $date2;
-                                                                        ?>
+                                ?>
                                     
                                     <tr>
                                     <td><?php echo $key + 1; ?></td>  
