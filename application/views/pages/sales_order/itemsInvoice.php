@@ -193,10 +193,10 @@
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">KM:</td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;padding-left:7px;">LUT:</td>
                         </tr>
-                        <tr >
+                        <tr>
                             <td style="border-bottom:1px solid #ccc;padding-left:7px;" colspan="3">Remarks:</td>
                         </tr>
-                        <tr >
+                        <tr>
                             <td style="border-bottom:1px solid #ccc;padding-left:8px;" colspan="3">
                             <span style="font-weight: bold;">Terms and Conditions: </span><br><br>
                             1. Price as applicable on the date of dispatch shall be charged.<br>

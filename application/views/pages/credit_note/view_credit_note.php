@@ -89,7 +89,7 @@
                                 <?php foreach ($credit_note as $key => $cn) { 
                                     // print_r($cn->created);
                                     // exit();
-                                    $date = $cn->created;
+                                    $date = $cn->created_on;
                                     $dateObj = new DateTime($date);
                                     $date2 = $dateObj->format("d-m-y");
                                     // $date2 =  date_format($q->created,"d-m-y");

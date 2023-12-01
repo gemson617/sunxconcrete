@@ -777,7 +777,6 @@ class SalesOrder extends MY_Controller
 
         $sold = $this->mcommon->specific_row('sales_order', array('id' => $id));
         
-
         $cusandcusAdsold = explode('|' ,$sold['sold_to_party']);  
         $this->db->select('*,state.name as stateName');
         $this->db->from('sales_order as s'); 
@@ -799,9 +798,9 @@ class SalesOrder extends MY_Controller
        
         $view_data['company'] = $this->mcommon->specific_row('em_companies', array('id' => 1));
         $view_data['salesItems'] = $this->mcommon->specific_row('sales_order_items', array('id' => $id));
-           
+        
           
-
+        
         $data = array(
             'title' => 'Sales Order Items',
             'content' => $this->load->view('pages/sales_order/itemsInvoice', $view_data, true),
@@ -810,8 +809,8 @@ class SalesOrder extends MY_Controller
     }
 
     public function deliveryChallan($id){
-                 
-      
+        
+        
         $this->db->select('*,si.total_quantity as totalQuantity,
                             si.available_quantity as availableQuantity,
                             si.received_qty as receivedQuantity');
