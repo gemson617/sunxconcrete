@@ -773,19 +773,27 @@ class SalesOrder extends MY_Controller
         //                echo "<pre>";
         // print_r($view_data['salesOrder']['sgst']);
         // exit();  
+        $sales_order_id = $this->mcommon->specific_row_value('sales_order_items', array('transaction_id' => $id), 'sales_order_id');
 
+        $sold = $this->mcommon->specific_row('sales_order', array('id' => $id));
         
+
+        $cusandcusAdsold = explode('|' ,$sold['sold_to_party']);  
         $this->db->select('*,state.name as stateName');
         $this->db->from('sales_order as s'); 
         $this->db->where('s.id',$id); 
-        $this->db->join('customer as c','c.customer_id = s.sold_to_party','left'); 
+        $this->db->join('customer as c','c.customer_id = '.$cusandcusAdsold[0],'left'); 
+        $this->db->join('customer_address as cad','cad.id = '.$cusandcusAdsold[1],'left'); 
         $this->db->join('states as state', 'state.id = c.customer_state','left');       
         $view_data['sold_to_party'] = $this->db->get()->row_array();
+        
+        $cusandcusAdship = explode('|' ,$sold['ship_to_party']);
 
         $this->db->select('*,state.name as stateName');
         $this->db->from('sales_order as s'); 
         $this->db->where('s.id',$id); 
-        $this->db->join('customer as c','c.customer_id = s.ship_to_party','left');
+        $this->db->join('customer as c','c.customer_id = '.$cusandcusAdship[0],'left');
+        $this->db->join('customer_address as cad','cad.id = '.$cusandcusAdship[1],'left'); 
         $this->db->join('states as state', 'state.id = c.customer_state','left');              
         $view_data['ship_to_party'] = $this->db->get()->row_array();
        

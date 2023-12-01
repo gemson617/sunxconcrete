@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/libs/%40chenfengyuan/datepicker/datepicker.min.css'); ?>">
       <!-- Time picker -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    
+    
+   
 
     <link href="<?php echo base_url('assets/libs/bootstrap-4.0.0/assets/css/docs.min.css'); ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url('assets/popup_boostrap/css/bootstrap.min.css'); ?>" rel="stylesheet" id="bootstrap-css">
@@ -57,6 +60,9 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
     <!-- JAVASCRIPT -->
+
+    
+
 
     <!-- apexcharts -->
     <script src="<?php echo base_url('assets/libs/apexcharts/apexcharts.min.js'); ?>"></script>
@@ -94,6 +100,8 @@
     <script src="<?php echo base_url('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/ajax.aspnetcdn.com_ajax_jquery.validate_1.11.1_jquery.validate.min.js'); ?>"></script>
 	<!-- <script src="{{ asset('agas') }}"></script> -->
+    
+   
 
     <!-- Responsive examples -->
     <script src="<?php echo base_url('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js'); ?>"></script>

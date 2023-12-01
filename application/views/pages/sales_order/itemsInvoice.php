@@ -45,7 +45,7 @@
                                 </tr>
                                 <tr>
                                 <td  style="border-bottom: 1px solid #ccc;padding-left:5px;"><p style="text-align: left;margin-right:10px;">Whether the tax is payable on reverse charge basis:</p></td>
-                                <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($salesOrder['tax_payable']==1) ? 'yes' : 'No' ?></p></td>
+                                <td  style="border-bottom: 1px solid #ccc;"><p style="text-align: left;"><?= ($salesOrder['tax_payable'] == 1) ? 'yes' : 'No' ?></p></td>
                                 </tr>
                                 <tr>
                                     <td style="margin-left:10px;padding-left:5px;"><p style="text-align: left;">Place of Supply:</p></td>
@@ -67,7 +67,7 @@
                         </tr>
                         <tr>
                             <td style="margin-left:10px;padding-left:7px;">Address:</td>
-                            <td style="margin-left:7px;"><?= $sold_to_party['customer_address_1'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="margin-left:7px;"><?= $sold_to_party['customer_address_1'].','.$sold_to_party['customer_address_2'].', '.$sold_to_party['customer_city'].', '.$sold_to_party['stateName'].'-'.$sold_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr>
                             <td style="margin-left:10px;padding-left:7px;">GSTIN/UID:</td>
@@ -83,7 +83,7 @@
                         </tr>
                         <tr>
                             <td style="margin-left:10px;padding-left:7px;">Address:</td>
-                            <td style="margin-left:7px;"><?= $ship_to_party['customer_address_1'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
+                            <td style="margin-left:7px;"><?= $ship_to_party['customer_address_1'].','.$ship_to_party['customer_address_2'].', '.$ship_to_party['customer_city'].', '.$ship_to_party['stateName'].'-'.$ship_to_party['customer_pincode'].', India.' ?></td>
                         </tr>
                         <tr>
                             <td style="margin-left:10px;padding-left:7px;">GSTIN/UID:</td>
@@ -95,7 +95,7 @@
                     <tr>
                     <table style="width: 100%; border-collapse: collapse; margin-top:-18px; border: 1px solid #ccc;">
  
-                    `<thead style="width:100%;">
+                    <thead style="width:100%;">
                         <tr style="border: 1px solid #ccc; width:100%;">
                             <th style="border: 1px solid #ccc;"><center>Description of Goods</center></th>
                             <th style="border: 1px solid #ccc;"><center>HSN Code</center></th>
@@ -103,12 +103,12 @@
                             <th style="border: 1px solid #ccc;"><center>Price</center></th>
                             <th style="border: 1px solid #ccc;"><center>Quantity</center></th>
                             <th style="border: 1px solid #ccc;"><center>Tottal Amount</center></th>
-                           
                         </tr>
                     </thead>
                     
                     <tbody style="border: 1px solid #ccc;">
-                    <?php $sub_tot = ''; foreach($salesOrders as $salesOrder){ ?>
+                    <?php $sub_tot = '';
+                            foreach($salesOrders as $salesOrder) { ?>
                             <tr style="border: 1px solid #ccc;" >
                                 <td style="border: 1px solid #ccc;padding:5px;margin-left:10px;text-align:left;"><?= $salesOrder->product_name ?></td>
                                 <td style="border: 1px solid #ccc;padding:5px;text-align:left;"><?= $salesOrder->hsn_name ?></td>
@@ -171,7 +171,7 @@
                         <tr>
                         <td style="border-bottom:1px solid #ccc; font-weight: bold;padding-left:7px;" id="">Sale Value in Words: </td>
                         <td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc;font-weight: bold;padding-left:7px;" id="inWords"></td>
-                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;padding-left:7px;">TOTAL SALE VALUE : <span style="font-weight: bold;">₹ <?= number_format($salesOrder['grand_total'],2) ?></span> </td></H6>
+                        <H6><td style="border-bottom:1px solid #ccc; border-left:1px solid #ccc; text-style:bold;padding-left:7px;">TOTAL SALE VALUE : <span style="font-weight: bold;">₹ <?= number_format($salesOrder['grand_total'], 2) ?></span> </td></H6>
                         </tr>
                         <tr>
                         <td style="border-bottom:1px solid #ccc;padding-left:7px;">Mode of Transport:</td>

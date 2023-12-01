@@ -7,13 +7,7 @@ class Dashboard extends MY_Controller
 	{
 		parent::__construct();
 		$this->is_logged_in();
-		// $this->load->model("Common_modl", "mcommon");
-
-        		// $approve_status = $this->mcommon->specific_row_value('users', array('user_id'=> $this->auth_user_id),'is_approve');
-        		//  if ($approve_status == 0) {
-        			
-                //     redirect('/logout');
-                // }
+	
 				if($this->auth_level!=9){
 					redirect('/logout');
 				}
@@ -22,61 +16,32 @@ class Dashboard extends MY_Controller
 	{
 	   // echo phpinfo();
 		if ($this->verify_min_level(1)) {
+				// specific_record_counts
+		// 	$this->db->select("r.id,r.role_name");
+        // $this->db->from("role_master as r");
+		// $this->db->where("r.id!=",9);
+		// $query = $this->db->get();
+        // $result = $query->result();
+
+		$view_data['customers'] = $this->mcommon->record_counts('customer');
+		$view_data['quatation'] = $this->mcommon->record_counts('quotation');
+		$view_data['sales'] = $this->mcommon->record_counts('sales_order');
+		$view_data['invoice'] = $this->mcommon->record_counts('sales_order');
 			
 
-
-			//Doughnut Chart
-			// $view_data['employee_type_label'] = $this->employee_type_label();
-			// $view_data['employee_type'] = $this->employee_type_chart();
-			// $view_data['month_wise_task'] = $this->month_wise_task();
-			// $view_data['month_wise_complete'] = $this->month_wise_complete();
 			
-			// Pie Chart
-			// $view_data['task_type'] = $this->task_type_chart();
-			// Employee Upcomimg Birth Day 
-			// $view_data['upcoming_dob_employee'] = $this->upcoming_dob_employee();
-			
-			
-			$view_data = '';
 			$data = array(
 				'page_title' => 'Dashboard',
 				'title' => 'Dashboard',
 				'content' => $this->load->view('pages/dashboard', $view_data, TRUE),
-			);
+			);					
 			$this->load->view('base/base_template', $data);
 		} else {
 			redirect('login');
 		}
 	}
 
-	// public function over_due()
-	// {
-	// 	$today_date = date('Y-m-d');
-    //     $this->db->select('*');
-    //     $this->db->from('task as t');    
-	// 	$this->db->where('t.is_approved', '0');
-	// 	$this->db->where('DATE(t.due_date_to)<', $today_date);  
-    //     $query = $this->db->get();
-    //     $result = $query->result();
-
-    //     return count($result);
-	// }
-
-	// public function this_week()
-	// {	
-	// 	$today_date                 =   date('Y-m-d');
-	// 	$end_week                   =   date('Y-m-d', strtotime("-7 day", strtotime($today_date)));
-	// 	$today_date = date('Y-m-d');
-    //     $this->db->select('*');
-    //     $this->db->from('task as t');  
-	// 	// $this->db->where('DATE(t.due_date)<=', $today_date);  
-	// 	$this->db->where('DATE(created_on) <=', $today_date);
-	// 	$this->db->where('DATE(created_on) >=', $end_week);
-    //     $query = $this->db->get();
-    //     $result = $query->result();
-
-    //     return count($result);
-	// }
+	
 
 
 
@@ -131,12 +96,7 @@ class Dashboard extends MY_Controller
 		
 	  return $data;
 	}
-	//Pie Chart
-
-
-
-		
-			
+	
 		
 		
 	
