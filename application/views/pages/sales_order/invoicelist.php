@@ -100,12 +100,14 @@
                                 <?php foreach ($sale as $key => $sales) { 
                                     $date =  $sales->created_on;
                                     $timestamp = strtotime($date);
-                                    $formattedDate = date("d-m-Y", $timestamp);
-                                  
+                                    $formattedDate = date("d-m-Y", $timestamp);                                  
                                     // $date = date($date, 'd-m-y');  ?>
                                     <tr>
                                         <td>
-                                            <button type="button" class="btn " onclick="showSubRows('sub-rows-<?php echo $key; ?>')"><i class="bx bx-plus label-icon"></i></button><?php echo $key + 1; ?>
+                                            <?php  if (isset($sales->transaction_id) && is_array($sales->transaction_id) && !empty($sales->transaction_id)) { ?>
+                                               
+                                            <?php }?>
+                                            <i class="bx bx-plus label-icon btn" onclick="showSubRows('sub-rows-<?php echo $key; ?>')"></i><?php echo $key + 1; ?>
                                         </td>
                                         <td><?php echo $sales->sale_no; ?></td>
                                         <td><?php echo $formattedDate; ?></td>                                        
@@ -145,9 +147,9 @@
                                         <td> <?php echo $saleOrderItems->tottalInvoiceAmt; ?> </td>
                                        
                                         <td> 
-                                            <a target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
+                                            <a title="Delivery Challan" target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
                                         </td>
-                                        <td> <a href="#" data-target="#myModal" onclick="openModel('<?= $saleOrderItems->transaction_id?>', '<?=  $saleOrderItems->tottalInvoiceAmt  ?>')" type="button" class="btn btn-sm mt-1 btn-dark waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" > <i class="bx bx-transfer"></i>  </a></td>
+                                        <td> <a title="Add Credit Note" href="#" data-target="#myModal" onclick="openModel('<?= $saleOrderItems->transaction_id?>', '<?=  $saleOrderItems->tottalInvoiceAmt  ?>', '<?= $sales->sold_to_party?>','<?= $sales->ship_to_party?>',)" type="button" class="btn btn-sm mt-1 btn-dark waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" > <i class="bx bx-transfer"></i>  </a></td>
                                     </tr>
 
 
@@ -181,6 +183,8 @@
                                 <div class="row">
                                     <input type="hidden" name="tottalamount" id="tottalamount" value="<?php echo $saleOrderItems->tottalInvoiceAmt; ?> ">
                                     <input type="hidden" name="transactionid" id="transactionid" value="<?php echo $saleOrderItems->transaction_id; ?> ">
+                                    <input type="hidden" name="sold_party" id="sold_party" value="<?php echo $sales->sold_to_party; ?> ">
+                                    <input type="hidden" name="ship_party" id="ship_party" value="<?php echo $sales->ship_to_party; ?> ">
                             <div class="form-group col-md-12">
                                     <label for="qty">Credit Note (%)</label>
                                     <input type="number" class="form-control" min="1"  placeholder="Enter the Credit Note %" id="creditNote" name="creditNote">
@@ -206,10 +210,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-
-        function openModel(transactionId, totalInvoiceAmt){           
+        function openModel(transactionId, totalInvoiceAmt, soldParty, ShipParty){           
             $('#transactionid').val(transactionId);
             $('#tottalamount').val(totalInvoiceAmt);
+            $('#sold_party').val(soldParty);
+            $('#ship_party').val(ShipParty);
+           
             $('#myModal').modal('show');            
         }
         function closeModel(){

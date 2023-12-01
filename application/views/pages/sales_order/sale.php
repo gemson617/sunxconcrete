@@ -437,7 +437,7 @@
 
         $(document).ready(function () {             
             $('#MyForm').submit(function(e) {
-        e.preventDefault(); // prevent default form submission
+       
         DCCheck(); // validate DC_no before submitting the form
     });
 

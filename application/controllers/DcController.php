@@ -61,6 +61,8 @@ class DcController extends MY_Controller
        $transaction_id  = $this->input->post("transactionid");
        $tottalAmt  = $this->input->post("tottalamount");
        $creditPer  = $this->input->post("creditNote");
+       $sold_party  = $this->input->post("sold_party");
+       $ship_party  = $this->input->post("ship_party");
 
        $this->db->select('*');
        $this->db->from('em_companies'); 
@@ -75,20 +77,37 @@ class DcController extends MY_Controller
                $cnumber = !empty($creditNoteRecord) ? $creditNoteRecord->credit_no : null;
                $cnumber = $cnumber +1;                   
            }
-
-       $insert_array = array(
-        'user_id' => $this->auth_user_id,
-        'credit_no' => $cnumber,
-        'credit_note_starting_number'=>'C'.$cnumber,
-        'customer_id' => $result->customer_id,
-        'transaction_id' => $transaction_id,
-        'company_id'   => 1,
-        //'po_number'   =>  $poNumber,
-        'grand_total' => $tottalAmt,
-        'credit_percentage'  => $creditPer,
-        'credit_amount'  => $tottalAmt * ($creditPer/100),            
-        );
-        $this->mcommon->common_insert('credit_note',$insert_array,true);
-        $update_com_status = $this->mcommon->common_edit('em_companies',array('creditnote_sn_status'=>0),array('id' =>1));
+        //    $existingRecord = $this->mcommon->common_get('credit_note', ['transaction_id' => $transaction_id]);
+           $this->db->where('transaction_id', $transaction_id);
+            $existingRecord = $this->db->get('credit_note')->row();
+           if (!$existingRecord) {
+            $insert_array = array(
+                'user_id' => $this->auth_user_id,
+                'credit_no' => $cnumber,
+                'credit_note_starting_number'=>'C'.$cnumber,
+                'customer_id' => $sold_party,
+                'transaction_id' => $transaction_id,
+                'company_id'   => 1,
+                //'po_number'   =>  $poNumber,
+                'grand_total' => $tottalAmt,
+                'credit_percentage'  => $creditPer,
+                'credit_amount'  => $tottalAmt * ($creditPer/100),            
+                );
+               $insert =  $this->mcommon->common_insert('credit_note',$insert_array,true);
+                $update_com_status = $this->mcommon->common_edit('em_companies',array('creditnote_sn_status'=>0),array('id' =>1));
+                
+                if ($insert) {
+                    $this->session->set_flashdata('alert_success', 'Credit Note Updated Successfully!');
+                    redirect('SalesOrder/invoice_list');
+                } else {
+                    $this->session->set_flashdata('alert_danger', 'Something went wrong. Please try again later');
+                    redirect('SalesOrder/invoice_list');
+                }
+           }else{
+                    $this->session->set_flashdata('alert_danger', 'Credit Note Already Added this Invoice');
+                    redirect('SalesOrder/invoice_list');
+           }
+       
+     
     }
 }

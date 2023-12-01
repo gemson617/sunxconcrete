@@ -457,6 +457,10 @@ class SalesOrder extends MY_Controller
         $view_data['sale'][$key]->transaction_id = $transaction_ids;
         }
 
+        // echo '<pre>';
+        // print_r($view_data['sale']);
+        // exit;
+
         $data = array(
             'title' => 'Sales Invoice List',
             'content' => $this->load->view('pages/sales_order/invoicelist', $view_data, true),

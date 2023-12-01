@@ -35,7 +35,6 @@
             display: none;
             background: burlywood;
         }
-            
     </style>
 <div class="page-content">
     <div class="container">
@@ -105,8 +104,12 @@
                                   
                                     // $date = date($date, 'd-m-y');  ?>
                                     <tr>
-                                        <td>
-                                            <button type="button" class="btn " onclick="showSubRows('sub-rows-<?php echo $key; ?>')"><i class="bx bx-plus label-icon"></i></button><?php echo $key + 1; ?>
+                                    <td>
+                                            <?php  if (isset($sales->transaction_id) && is_array($sales->transaction_id) && !empty($sales->transaction_id)) { ?>
+                                               
+                                            <?php }?>
+                                            <i class="bx bx-plus label-icon btn" onclick="showSubRows('sub-rows-<?php echo $key; ?>')"></i>
+                                            <?php echo $key + 1; ?>
                                         </td>
                                         <td><?php echo $sales->sale_no; ?></td>
                                         <td><?php echo $formattedDate; ?></td>                                        
@@ -150,7 +153,7 @@
                                         <td> <?php echo $saleOrderItems->tottalInvoiceAmt; ?> </td>
                                         <td> <?php echo '-'; ?> </td>
                                         <td> 
-                                            <a target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
+                                            <a title="Delivery Challan" target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
                                         </td>
                                     </tr>
                                             <?php   if ($co % 2 === 0) {

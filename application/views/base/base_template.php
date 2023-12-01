@@ -122,8 +122,6 @@
     <script src="<?php echo base_url(); ?>assets/bootstrap-4.0.0/assets/js/doc.min.js"></script> 
 </body>
 
-
-
 </html>
 
 <script>

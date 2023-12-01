@@ -222,19 +222,7 @@
                                  </div>
                              </div> -->
 
-                             <div class="col-md-2 d-none" id="credirPercentageDiv" >                                 
-                                    <div class="mb-3">
-                                        <label for="validationCustom01" class="form-label">Credit Note (%)<span class="error-asterisk">*</span></label>
-                                        <input type="text"  class="form-control" placeholder="Credit (%)" required name="credit_note" id="credit_note" value="" >                                        
-                                        <div class="valid-feedback">
-                                            Looks good!
-                                        </div>
-                                        <div class="invalid-feedback">
-                                        Sale No is Required.
-                                        </div>
-                                    </div>
-                                </div>
-
+                       
                             <div class="col-md-4">                                 
                                 <div class="mb-3">
                                     <label for="validationCustom01" class="form-label">Remarks<span class="error-asterisk"></span></label>
