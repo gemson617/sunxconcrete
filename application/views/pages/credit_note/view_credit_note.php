@@ -74,7 +74,7 @@
                                 <tr >
                                 <th scope="col">S.no</th>
                                 <th scope="col">Credit.No</th>
-                                <th scope="col">PO Number</th>
+                                <!-- <th scope="col">PO Number</th> -->
                                     <th scope="col">Date</th>
                                     <th scope="col">Customer</th>
                                     <th scope="col">Credit %</th>
@@ -99,7 +99,7 @@
                                     <tr>
                                     <td><?php echo $key + 1; ?></td>  
                                         <td><?php echo 'C'.$cn->credit_no; ?></td>  
-                                        <td><?php echo $cn->po_number; ?></td>
+                                        <!-- <td><?php echo $cn->po_number; ?></td> -->
 
                                         <td><?php echo $date2; ?></td>
                                         <td><?php echo $cn->cp_name; ?></td>

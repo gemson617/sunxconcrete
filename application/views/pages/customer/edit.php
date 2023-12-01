@@ -236,9 +236,7 @@
                             </div>
                             <div class="12345"></div>
                             <?php } ?>
-                            <div class="col-md-1 mt-3" id="adremovebuttons"><br>
-                                    <button type="button" id="button1" class="add-field btn btn-success btn-circle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>                                                                
-                        </div>
+                            
                             </div>
                         <!-- end loo[] -->
                        
@@ -265,7 +263,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label for="validationCustom04" class="form-label">Contact Number </label>
-                                        <input type="text" name="cp_contact_no" value="<?= $default['cp_contact_no'] ?>" class="form-control" id="cp_contact_no" placeholder="Enter Contact Number" value="" required>
+                                        <input type="number" name="cp_contact_no" value="<?= $default['cp_contact_no'] ?>" class="form-control" id="cp_contact_no" placeholder="Enter Contact Number" value="" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -277,7 +275,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label for="validationCustom03" class="form-label">E-Mail Address</label>
-                                        <input type="text" name="cp_email" value="<?= $default['cp_email'] ?>" class="form-control" id="cp_email" onchange="return validateEmail(event);" placeholder="Enter E-Mail Address">
+                                        <input type="email" name="cp_email" value="<?= $default['cp_email'] ?>" class="form-control" id="cp_email" onchange="return validateEmail(event);" placeholder="Enter E-Mail Address">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -307,7 +305,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label for="validationCustom06" class="form-label">APOC - Contact Number</label>
-                                        <input type="text" name="apoc_contact_no" value="<?= $default['apoc_contact_no'] ?>" class="form-control apoc_contact_no" onkeypress="return isNumberKey(event);" id="apoc_contact_no" placeholder="Enter APOC - Contact Number" maxlength="10" required>
+                                        <input type="number" name="apoc_contact_no" value="<?= $default['apoc_contact_no'] ?>" class="form-control apoc_contact_no" onkeypress="return isNumberKey(event);" id="apoc_contact_no" placeholder="Enter APOC - Contact Number" maxlength="10" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -319,7 +317,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label for="validationCustom03" class="form-label">APOC - E-Mail</label>
-                                        <input type="text" name="apoc_email" value="<?= $default['apoc_email'] ?>" class="form-control" id="apoc_email" onchange="return validateEmail(event);" placeholder="Enter APOC - E-Mail">
+                                        <input type="email" name="apoc_email" value="<?= $default['apoc_email'] ?>" class="form-control" id="apoc_email" onchange="return validateEmail(event);" placeholder="Enter APOC - E-Mail">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -350,7 +348,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label for="validationCustom06" class="form-label">PPOC - Contact Number</label>
-                                        <input type="text" name="ppoc_contact_no" value="<?= $default['ppoc_contact_no'] ?>" class="form-control ppoc_contact_no" onkeypress="return isNumberKey(event);" id="ppoc_contact_no" placeholder="Enter PPOC - Contact Number" maxlength="10" required>
+                                        <input type="number" name="ppoc_contact_no" value="<?= $default['ppoc_contact_no'] ?>" class="form-control ppoc_contact_no" onkeypress="return isNumberKey(event);" id="ppoc_contact_no" placeholder="Enter PPOC - Contact Number" maxlength="10" required>
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
@@ -362,7 +360,7 @@
                                 <div class="col-md-4">
                                     <div class="mb-4">
                                         <label for="validationCustom03" class="form-label">PPOC - E-Mail</label>
-                                        <input type="text" name="ppoc_email" value="<?= $default['ppoc_email'] ?>" class="form-control" id="ppoc_email" onchange="return validateEmail(event);" placeholder="Enter APOC - E-Mail">
+                                        <input type="email" name="ppoc_email" value="<?= $default['ppoc_email'] ?>" class="form-control" id="ppoc_email" onchange="return validateEmail(event);" placeholder="Enter APOC - E-Mail">
                                         <div class="valid-feedback">
                                             Looks good!
                                         </div>
