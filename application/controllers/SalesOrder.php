@@ -471,7 +471,7 @@ class SalesOrder extends MY_Controller
     public function getQuantity($id)
     {
         if (isset($_POST['submit'])) {
-        //             echo '<pre>'; print_r($_POST);
+        //  echo '<pre>'; print_r($_POST);
         //  die();
            
             $plant_id = $this->input->post('plant_id'); 
@@ -557,12 +557,8 @@ class SalesOrder extends MY_Controller
 
                             // $update_array_new = $this->mcommon->common_edit('sales_order_sub', $update_array,array('id'=>$subId[$i]));
                             
-                          
-
                     }
                 }
-
-
             }
         
            
@@ -764,14 +760,12 @@ class SalesOrder extends MY_Controller
         s.status as sStatus,
         s.id as sId');
         $this->db->from('sales_order as s'); 
-        $this->db->where('s.id',$id); 
-        // $this->db->join('product as p','p.product_id = s.product_id','left'); 
-        // $this->db->join('hsn_code as h', 'h.hsn_id = s.hsn_id','left'); 
-        // $this->db->join('uom as u', 'u.uom_id = s.uom_id','left'); 
-        $view_data['salesOrder'] = $this->db->get()->row_array();
+        $this->db->where('s.id',$id);      
+        $query = $this->db->get();  
+        $view_data['salesOrder'] =$query->row_array();
 
         //                echo "<pre>";
-        // print_r($view_data['salesOrder']['sgst']);
+        // print_r($view_data['salesOrder']);
         // exit();  
         $sales_order_id = $this->mcommon->specific_row_value('sales_order_items', array('transaction_id' => $id), 'sales_order_id');
 

@@ -19,11 +19,11 @@ class Quotation extends MY_Controller
         $this->db->join('customer as c', 'c.customer_id = cn.customer_id','left'); 
         $this->db->order_by('cn.id','DESC');       
         $query = $this->db->get();
-        $view_data['credit_note'] = $query->result();  
+        $view_data['credit_note'] = $query->result();
 
         //         echo '<pre>';
         // print_r($view_data['credit_note']);
-        //      exit(); 
+        //      exit();
         
         $data = array(
             'title' => 'View Credit Note',
@@ -35,29 +35,53 @@ class Quotation extends MY_Controller
 
     public function creditInvoice($id){
        
-
-
         $this->db->select('*,state.name as stateName');
-        $this->db->from('credit_note as cn'); 
+        $this->db->from('credit_note as cn');
         $this->db->where('cn.id',$id); 
         $this->db->join('sales_order as s','s.id = cn.sales_order_id','left'); 
         $this->db->join('customer as c','c.customer_id = cn.customer_id','left'); 
         $this->db->join('states as state', 'state.id = c.customer_state','left');       
         $view_data['result'] = $this->db->get()->row_array();
+
+
        
-        $this->db->select('*');
-        $this->db->from('credit_note as cn'); 
+        $this->db->select('cn.transaction_id, cn.credit_percentage, cn.credit_amount, cn.credit_no');
+        $this->db->from('credit_note as cn');
         $this->db->where('cn.id',$id); 
-        $this->db->join('sales_order as s','s.id = cn.sales_order_id','left'); 
-        $this->db->join('sales_order_items as si','si.sales_order_id = s.id','left'); 
-        $this->db->join('product as p','p.product_id = si.product_id','left');
         $query = $this->db->get();
-        $view_data['products'] = $query->result();
+        $view_data['credit_note'] = $query->row_array();
+        
+        $transid = isset($view_data['credit_note']) ? $view_data['credit_note']['transaction_id'] : null;
+        
+        $this->db->select('*,si.total_quantity as totalQuantity,
+                            si.available_quantity as availableQuantity,
+                            si.received_qty as receivedQuantity');       
+        $this->db->from('sales_order_items as si'); 
+        $this->db->where('si.transaction_id',$transid);
+        $this->db->join('product as p','p.product_id = si.product_id','left'); 
+        $this->db->join('hsn_code as h', 'h.hsn_id = p.hsn_code','left'); 
+        $this->db->join('uom as u', 'u.uom_id = p.uom','left'); 
+        $query = $this->db->get();
+        $view_data['cereditnoteproducts'] = $query->result(); 
+    
 
-        // echo '<pre>';
-        // print_r($view_data['products']);
-        //      exit(); 
+        
+        $sales_order_id =  $view_data['cereditnoteproducts'][0]->sales_order_id;
+       
 
+        $sold = $this->mcommon->specific_row('sales_order', array('id' => $sales_order_id));
+        
+        $cusandcusAdsold = explode('|' ,$sold['sold_to_party']);
+        
+        $this->db->select('*,state.name as stateName');
+        $this->db->from('sales_order as s'); 
+        $this->db->where('s.id',$sales_order_id); 
+        $this->db->join('customer as c','c.customer_id = '.$cusandcusAdsold[0],'left'); 
+        $this->db->join('customer_address as cad','cad.id = '.$cusandcusAdsold[1],'left'); 
+        $this->db->join('states as state', 'state.id = c.customer_state','left');       
+        $view_data['sold_to_party'] = $this->db->get()->row_array();
+
+        
         $view_data['credit_note']= $this->mcommon->specific_row('credit_note',array('id',$id));
         $data = array(
             'title' => 'Credit Invoice',

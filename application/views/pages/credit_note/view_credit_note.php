@@ -148,10 +148,9 @@
                     <div class="form-group mt-3">
                     <label for="credit_bill">Credit Note</label>
                     <select class="form-control" name="creditNote"  id="creditNote" required>
-                                            <option value="">--Credit Note --</option>
-                                            
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
+                        <option value="">--Credit Note --</option>                                            
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
                     </select>                     
                     </div>
                     
@@ -202,7 +201,6 @@ $(document).ready(function () {
       form.setAttribute("action", newAction);
   //   var quantity = $("#qty").val();
   //    alert(quantity);
-  
 });
   });
 

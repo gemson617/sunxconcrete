@@ -212,7 +212,7 @@
                             <td style="text-align:right;padding-bottom:50px;">For Sun X Concrete India Private Limited</td>
                         </tr>
                         <tr>
-                            <td style="">(Reciever's Signature with seal)</td>
+                            <td>(Reciever's Signature with seal)</td>
                             <td></td>
                             <td style="text-align:right;">(Authorized Signatory)</td>
                         </tr>
@@ -229,7 +229,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
+    <script>      
     document.getElementById("print-btn").addEventListener("click", function() {
         const printContents = document.getElementById("printdiv").innerHTML;
         const originalContents = document.body.innerHTML;
@@ -302,7 +302,7 @@
 }
 
 // Example usage:
-const number = <?=  $quotation['grand_total']  ?>;
+const number = '<?=  $quotation['grand_total']  ?>';
 const inputString = numberToWords(number);
 
 const capitalizedWord = capitalizeWords(inputString);

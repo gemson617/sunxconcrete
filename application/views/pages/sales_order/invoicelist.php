@@ -120,7 +120,7 @@
                                         <td><?php echo number_format($sales->grand_total,2); ?></td>
                     
                                         <td>
-                                        <a target="_blank" href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->id); ?>" ><button  type="button"    class="btn btn-sm btn-primary waves-effect waves-light mt-1 "><i class="fa fa-print"></i></button></a>
+                                        <a target="_blank" href="<?php echo site_url('SalesOrder/itemsInvoice/'.$sales->id); ?>" ><button  type="button" class="btn btn-sm btn-primary waves-effect waves-light mt-1 "><i class="fa fa-print"></i></button></a>
                                         </td> 
 
                                         <td>
@@ -146,7 +146,7 @@
                                         <td><?php echo '-'; ?></td>
                                         <td> <?php echo $saleOrderItems->tottalInvoiceAmt; ?> </td>
                                        
-                                        <td> 
+                                        <td>
                                             <a title="Delivery Challan" target="_blank" href="<?php echo site_url('SalesOrder/deliveryChallan/' . $saleOrderItems->transaction_id); ?>" type="button" class="btn btn-sm mt-1 btn-info waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" data-target="#myModal"> <i class="fa fa-print"></i>  </a>
                                         </td>
                                         <td> <a title="Add Credit Note" href="#" data-target="#myModal" onclick="openModel('<?= $saleOrderItems->transaction_id?>', '<?=  $saleOrderItems->tottalInvoiceAmt  ?>', '<?= $sales->sold_to_party?>','<?= $sales->ship_to_party?>',)" type="button" class="btn btn-sm mt-1 btn-dark waves-effect waves-light float-right delete-category"   value="<?= $sales->available_quantity ?>" data-id="<?= $sales->id ?>" > <i class="bx bx-transfer"></i>  </a></td>
@@ -188,7 +188,7 @@
                             <div class="form-group col-md-12">
                                     <label for="qty">Credit Note (%)</label>
                                     <input type="number" class="form-control" min="1"  placeholder="Enter the Credit Note %" id="creditNote" name="creditNote">
-                                </div>                   
+                                </div>
                                 </div>                    
                                 <button type="submit" name='submit' id="submit" class="btn btn-primary mt-3">Accept</button>
                                 <button type="button" class="btn btn-danger mt-3" onclick="closeModel()" data-dismiss="modal">Cancel</button>
